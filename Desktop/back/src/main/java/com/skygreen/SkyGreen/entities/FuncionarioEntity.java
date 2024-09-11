@@ -1,10 +1,12 @@
 package com.skygreen.SkyGreen.entities;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Entity;
@@ -17,8 +19,8 @@ import lombok.Data;
 
 
 @Data
-@Entity
-@Table(name = "FUNCIONARIO")
+@Entity(name = "funcionario")
+@Table(name = "funcionario")
 public class FuncionarioEntity implements UserDetails {
     private static final long serialVersionUID = 1L;
 
@@ -31,7 +33,7 @@ public class FuncionarioEntity implements UserDetails {
     @Email
     private String email;
 
-    private Integer cargo_id;
+    private FuncionarioRole role;
 
     @Length(max = 50, message = "Limite de 50 caracteres excedido")
     private String nome;
@@ -41,7 +43,9 @@ public class FuncionarioEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){
-        return null;
+       if(this.role == FuncionarioRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_GERENTEPRODUCAO"), new SimpleGrantedAuthority("ROLE_ASSISTENTEADMINISTRATIVO"));
+       else if(this.role == FuncionarioRole.ASSISTENTEADMINISTRATIVO) return List.of(new SimpleGrantedAuthority("ROLE_ASSISTENTEADMINISTRATIVO"));
+       else return List.of(new SimpleGrantedAuthority("ROLE_GERENTEPRODUCAO"));
     }
 
     @Override

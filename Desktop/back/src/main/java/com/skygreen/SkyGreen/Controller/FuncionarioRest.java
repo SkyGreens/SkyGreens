@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skygreen.SkyGreen.entities.FuncionarioEntity;
-import com.skygreen.SkyGreen.services.interfaces.IFuncionarioService;
+import com.skygreen.SkyGreen.services.FuncionarioServiceImpl;
 
 import jakarta.transaction.Transactional;
 
@@ -24,7 +24,7 @@ import jakarta.transaction.Transactional;
 public class FuncionarioRest {
 
     @Autowired
-    private IFuncionarioService funcionarioService;
+    private FuncionarioServiceImpl funcionarioService;
 
     @GetMapping("/listar")
     public ResponseEntity<List<FuncionarioEntity>> findAll(){
@@ -63,10 +63,4 @@ public class FuncionarioRest {
         return ResponseEntity.ok().body(funcionarioAtualizado);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<FuncionarioEntity> findByEmailAndSenha(@RequestParam String email, @RequestParam String senha) {
-        FuncionarioEntity funcionario = funcionarioService.FindByEmailAndSenha(email, senha);
-        
-        return ResponseEntity.ok().body(funcionario);
-    }
 }
