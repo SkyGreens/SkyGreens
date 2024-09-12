@@ -1,14 +1,14 @@
 package com.skygreen.SkyGreen.entities;
 
-public enum FuncionarioRole {
+public enum UsuarioRole {
     
     ADMIN("admin"),
     GERENTEPRODUCAO("gerenteProducao"),
-    ASSISTENTEADMINISTRATIVO("assistenteAdministrativo");
+    ASSISTENTEPRODUCAO("assistenteProducao");
 
     private String role;
 
-    FuncionarioRole(String role){
+    UsuarioRole(String role){
         this.role = role;
     }
 

@@ -14,53 +14,53 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skygreen.SkyGreen.entities.FuncionarioEntity;
-import com.skygreen.SkyGreen.services.FuncionarioServiceImpl;
+import com.skygreen.SkyGreen.entities.UsuarioEntity;
+import com.skygreen.SkyGreen.services.UsuarioServiceImpl;
 
 import jakarta.transaction.Transactional;
 
 @RestController
-@RequestMapping("/funcionario")
-public class FuncionarioRest {
+@RequestMapping("/usuario")
+public class UsuarioController {
 
     @Autowired
-    private FuncionarioServiceImpl funcionarioService;
+    private UsuarioServiceImpl usuarioService;
 
     @GetMapping("/listar")
-    public ResponseEntity<List<FuncionarioEntity>> findAll(){
+    public ResponseEntity<List<UsuarioEntity>> findAll(){
 
-        return ResponseEntity.ok().body(funcionarioService.findAll());
+        return ResponseEntity.ok().body(usuarioService.findAll());
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<FuncionarioEntity> findById(@PathVariable Integer id) {
-        FuncionarioEntity result = funcionarioService.findById(id);
+    public ResponseEntity<UsuarioEntity> findById(@PathVariable Integer id) {
+        UsuarioEntity result = usuarioService.findById(id);
         return ResponseEntity.ok().body(result);
     }
 
 
     @Transactional
     @PostMapping("/adicionar")
-    public ResponseEntity<FuncionarioEntity> add(@RequestBody FuncionarioEntity funcionarioEntity) {
+    public ResponseEntity<UsuarioEntity> add(@RequestBody UsuarioEntity usuarioEntity) {
 
-        funcionarioEntity = funcionarioService.add(funcionarioEntity);
-        return ResponseEntity.ok().body(funcionarioEntity);
+        usuarioEntity = usuarioService.add(usuarioEntity);
+        return ResponseEntity.ok().body(usuarioEntity);
     }
 
     @Transactional
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable int id) {
 
-        funcionarioService.delete(id);
+        usuarioService.delete(id);
         return ResponseEntity.ok().build();
     }
 
     @Transactional
     @PutMapping("/update")
-    public ResponseEntity<FuncionarioEntity> updateUsuario(@RequestBody FuncionarioEntity funcionario) {
+    public ResponseEntity<UsuarioEntity> updateUsuario(@RequestBody UsuarioEntity usuario) {
 
-        FuncionarioEntity funcionarioAtualizado = funcionarioService.add(funcionario);
-        return ResponseEntity.ok().body(funcionarioAtualizado);
+        UsuarioEntity usuarioAtualizado = usuarioService.add(usuario);
+        return ResponseEntity.ok().body(usuarioAtualizado);
     }
 
 }

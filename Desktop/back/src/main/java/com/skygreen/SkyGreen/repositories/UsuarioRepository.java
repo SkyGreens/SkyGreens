@@ -5,10 +5,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 
-import com.skygreen.SkyGreen.entities.FuncionarioEntity;
+import com.skygreen.SkyGreen.entities.UsuarioEntity;
 
 @Repository
-public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, Integer> {
+public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Integer> {
     
    UserDetails findByCpf(String cpf);
 }

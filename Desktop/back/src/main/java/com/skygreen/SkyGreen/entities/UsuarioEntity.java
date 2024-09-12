@@ -19,9 +19,9 @@ import lombok.Data;
 
 
 @Data
-@Entity(name = "funcionario")
-@Table(name = "funcionario")
-public class FuncionarioEntity implements UserDetails {
+@Entity(name = "usuario ")
+@Table(name = "usuario")
+public class UsuarioEntity implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -33,7 +33,7 @@ public class FuncionarioEntity implements UserDetails {
     @Email
     private String email;
 
-    private FuncionarioRole role;
+    private UsuarioRole role;
 
     @Length(max = 50, message = "Limite de 50 caracteres excedido")
     private String nome;
@@ -43,8 +43,8 @@ public class FuncionarioEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){
-       if(this.role == FuncionarioRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_GERENTEPRODUCAO"), new SimpleGrantedAuthority("ROLE_ASSISTENTEADMINISTRATIVO"));
-       else if(this.role == FuncionarioRole.ASSISTENTEADMINISTRATIVO) return List.of(new SimpleGrantedAuthority("ROLE_ASSISTENTEADMINISTRATIVO"));
+       if(this.role == UsuarioRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_GERENTEPRODUCAO"), new SimpleGrantedAuthority("ROLE_ASSISTENTEADMINISTRATIVO"));
+       else if(this.role == UsuarioRole.ASSISTENTEPRODUCAO) return List.of(new SimpleGrantedAuthority("ROLE_ASSISTENTEPRODUCAO"));
        else return List.of(new SimpleGrantedAuthority("ROLE_GERENTEPRODUCAO"));
     }
 
