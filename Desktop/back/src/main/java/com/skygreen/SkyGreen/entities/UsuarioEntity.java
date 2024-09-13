@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,12 +16,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
-@Data
 @Entity(name = "usuario ")
 @Table(name = "usuario")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UsuarioEntity implements UserDetails {
     private static final long serialVersionUID = 1L;
 
@@ -39,10 +46,13 @@ public class UsuarioEntity implements UserDetails {
     @CPF
     private String cpf;
 
-    public UsuarioEntity(String cpf, String senha, UsuarioRole role){
+    public UsuarioEntity(String cpf, String senha, UsuarioRole role, String nome, boolean ativo, String email){
         this.cpf = cpf;
         this.senha = senha;
         this.role = role;
+        this.nome = nome;
+        this.ativo = ativo;
+        this.email= email;
     }
 
 
