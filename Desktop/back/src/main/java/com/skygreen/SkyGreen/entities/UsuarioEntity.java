@@ -27,7 +27,6 @@ public class UsuarioEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Length(max = 30, message = "Limite de 30 caracteres excedido")
     private String senha;
     private Boolean ativo;
     @Email
@@ -39,6 +38,12 @@ public class UsuarioEntity implements UserDetails {
     private String nome;
     @CPF
     private String cpf;
+
+    public UsuarioEntity(String cpf, String senha, UsuarioRole role){
+        this.cpf = cpf;
+        this.senha = senha;
+        this.role = role;
+    }
 
 
     @Override

@@ -1,5 +1,7 @@
 package com.skygreen.SkyGreen.DTO;
 
-public record RegisterDTO(String cpf, String senha, String role) {
+import com.skygreen.SkyGreen.entities.UsuarioRole;
+
+public record RegisterDTO(String cpf, String senha, UsuarioRole role) {
       
 }

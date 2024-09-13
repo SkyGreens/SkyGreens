@@ -10,5 +10,5 @@ import com.skygreen.SkyGreen.entities.UsuarioEntity;
 @Repository
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Integer> {
     
-   UserDetails findByCpf(String cpf);
+   UserDetails findUsuarioByCpf(String cpf);
 }

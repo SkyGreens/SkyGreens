@@ -56,7 +56,7 @@ public class UsuarioServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
-        return repository.findByCpf(cpf);
+        return repository.findUsuarioByCpf(cpf);
     }
 
 }
