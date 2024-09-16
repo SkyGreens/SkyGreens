@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.skygreen.SkyGreen.DTO.AuthenticationDTO;
+import com.skygreen.SkyGreen.DTO.LoginResponseDTO;
 import com.skygreen.SkyGreen.DTO.RegisterDTO;
 import com.skygreen.SkyGreen.entities.UsuarioEntity;
+import com.skygreen.SkyGreen.infra.infraSecurity.TokenService;
 import com.skygreen.SkyGreen.repositories.UsuarioRepository;
 
 import jakarta.validation.Valid;
@@ -27,13 +29,18 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
 
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.cpf(), data.senha());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generatedToken((UsuarioEntity)auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/register")
