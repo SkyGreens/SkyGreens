@@ -17,10 +17,17 @@ public class InitDB implements CommandLineRunner {
     public void inserindoRegistro() {
         System.out.println("Inserindo registros");
 
-        RegisterDTO data = new RegisterDTO("12345678909", "admin", UsuarioRole.ADMIN, "admin@skygreen.com", true,
+        RegisterDTO admin = new RegisterDTO("12345678909", "admin", UsuarioRole.ADMIN, "admin@skygreen.com", true,
                 "Admin");
-        authenticationController.register(data);
+        authenticationController.register(admin);
 
+        RegisterDTO gerente = new RegisterDTO("45242561807", "gerente", UsuarioRole.GERENTEPRODUCAO,
+                "gerenteproducao@skygreen.com", true, "Gerente Produção");
+        authenticationController.register(gerente);
+
+        RegisterDTO assistente = new RegisterDTO("01800980809", "assistente", UsuarioRole.ASSISTENTEPRODUCAO,
+                "assistenteproducao@skygreen.com", true, "Assistente Produção");
+        authenticationController.register(assistente);
     }
 
     @Override
