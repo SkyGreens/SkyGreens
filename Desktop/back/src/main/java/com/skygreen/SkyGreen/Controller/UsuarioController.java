@@ -38,15 +38,6 @@ public class UsuarioController {
         return ResponseEntity.ok().body(result);
     }
 
-
-    @Transactional
-    @PostMapping("/adicionar")
-    public ResponseEntity<UsuarioEntity> add(@RequestBody UsuarioEntity usuarioEntity) {
-
-        usuarioEntity = usuarioService.add(usuarioEntity);
-        return ResponseEntity.ok().body(usuarioEntity);
-    }
-
     @Transactional
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable int id) {
