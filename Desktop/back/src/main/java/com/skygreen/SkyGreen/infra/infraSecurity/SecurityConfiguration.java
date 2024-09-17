@@ -28,13 +28,14 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        //.requestMatchers(HttpMethod.GET, "usuario/listar").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/usuario/listar").hasRole("GERENTEPRODUCAO"))
-                        //.anyRequest().authenticated())
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)        
+                        .requestMatchers(HttpMethod.GET, "/usuario/listar").hasRole("GERENTEPRODUCAO")
+                        .requestMatchers("/h2-console/**").permitAll()  // Permite acesso ao H2 Console
+                        .anyRequest().authenticated())
+                .headers(headers -> headers.frameOptions().disable())  // Desabilita as opções de frame para o H2 Console
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
