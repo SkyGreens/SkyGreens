@@ -29,9 +29,8 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/usuario").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/usuario/listar").hasRole("GERENTEPRODUCAO")
+                        .requestMatchers(HttpMethod.POST, "/auth/register").hasRole("ADMIN")
+                        .requestMatchers( "/usuario/**").hasRole("ADMIN")
                         .requestMatchers("/h2-console/**").permitAll()  // Permite acesso ao H2 Console
                         .anyRequest().authenticated())
                 .headers(headers -> headers.frameOptions().disable())  // Desabilita as opções de frame para o H2 Console
