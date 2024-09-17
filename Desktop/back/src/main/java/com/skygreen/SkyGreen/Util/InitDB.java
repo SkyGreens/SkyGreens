@@ -17,8 +17,8 @@ public class InitDB implements CommandLineRunner {
     public void inserindoRegistro() {
         System.out.println("Inserindo registros");
 
-        RegisterDTO admin = new RegisterDTO("12345678909", "admin", UsuarioRole.ADMIN, "admin@skygreen.com", true,
-                "Admin");
+        RegisterDTO admin = new RegisterDTO("12345678909", "admin", UsuarioRole.ADMIN,
+                "admin@skygreen.com", true, "Admin");
         authenticationController.register(admin);
 
         RegisterDTO gerente = new RegisterDTO("45242561807", "gerente", UsuarioRole.GERENTEPRODUCAO,
