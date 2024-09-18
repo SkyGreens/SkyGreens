@@ -1,4 +1,4 @@
-from tkinter import *
+from tkinter import * #pip install tkinter
 import customtkinter as ctk #pip install customtkinter
 
 
@@ -19,7 +19,6 @@ background=#dfeedf
 fg = "#3ab355"
 hover = "#316133"
 bg = "#dfeedf"
-
 
 
 class main:
@@ -53,8 +52,8 @@ if __name__ == "__main__":
     root.configure(background=bg)
     app = main(root)
     
-    img_icon_perfil = PhotoImage(file="img\\icon_perfil.png")
-    img_icon_perfil = img_icon_perfil.subsample(3, 3) #diminuir o tamanho
+    #img_icon_perfil = PhotoImage(file="img\\icon_perfil.png")
+    #img_icon_perfil = img_icon_perfil.subsample(3, 3) #diminuir o tamanho
     
     def menu(self):
         
@@ -112,8 +111,8 @@ if __name__ == "__main__":
         label = ctk.CTkLabel(frame_top, text="SkyGreens",font=('Arial',20,'bold'),width=200,height=40,text_color="#353847")
         label.pack(pady=10,side=LEFT)
 
-        button_perfil = ctk.CTkButton(frame_top,text="",image=img_icon_perfil,width=0,hover_color=hover,fg_color="#172200")
-        
+        #button_perfil = ctk.CTkButton(frame_top,text="",image=img_icon_perfil,width=0,hover_color=hover,fg_color="#172200")
+        button_perfil = ctk.CTkButton(frame_top,text="",width=60,hover_color=hover,fg_color="#172200")
         button_perfil.pack(pady=10,padx=20,side=RIGHT)
         menu(app)
         
