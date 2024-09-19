@@ -10,15 +10,9 @@ from tela_usuario import telaUsuarios
 from tela_fornecedor import telaFornecedor
 
 
-'''COLORS
-Hover =  #316133
-MENU = #3ab355
-background=#dfeedf
-'''
-
-fg = "#3ab355"
-hover = "#316133"
-bg = "#dfeedf"
+fg = "#3ab355" # menu
+hover = "#316133" # hover/principal
+bg = "#dfeedf" #background
 
 
 class main:
