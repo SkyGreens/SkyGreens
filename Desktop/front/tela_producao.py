@@ -1,16 +1,9 @@
-from tkinter import *
-import customtkinter as ctk
+from tkinter import * #pip install tkinter
+import customtkinter as ctk #pip install customtkinter
 
-'''COLORS
-HOVER/PRINCIPAL =  #316133
-MENU = #3ab355
-background=#dfeedf
-'''
-
-fg = "#3ab355"
-hover = "#316133"
-bg = "#dfeedf"
-
+fg = "#3ab355"  # Cor para botões
+hover = "#316133"  # Cor ao passar o mouse
+bg = "#dfeedf"  # Cor de fundo
 
 class telaProducao:
     def __init__(self, root, controller):
