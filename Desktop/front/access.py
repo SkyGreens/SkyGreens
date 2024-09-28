@@ -26,8 +26,8 @@ class Access:
                 app.retornar_login() 
                 return True
 
-        except requests.exceptions.RequestException as e:
-                messagebox.showinfo(title="Erro",message=f"Erro de Conexão: {e}")
+        except requests.exceptions.RequestException:
+                messagebox.showinfo(title="Erro",message=f"Erro de Conexão")
                 app.retornar_login()
             
 
