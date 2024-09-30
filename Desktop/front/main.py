@@ -1,4 +1,4 @@
-from tkinter import * #pip install tkinter
+from tkinter import *  # pip install tkinter
 
 from tela_login import telaLogin
 from tela_base import telaBase
@@ -14,15 +14,16 @@ fg = "#3ab355"  # menu
 hover = "#316133"  # hover/principal
 bg = "#dfeedf"  # background
 
+
 class main:
     def __init__(self, root):
         self.root = root
         self.telas = {}
-        
+
         self.tela_login = telaLogin(root, self)
 
-    def iniciar_interface(self):   
-        
+    def iniciar_interface(self):
+
         self.tela_base = telaBase(root)
         self.tela_base.mostrar_tela = self.mostrar_tela
 
@@ -40,20 +41,21 @@ class main:
             tela.esconder()
 
         self.telas[tela_nome].mostrar()
-        
+
     def retornar_login(self):
         self.tela_login = telaLogin(self.root, self)
-        
+
+
 if __name__ == "__main__":
     root = Tk()
     root.title("SkyGreens")
     root.configure(background=bg)
-    
+
     largura_janela = 1300
-    altura_janela = 500
-    
+    altura_janela = 600
+
     def centralizar_janela(root, largura, altura):
-        
+
         tela_largura = root.winfo_screenwidth()
         tela_altura = root.winfo_screenheight()
 
@@ -61,8 +63,8 @@ if __name__ == "__main__":
         y = (tela_altura // 2) - (altura // 2)
 
         root.geometry(f"{largura}x{altura}+{x}+{y}")
-    
+
     centralizar_janela(root, largura_janela, altura_janela)
-    
+
     app = main(root)
     root.mainloop()
