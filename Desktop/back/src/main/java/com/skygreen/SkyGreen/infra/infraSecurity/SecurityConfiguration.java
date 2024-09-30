@@ -31,6 +31,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").hasRole("ADMIN")
                         .requestMatchers( "/usuario/**").hasRole("ADMIN")
+                        .requestMatchers( "/prateleira/**").hasRole("ADMIN")
                         .requestMatchers("/h2-console/**").permitAll()  // Permite acesso ao H2 Console
                         .anyRequest().authenticated())
                 .headers(headers -> headers.frameOptions().disable())  // Desabilita as opções de frame para o H2 Console
