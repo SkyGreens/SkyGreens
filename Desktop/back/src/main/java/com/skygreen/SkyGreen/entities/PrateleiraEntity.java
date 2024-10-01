@@ -21,7 +21,7 @@ public class PrateleiraEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int prateleira_id;
+    private Integer prateleira_id;
 
     @Column(unique = true, nullable = false)
     private String nome;

@@ -31,6 +31,9 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").hasRole("ADMIN")
                         .requestMatchers( "/usuario/**").hasRole("ADMIN")
+                        .requestMatchers( "/compras/**").hasRole("ADMIN")
+                        .requestMatchers( "/sementes/**").hasRole("ADMIN")
+                        .requestMatchers( "/fornecedor/**").hasRole("ADMIN")
                         .requestMatchers( "/prateleira/**").hasRole("ADMIN")
                         .requestMatchers("/h2-console/**").permitAll()  // Permite acesso ao H2 Console
                         .anyRequest().authenticated())
