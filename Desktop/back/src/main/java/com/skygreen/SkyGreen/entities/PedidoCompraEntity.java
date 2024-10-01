@@ -2,6 +2,8 @@ package com.skygreen.SkyGreen.entities;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,6 +35,7 @@ public class PedidoCompraEntity {
 
     @ManyToOne
     @JoinColumn(name = "semente_id")
+    @JsonBackReference
     private SementeEntity semente;
 
     @ManyToOne

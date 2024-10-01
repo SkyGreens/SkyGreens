@@ -1,6 +1,7 @@
 package com.skygreen.SkyGreen.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,9 +30,8 @@ public class FornecedorServiceImpl implements IFornecedorService {
     }
 
     @Override
-    public FornecedorEntity findById(Integer id){
-       return repository.findById(id)
-       .orElseThrow(() -> new EntityNotFoundException("Fornecedor not found with id " + id));
+    public Optional<FornecedorEntity> findById(Integer id){
+       return repository.findById(id);
     }
 
     @Override
@@ -44,4 +44,6 @@ public class FornecedorServiceImpl implements IFornecedorService {
         fornecedor = repository.save(fornecedor);
         return fornecedor;
     }
+
+
 }

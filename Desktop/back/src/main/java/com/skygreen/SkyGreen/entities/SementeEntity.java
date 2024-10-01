@@ -3,6 +3,10 @@ package com.skygreen.SkyGreen.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,6 +42,7 @@ public class SementeEntity {
     private FornecedorEntity fornecedor;
 
     @OneToOne(mappedBy = "semente", cascade = CascadeType.ALL)
+    @JsonIgnore
     private EstoqueEntity estoque;
 
     @OneToMany(mappedBy = "semente", cascade = CascadeType.ALL)
