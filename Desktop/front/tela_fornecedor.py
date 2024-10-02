@@ -1,6 +1,8 @@
 from tkinter import * #pip install tkinter
 import customtkinter as ctk #pip install customtkinter
 
+from cd_fornecedor import cdFornecedor
+
 fg = "#3ab355"  # Cor para botões
 hover = "#316133"  # Cor ao passar o mouse
 bg = "#dfeedf"  # Cor de fundo
@@ -40,7 +42,7 @@ class telaFornecedor:
 
         
         listFornecedor_button = ctk.CTkButton(pesquisar_frame, text='Cadastrar Fornecedor', font=('Arial', 15, 'bold'), corner_radius=3, width=100, height=40,
-                               fg_color=fg, hover_color=hover)
+                               fg_color=fg, hover_color=hover,command=lambda:cdFornecedor())
         listFornecedor_button.pack(pady=5, padx=10, side=RIGHT)
         
         cadFornecedor_button = ctk.CTkButton(pesquisar_frame, text='Lista Fornecedor', font=('Arial', 15, 'bold'), corner_radius=3, width=100, height=40,
