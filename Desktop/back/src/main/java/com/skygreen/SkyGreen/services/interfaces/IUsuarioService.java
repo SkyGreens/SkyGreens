@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.skygreen.SkyGreen.entities.UsuarioEntity;
 

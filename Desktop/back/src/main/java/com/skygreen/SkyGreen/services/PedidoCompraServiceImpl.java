@@ -10,7 +10,6 @@ import com.skygreen.SkyGreen.entities.PedidoCompraEntity;
 import com.skygreen.SkyGreen.entities.SementeEntity;
 import com.skygreen.SkyGreen.repositories.EstoqueRepository;
 import com.skygreen.SkyGreen.repositories.PedidoCompraRepository;
-import com.skygreen.SkyGreen.repositories.SementeRepository;
 import com.skygreen.SkyGreen.services.interfaces.IPedidoCompraService;
 
 @Service
@@ -18,9 +17,6 @@ public class PedidoCompraServiceImpl implements IPedidoCompraService {
 
     @Autowired
     private PedidoCompraRepository pedidoRepository;
-
-    @Autowired
-    private SementeRepository sementeRepository;
 
     @Autowired
     private EstoqueRepository estoqueRepository;
