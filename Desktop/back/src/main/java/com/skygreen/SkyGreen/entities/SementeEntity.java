@@ -46,6 +46,7 @@ public class SementeEntity {
     private EstoqueEntity estoque;
 
     @OneToMany(mappedBy = "semente", cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<PedidoCompraEntity> pedidosCompra = new ArrayList<>();
 
     

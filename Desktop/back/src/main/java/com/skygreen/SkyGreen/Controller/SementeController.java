@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skygreen.SkyGreen.entities.SementeEntity;
-import com.skygreen.SkyGreen.services.SementeService;
+import com.skygreen.SkyGreen.services.interfaces.ISementeService;
 
 @RestController
 @RequestMapping("/sementes")
 public class SementeController {
 
     @Autowired
-    private SementeService sementeService;
+    private ISementeService sementeService;
 
     @GetMapping("/listar")
     public List<SementeEntity> getAllSementes() {

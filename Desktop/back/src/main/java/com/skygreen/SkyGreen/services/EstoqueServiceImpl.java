@@ -7,20 +7,23 @@ import org.springframework.stereotype.Service;
 
 import com.skygreen.SkyGreen.entities.EstoqueEntity;
 import com.skygreen.SkyGreen.repositories.EstoqueRepository;
+import com.skygreen.SkyGreen.services.interfaces.IEstoqueService;
 
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
-public class EstoqueService {
-    
+public class EstoqueServiceImpl implements IEstoqueService {
+
    @Autowired
    private EstoqueRepository repository;
-   
-   public List<EstoqueEntity> listar(){
-    return repository.findAll();
+
+   @Override
+   public List<EstoqueEntity> listar() {
+      return repository.findAll();
    }
 
-   public EstoqueEntity findById(Integer id){
-    return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found with id " + id));
+   @Override
+   public EstoqueEntity findById(Integer id) {
+      return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found with id " + id));
    }
 }

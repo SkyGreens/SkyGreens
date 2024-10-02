@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skygreen.SkyGreen.entities.PrateleiraEntity;
-import com.skygreen.SkyGreen.services.PrateleiraService;
+import com.skygreen.SkyGreen.services.interfaces.IPrateleiraService;
 
 @RestController
 @RequestMapping("/prateleira")
 public class PrateleiraController {
     
     @Autowired
-    private PrateleiraService service;
+    private IPrateleiraService service;
 
     @GetMapping("/disponiveis")
     public List<PrateleiraEntity> listarPrateleirasDisponiveis(){

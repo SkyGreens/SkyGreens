@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skygreen.SkyGreen.entities.PedidoCompraEntity;
-import com.skygreen.SkyGreen.services.PedidoCompraService;
+import com.skygreen.SkyGreen.services.interfaces.IPedidoCompraService;
 
 @RestController
 @RequestMapping("/compras")
 public class PedidoCompraController {
 
     @Autowired
-    private PedidoCompraService pedidoCompraService;
+    private IPedidoCompraService pedidoCompraService;
 
     @PostMapping("/pedido")
     public PedidoCompraEntity criarPedido(@RequestBody PedidoCompraEntity pedidoCompra) {

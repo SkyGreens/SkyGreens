@@ -11,9 +11,10 @@ import com.skygreen.SkyGreen.entities.SementeEntity;
 import com.skygreen.SkyGreen.repositories.EstoqueRepository;
 import com.skygreen.SkyGreen.repositories.PedidoCompraRepository;
 import com.skygreen.SkyGreen.repositories.SementeRepository;
+import com.skygreen.SkyGreen.services.interfaces.IPedidoCompraService;
 
 @Service
-public class PedidoCompraService {
+public class PedidoCompraServiceImpl implements IPedidoCompraService {
 
     @Autowired
     private PedidoCompraRepository pedidoRepository;
@@ -24,21 +25,19 @@ public class PedidoCompraService {
     @Autowired
     private EstoqueRepository estoqueRepository;
 
+    @Override
     public PedidoCompraEntity criarPedido(PedidoCompraEntity pedidoCompra) {
-        // Salvando o pedido de compra
+
         PedidoCompraEntity novoPedido = pedidoRepository.save(pedidoCompra);
 
-        // Atualizando o estoque da semente
         SementeEntity semente = novoPedido.getSemente();
         EstoqueEntity estoque = semente.getEstoque();
 
         if (estoque == null) {
-            // Se o estoque não existir, cria um novo
             estoque = new EstoqueEntity();
             estoque.setSemente(semente);
             estoque.setQuantidade(novoPedido.getQuantidade());
         } else {
-            // Se o estoque já existir, incrementa a quantidade
             estoque.setQuantidade(estoque.getQuantidade() + novoPedido.getQuantidade());
         }
 
@@ -46,9 +45,9 @@ public class PedidoCompraService {
 
         return novoPedido;
     }
-    
+
+    @Override
     public List<PedidoCompraEntity> getPedidos() {
         return pedidoRepository.findAll();
     }
 }
-

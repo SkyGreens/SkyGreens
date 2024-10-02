@@ -8,17 +8,20 @@ import org.springframework.stereotype.Service;
 
 import com.skygreen.SkyGreen.entities.PrateleiraEntity;
 import com.skygreen.SkyGreen.repositories.PrateleiraRepository;
+import com.skygreen.SkyGreen.services.interfaces.IPrateleiraService;
 
 @Service
-public class PrateleiraService {
+public class PrateleiraServiceImpl implements IPrateleiraService {
 
     @Autowired
     private PrateleiraRepository repository;
 
+    @Override
     public List<PrateleiraEntity> listarPrateleirasDisponiveis() {
         return repository.findByDisponivelTrue();
     }
 
+    @Override
     public PrateleiraEntity alocarPrateleiraParaProducao(int prateleiraId) throws Exception {
         Optional<PrateleiraEntity> prateleiraOpt = repository.findById(prateleiraId);
 
@@ -36,9 +39,10 @@ public class PrateleiraService {
 
     }
 
-    public void liberarPrateleira(int prateleiraId){
+    @Override
+    public void liberarPrateleira(int prateleiraId) {
         Optional<PrateleiraEntity> prateleiraOpt = repository.findById(prateleiraId);
-        if(prateleiraOpt.isPresent()){
+        if (prateleiraOpt.isPresent()) {
             PrateleiraEntity prateleira = prateleiraOpt.get();
             prateleira.setDisponivel(true);
             repository.save(prateleira);

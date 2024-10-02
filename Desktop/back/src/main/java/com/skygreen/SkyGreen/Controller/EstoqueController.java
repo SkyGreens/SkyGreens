@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skygreen.SkyGreen.entities.EstoqueEntity;
-import com.skygreen.SkyGreen.services.EstoqueService;
+import com.skygreen.SkyGreen.services.interfaces.IEstoqueService;
 
 @RestController
 @RequestMapping("/estoque")
 public class EstoqueController {
     
     @Autowired
-    private EstoqueService service;
+    private IEstoqueService service;
 
 
     @GetMapping("/")

@@ -35,7 +35,6 @@ public class PedidoCompraEntity {
 
     @ManyToOne
     @JoinColumn(name = "semente_id")
-    @JsonBackReference
     private SementeEntity semente;
 
     @ManyToOne

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skygreen.SkyGreen.entities.UsuarioEntity;
-import com.skygreen.SkyGreen.services.UsuarioServiceImpl;
+import com.skygreen.SkyGreen.services.interfaces.IUsuarioService;
 
 import jakarta.transaction.Transactional;
 
@@ -22,7 +22,7 @@ import jakarta.transaction.Transactional;
 public class UsuarioController {
 
     @Autowired
-    private UsuarioServiceImpl usuarioService;
+    private IUsuarioService usuarioService;
 
     @GetMapping("/listar")
     public ResponseEntity<List<UsuarioEntity>> findAll(){
