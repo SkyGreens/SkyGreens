@@ -1,6 +1,5 @@
-from tkinter import *  # pip install tkinter
 import customtkinter as ctk # pip install customtkinter
-from tkinter import messagebox # pip install tkinter
+from tkinter import Toplevel # pip install tkinter
 
 from access import Access
 
@@ -10,72 +9,78 @@ bg = "#dfeedf"  # background
 
 class cdFornecedor:
     def __init__(self):
-        #tem que centralizar na tela
-        root = Tk()
+        jn_x = 640
+        jn_y = 560
+        root = Toplevel()
         root.title("Cadastrar Fornecedor")
-        root.geometry("800x500")
-        #root.overrideredirect(True) #remover decorações da janela
+        root.geometry(f"{jn_x}x{jn_y}")
+        root.wm_attributes('-toolwindow', 1)
         root.configure(background='#dfeedf')
+
+        #ctk.set_appearance_mode("light")
         
-        frame_top = Frame(root)
-        frame_top.pack(side=TOP,fill="x",anchor = CENTER)
-        frame_top.configure(background=hover)
-
-        label = ctk.CTkLabel(frame_top, text="Cadastrar Fornecedor",font=('Arial',15,'bold'))
-        label.pack()
-        
-        btn_voltar = ctk.CTkButton(frame_top, text="<-",font=('Arial',15,'bold'),corner_radius=3,
-                                    width=30,height=30,fg_color=fg,hover_color=hover,command=lambda:voltar_pagina())
-        btn_voltar.pack(pady=1,padx=3,side=LEFT)
-
-
-        en_rzsocial = ctk.CTkEntry(root,width=300, height=35,placeholder_text='Razão Social')
-        en_rzsocial.pack(side=TOP)
-        en_cnpj = ctk.CTkEntry(root,width=300, height=35,placeholder_text='CNPJ')
-        en_cnpj.pack(side=TOP)
-        en_iscestadual = ctk.CTkEntry(root,width=300, height=35,placeholder_text='Inscrição Estadual')
-        en_iscestadual.pack(side=TOP)
-        en_email = ctk.CTkEntry(root,width=300, height=35,placeholder_text='Email')
-        en_email.pack(side=TOP)
-        en_status = ctk.CTkEntry(root,width=300, height=35,placeholder_text='Status')
-        en_status.pack(side=TOP)
-        en_tell = ctk.CTkEntry(root,width=300, height=35,placeholder_text='Telefone')
-        en_tell.pack(side=TOP)
-        en_end = ctk.CTkEntry(root,width=300, height=35,placeholder_text='Endereço')
-        en_end.pack(side=TOP)
-        en_cid = ctk.CTkEntry(root,width=300, height=35,placeholder_text='Cidade')
-        en_cid.pack(side=TOP)
-        en_est = ctk.CTkEntry(root,width=300, height=35,placeholder_text='Estado')
-        en_est.pack(side=TOP)
-        en_pais = ctk.CTkEntry(root,width=300, height=35,placeholder_text='País')
-        en_pais.pack(side=TOP)
-
-        button_home = ctk.CTkButton(root, text="Cadastrar",font=('Arial',15,'bold'),corner_radius=3,
-                                    fg_color=fg,hover_color=hover, command=lambda:cadastrar_fornecedor(en_rzsocial.get()))
-        button_home.pack(side=TOP)
-
-        def voltar_pagina():
-            messagebox.askokcancel(title='Confirmação', message='Pode ter informações não salvas')  
-            root.destroy()
-            
-        def cadastrar_fornecedor(en_rzsocial):
-            print('Fornecedor Cadastrado')
-            
-            en_cnpj.get()
-            en_iscestadual.get(),en_email.get()
-            en_status.get(),en_tell.get()
-            en_end.get(),en_cid.get()
-            en_est.get(),en_pais.get()
-            print(en_rzsocial)
-            
-            #access = Access.cadatroFornecedor(en_status,en_email,en_tell,en_end,
-                                              #en_cid,en_est,en_pais,en_iscestadual,en_rzsocial,en_cnpj) 
-            
-
+        self.centralizar_janela(root, jn_x, jn_y)
+        self.elementos_tela(root)
+        root.maxsize(jn_x, jn_y)
+        root.minsize(jn_x, jn_y)
         root.mainloop()
 
+    def centralizar_janela(self,root, largura, altura):
 
-        
+        tela_largura = root.winfo_screenwidth()
+        tela_altura = root.winfo_screenheight()
 
+        x = (tela_largura // 2) - (largura // 2)
+        y = (tela_altura // 2) - (altura // 2)
+
+        root.geometry(f"{largura}x{altura}+{x}+{y}")
     
+    def cadastrar_fornecedor(self, cnpj, rzsocial, isced, email, status, tel, end, cid, est, pais):
+        status = False if status == "Inativo" else True
+        print(f"Fornecedor Cadastrado\nRazão Social: {rzsocial}\nStatus: {status}")
+        #Access.cadatroFornecedor(status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj)
 
+    def voltar_pagina(self, root):
+        root.destroy()
+
+    def switch(self, switch_var):
+        switch_var.set("Inativo")
+
+    def opcaomenu(self, choice, opmenu_var):
+        if choice == "Adicionar":
+            opmenu_var.set('Materia Prima')
+            print('Adicionado!')
+        elif choice == "":
+            opmenu_var.set('Materia Prima')
+        else:
+            print("Opção Menu clicada:", choice)
+
+    def elementos_tela(self, root):
+        campos = [
+            ('CNPJ', 0), ('Razão Social', 1), ('Inscrição Estadual', 2), ('E-mail', 3),
+            ('Endereço', 4), ('Cidade', 5), ('Telefone', 6, 0), ('Estado', 6, 1), ('País', 7, 0)
+        ]
+        
+        widgets = {}
+        for (placeholder, row, *column) in campos:
+            col = column[0] if column else 0
+            widgets[placeholder.lower()] = ctk.CTkEntry(root, width=620 if not column else 300, height=35, placeholder_text=placeholder)
+            widgets[placeholder.lower()].grid(row=row, column=col, columnspan=2 if not column else 1, padx=10, pady=10)
+
+        switch_var = ctk.StringVar(value="Ativo")
+        widgets['status'] = ctk.CTkSwitch(root, textvariable=switch_var, width=300, height=35, variable=switch_var, onvalue="Ativo", offvalue="Inativo")
+        widgets['status'].grid(row=7, column=1, padx=10, pady=10)
+
+        list_sementes = ["", "Alface", "Tomate", "Adicionar"]
+        opmenu_var = ctk.StringVar(value='Materia Prima')
+        en_mtprima_menu = ctk.CTkOptionMenu(root, width=620, height=35, values=list_sementes, variable=opmenu_var, command=lambda choice: self.opcaomenu(choice, opmenu_var))
+        en_mtprima_menu.grid(row=8, column=0, columnspan=2, padx=10, pady=10)
+
+        btn_cancelar = ctk.CTkButton(root, width=300, height=35, text='Cancelar', command=lambda: self.voltar_pagina(root))
+        btn_cancelar.grid(row=9, column=0, padx=10, pady=10)
+
+        btn_registrar = ctk.CTkButton(root, width=300, height=35, text='Registrar', command=lambda: self.cadastrar_fornecedor(
+            widgets['cnpj'].get(), widgets['razão social'].get(), widgets['inscrição estadual'].get(), widgets['e-mail'].get(),
+            widgets['status'].get(), widgets['telefone'].get(), widgets['endereço'].get(), widgets['cidade'].get(), widgets['estado'].get(), widgets['país'].get()
+        ))
+        btn_registrar.grid(row=9, column=1, padx=10, pady=10)

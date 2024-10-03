@@ -14,7 +14,6 @@ fg = "#3ab355"  # menu
 hover = "#316133"  # hover/principal
 bg = "#dfeedf"  # background
 
-
 class main:
     def __init__(self, root):
         self.root = root
