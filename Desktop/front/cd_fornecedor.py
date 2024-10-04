@@ -16,8 +16,6 @@ class cdFornecedor:
         root.geometry(f"{jn_x}x{jn_y}")
         root.wm_attributes('-toolwindow', 1)
         root.configure(background='#dfeedf')
-
-        #ctk.set_appearance_mode("light")
         
         self.centralizar_janela(root, jn_x, jn_y)
         self.elementos_tela(root)
@@ -37,9 +35,9 @@ class cdFornecedor:
     
     def cadastrar_fornecedor(self, cnpj, rzsocial, isced, email, status, tel, end, cid, est, pais):
         status = False if status == "Inativo" else True
-        print(f"Fornecedor Cadastrado\nRazão Social: {rzsocial}\nStatus: {status}")
-        #Access.cadatroFornecedor(status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj)
-
+        
+        Access.cadatroFornecedor(status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj,1)
+        
     def voltar_pagina(self, root):
         root.destroy()
 
@@ -47,6 +45,7 @@ class cdFornecedor:
         switch_var.set("Inativo")
 
     def opcaomenu(self, choice, opmenu_var):
+        
         if choice == "Adicionar":
             opmenu_var.set('Materia Prima')
             print('Adicionado!')
