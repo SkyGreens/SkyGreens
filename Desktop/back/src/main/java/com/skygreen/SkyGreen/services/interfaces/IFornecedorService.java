@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.skygreen.SkyGreen.entities.FornecedorEntity;
+import com.skygreen.SkyGreen.entities.SementeEntity;
 
 public interface IFornecedorService {
 
@@ -15,5 +16,9 @@ public interface IFornecedorService {
 
     FornecedorEntity update(FornecedorEntity fornecedor);    
     
+    FornecedorEntity updateSementes(Integer fornecedorId, List<SementeEntity> sementes);
+    
     void delete(Integer id);
+
+
 }

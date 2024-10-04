@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.br.CNPJ;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -50,7 +51,7 @@ public class FornecedorEntity implements Serializable {
     private String cnpj;
 
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonManagedReference
     private List<SementeEntity> sementes = new ArrayList<>();
 
 }

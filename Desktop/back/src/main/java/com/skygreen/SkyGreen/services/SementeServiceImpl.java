@@ -28,21 +28,13 @@ public class SementeServiceImpl implements ISementeService {
     }
 
     @Override
-    public SementeEntity getSementeById(Integer id) {
+    public SementeEntity sementeById(Integer id) {
         return sementeRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Semente não encontrada"));
     }
 
     @Override
-    public SementeEntity criarSemente(SementeEntity semente) {
-        // Busca o fornecedor usando o ID contido no objeto semente
-        FornecedorEntity fornecedor = fornecedorRepository.findById(semente.getFornecedor().getFornecedorId())
-                .orElseThrow(() -> new EntityNotFoundException("Fornecedor não encontrado"));
-
-        // Associa a semente ao fornecedor
-        semente.setFornecedor(fornecedor);
-
-        // Salva a semente com o fornecedor vinculado
+    public SementeEntity criarSemente(SementeEntity semente) {         
         return sementeRepository.save(semente);
     }
 }

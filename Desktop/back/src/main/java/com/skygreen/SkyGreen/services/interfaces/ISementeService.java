@@ -8,7 +8,7 @@ public interface ISementeService {
 
     List<SementeEntity> findAll();
 
-    SementeEntity getSementeById(Integer id);
+    SementeEntity   sementeById(Integer id);
 
     SementeEntity criarSemente(SementeEntity semente);
 

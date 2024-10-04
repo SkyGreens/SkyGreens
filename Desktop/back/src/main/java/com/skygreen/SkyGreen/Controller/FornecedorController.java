@@ -63,16 +63,11 @@ public class FornecedorController {
         return ResponseEntity.ok().body(fornecedorAtualizado);
     }
 
-    @GetMapping("/{id}/semente")
-    public ResponseEntity<List<SementeEntity>> listarSementePorFornecedor(@PathVariable Integer id){
-        Optional<FornecedorEntity> fornecedor = fornecedorService.findById(id);
+    @Transactional
+    @PutMapping("/{fornecedorId}/sementes")
+    public ResponseEntity<FornecedorEntity> updateSemente(@PathVariable Integer fornecedorId, @RequestBody List<SementeEntity> sementes){
 
-        if(fornecedor.isPresent()){
-            return ResponseEntity.ok(fornecedor.get().getSementes());
-        }
-        else{
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok().body(fornecedorService.updateSementes(fornecedorId, sementes));
+    }
 
     }
-}

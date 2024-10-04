@@ -39,6 +39,7 @@ public class SementeEntity {
 
     @ManyToOne
     @JoinColumn(name = "fornecedor_id")
+    @JsonBackReference
     private FornecedorEntity fornecedor;
 
     @OneToOne(mappedBy = "semente", cascade = CascadeType.ALL)
@@ -46,7 +47,7 @@ public class SementeEntity {
     private EstoqueEntity estoque;
 
     @OneToMany(mappedBy = "semente", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonIgnore
     private List<PedidoCompraEntity> pedidosCompra = new ArrayList<>();
 
     
