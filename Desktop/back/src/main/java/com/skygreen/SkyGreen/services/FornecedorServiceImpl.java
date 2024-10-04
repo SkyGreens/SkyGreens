@@ -36,7 +36,7 @@ public class FornecedorServiceImpl implements IFornecedorService {
 
             for (SementeEntity semente : fornecedor.getSementes()) {
                 SementeEntity sementeExistente = sementeRepository.findById(semente.getSementeId())
-                        .orElseThrow(() -> new EntityNotFoundException(
+                        .orElseThrow(() -> new RuntimeException(
                                 "Semente não encontrada com id: " + semente.getSementeId()));
 
                 sementeExistente.setFornecedor(fornecedor);
@@ -74,13 +74,13 @@ public class FornecedorServiceImpl implements IFornecedorService {
             @RequestBody List<SementeEntity> sementes) {
 
         FornecedorEntity fornecedorExistente = repository.findById(fornecedorId)
-                .orElseThrow(() -> new EntityNotFoundException("Fornecedor não encontrado com ID: " + fornecedorId));
+                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado com ID: " + fornecedorId));
 
         List<SementeEntity> sementeExistente = new ArrayList<>();
         for (SementeEntity semente : sementes) {
 
             SementeEntity sementeId = sementeRepository.findById(semente.getSementeId())
-                    .orElseThrow(() -> new EntityNotFoundException(
+                    .orElseThrow(() -> new RuntimeException(
                             "Semente não encontrada com ID: " + semente.getSementeId()));
 
             if (sementeId.getFornecedor() == null
