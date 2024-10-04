@@ -9,7 +9,6 @@ from tela_pedidos import telaPedidos
 from tela_usuario import telaUsuarios
 from tela_fornecedor import telaFornecedor
 
-
 fg = "#3ab355"  # menu
 hover = "#316133"  # hover/principal
 bg = "#dfeedf"  # background
