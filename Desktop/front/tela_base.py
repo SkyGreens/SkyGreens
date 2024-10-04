@@ -1,6 +1,8 @@
 from tkinter import * #pip install tkinter
 import customtkinter as ctk #pip install customtkinter
 
+from perfil_user import perfilUser
+
 fg = "#3ab355"  # menu
 hover = "#316133"  # hover/principal
 bg = "#dfeedf"  # background
@@ -19,7 +21,7 @@ class telaBase:
         label = ctk.CTkLabel(frame_top, text="SkyGreens", font=('Arial', 20, 'bold'), width=200, height=40, text_color="#353847")
         label.pack(pady=10, side=LEFT)
 
-        btn_perfil = ctk.CTkButton(frame_top, text="Perfil", width=60, hover_color=hover, fg_color=fg)
+        btn_perfil = ctk.CTkButton(frame_top, text="Perfil", width=60, hover_color=hover, fg_color=fg,command=lambda:perfilUser("Cauane Oliveira","45556677887","Gerente de Produção","Ativo","cauane@teste.com"))
         btn_perfil.pack(pady=10, padx=20, side=RIGHT)
 
     def menu(self):
