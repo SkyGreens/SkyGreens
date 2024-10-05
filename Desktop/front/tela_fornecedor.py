@@ -10,10 +10,9 @@ bg = "#dfeedf"  # Cor de fundo
 
 class telaFornecedor:
     
-    def __init__(self, root, controller):
+    def __init__(self, root):
         
         self.root = root
-        self.controller = controller
         self.frame = Frame(self.root)
         self.frame.pack(side=TOP)
         self.frame.configure(background=bg)
@@ -25,13 +24,16 @@ class telaFornecedor:
         pesq_label = ctk.CTkLabel(pesquisar_frame, text="Pesquisar Fornecedor:", font=("Arial", 14))
         pesq_label.pack(pady=5, padx=1, side=LEFT)
 
-        self.pesq_entry = ctk.CTkEntry(pesquisar_frame, textvariable=self.pesq_conteudo, width=800,height=35)
+        self.pesq_entry = ctk.CTkEntry(pesquisar_frame, textvariable=self.pesq_conteudo, width=600,height=35)
         self.pesq_entry.pack(pady=5, padx=10, side=LEFT)
         self.pesq_entry.bind("<KeyRelease>", self.fornecedor_lista)
 
+        cadFornecedor_button = ctk.CTkButton(pesquisar_frame, text='Cadastrar Fornecedor', font=('Arial', 15, 'bold'), corner_radius=3, width=100, height=40,
+                               fg_color=fg, hover_color=hover,command=lambda:cdFornecedor(self))
+        cadFornecedor_button.pack(pady=5, padx=10, side=RIGHT)
         
-        listFornecedor_button = ctk.CTkButton(pesquisar_frame, text='Cadastrar Fornecedor', font=('Arial', 15, 'bold'), corner_radius=3, width=100, height=40,
-                               fg_color=fg, hover_color=hover,command=lambda:cdFornecedor())
+        listFornecedor_button = ctk.CTkButton(pesquisar_frame, text='Lista Fornecedores', font=('Arial', 15, 'bold'), corner_radius=3, width=100, height=40,
+                               fg_color=fg, hover_color=hover)
         listFornecedor_button.pack(pady=5, padx=10, side=RIGHT)
 
         # lista de fornecedores
@@ -41,10 +43,9 @@ class telaFornecedor:
         # Carrega a lista completa
         self.fornecedor_lista()
 
-    def fornecedor_lista(self, event=None):
+    def fornecedor_lista(self):
         
-        fornecedores = Access.buscarFornecedores()
-        
+        fornecedores = Access.listarFornecedores()
         # Limpar os fornecedores anteriores
         for widget in self.lista_frame.winfo_children():
             widget.destroy()
@@ -53,16 +54,20 @@ class telaFornecedor:
         
         # Exibir fornecedores correspondentes à pesquisa
         for i in fornecedores:
-            if (termoPesq in i['id'].lower() or
+            
+            status = "Inativo" if i['status'] == False else "Ativo"
+            
+            if status == "Ativo" and (termoPesq in i['id'].lower() or
                 termoPesq in i['nome'].lower() or
-                termoPesq in i['cnpj'].lower() or
-                termoPesq in i['endereço'].lower()):
+                termoPesq in i['cnpj'].lower()):
                 
                 fornecedor_frame = ctk.CTkFrame(self.lista_frame, corner_radius=10)
                 fornecedor_frame.pack(fill="x", padx=10, pady=5)
-
+                
+                insumo = "Sem Cadastro" if i['semente'] == '' else i['semente']
+                
                 fornecedor_label = ctk.CTkLabel(fornecedor_frame, 
-                                                text=f"{i['id']} - {i['nome']} - CNPJ: {i['cnpj']} - Endereço: {i['endereço']}", 
+                                                text=f"ID: {i['id']} - {i['nome']} - CNPJ: {i['cnpj']} - Endereço: {i['endereco']} - Insumo: {insumo} - Status: {status}", 
                                                 font=("Arial", 14))
                 fornecedor_label.pack(pady=5)
                 

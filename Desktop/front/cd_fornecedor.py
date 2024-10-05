@@ -8,20 +8,22 @@ hover = "#316133"  # hover/principal
 bg = "#dfeedf"  # background
 
 class cdFornecedor:
-    def __init__(self):
+    
+    def __init__(self,callback):
         jn_x = 640
         jn_y = 560
-        root = Toplevel()
-        root.title("Cadastrar Fornecedor")
-        root.geometry(f"{jn_x}x{jn_y}")
-        root.wm_attributes('-toolwindow', 1)
-        root.configure(background='#dfeedf')
+        self.callback = callback
+        self.root = Toplevel()
+        self.root.title("Cadastrar Fornecedor")
+        self.root.geometry(f"{jn_x}x{jn_y}")
+        self.root.wm_attributes('-toolwindow', 1)
+        self.root.configure(background='#dfeedf')
         
-        self.centralizar_janela(root, jn_x, jn_y)
-        self.elementos_tela(root)
-        root.maxsize(jn_x, jn_y)
-        root.minsize(jn_x, jn_y)
-        root.mainloop()
+        self.centralizar_janela(self.root, jn_x, jn_y)
+        self.elementos_tela(self.root)
+        self.root.maxsize(jn_x, jn_y)
+        self.root.minsize(jn_x, jn_y)
+        self.root.mainloop()
 
     def centralizar_janela(self,root, largura, altura):
 
@@ -33,11 +35,15 @@ class cdFornecedor:
 
         root.geometry(f"{largura}x{altura}+{x}+{y}")
     
-    def cadastrar_fornecedor(self, cnpj, rzsocial, isced, email, status, tel, end, cid, est, pais):
+    def cadastrar_fornecedor(self, cnpj, rzsocial, isced, email, status, tel, end, cid, est, pais,semente):
         status = False if status == "Inativo" else True
+        result = Access.cadatroFornecedor(status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj,semente)
         
-        Access.cadatroFornecedor(status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj,1)
-        
+        if result:
+            self.root.destroy()
+            from tela_fornecedor import telaFornecedor
+            telaFornecedor.fornecedor_lista(self.callback)
+            
     def voltar_pagina(self, root):
         root.destroy()
 
@@ -46,14 +52,11 @@ class cdFornecedor:
 
     def opcaomenu(self, choice, opmenu_var):
         
-        if choice == "Adicionar":
+        if choice == None:
             opmenu_var.set('Materia Prima')
-            print('Adicionado!')
-        elif choice == "":
-            opmenu_var.set('Materia Prima')
-        else:
-            print("Opção Menu clicada:", choice)
-
+    
+        self.semente_selecionada_id = choice
+        
     def elementos_tela(self, root):
         campos = [
             ('CNPJ', 0), ('Razão Social', 1), ('Inscrição Estadual', 2), ('E-mail', 3),
@@ -65,21 +68,33 @@ class cdFornecedor:
             col = column[0] if column else 0
             widgets[placeholder.lower()] = ctk.CTkEntry(root, width=620 if not column else 300, height=35, placeholder_text=placeholder)
             widgets[placeholder.lower()].grid(row=row, column=col, columnspan=2 if not column else 1, padx=10, pady=10)
-
+        #=====
         switch_var = ctk.StringVar(value="Ativo")
         widgets['status'] = ctk.CTkSwitch(root, textvariable=switch_var, width=300, height=35, variable=switch_var, onvalue="Ativo", offvalue="Inativo")
         widgets['status'].grid(row=7, column=1, padx=10, pady=10)
 
-        list_sementes = ["", "Alface", "Tomate", "Adicionar"]
+        #=====
+        self.semente_selecionada_id = None
+        list_sementes = Access.listarSementes()
+        id_sementes = {"":None}
+        nomes_sementes = [""]
+        
+        for i in list_sementes:
+            id_sementes[i['nome']] = i['id']
+            nomes_sementes.append(i['nome'])
+        
         opmenu_var = ctk.StringVar(value='Materia Prima')
-        en_mtprima_menu = ctk.CTkOptionMenu(root, width=620, height=35, values=list_sementes, variable=opmenu_var, command=lambda choice: self.opcaomenu(choice, opmenu_var))
-        en_mtprima_menu.grid(row=8, column=0, columnspan=2, padx=10, pady=10)
-
+        widgets['sementes'] = ctk.CTkOptionMenu(root,width=620,height=35,values=nomes_sementes,variable=opmenu_var
+                                                ,command=lambda choice: self.opcaomenu(id_sementes[choice],opmenu_var))
+        widgets['sementes'].grid(row=8, column=0, columnspan=2, padx=10, pady=10)
+        
+        #=====
         btn_cancelar = ctk.CTkButton(root, width=300, height=35, text='Cancelar', command=lambda: self.voltar_pagina(root))
         btn_cancelar.grid(row=9, column=0, padx=10, pady=10)
 
         btn_registrar = ctk.CTkButton(root, width=300, height=35, text='Registrar', command=lambda: self.cadastrar_fornecedor(
             widgets['cnpj'].get(), widgets['razão social'].get(), widgets['inscrição estadual'].get(), widgets['e-mail'].get(),
-            widgets['status'].get(), widgets['telefone'].get(), widgets['endereço'].get(), widgets['cidade'].get(), widgets['estado'].get(), widgets['país'].get()
+            widgets['status'].get(), widgets['telefone'].get(), widgets['endereço'].get(), widgets['cidade'].get(), widgets['estado'].get(), 
+            widgets['país'].get(),self.semente_selecionada_id
         ))
         btn_registrar.grid(row=9, column=1, padx=10, pady=10)

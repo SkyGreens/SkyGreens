@@ -9,7 +9,6 @@ from tela_pedidos import telaPedidos
 from tela_usuario import telaUsuarios
 from tela_fornecedor import telaFornecedor
 
-
 fg = "#3ab355"  # menu
 hover = "#316133"  # hover/principal
 bg = "#dfeedf"  # background
@@ -28,7 +27,7 @@ class main:
 
         self.telas["telaHome"] = telaHome(root, self)
         self.telas["telaMonitoramento"] = telaMonitoramento(root, self)
-        self.telas["telaFornecedor"] = telaFornecedor(root, self)
+        self.telas["telaFornecedor"] = telaFornecedor(root)
         self.telas["telaProducao"] = telaProducao(root, self)
         self.telas["telaPedidos"] = telaPedidos(root, self)
         self.telas["telaUsuarios"] = telaUsuarios(root, self)
