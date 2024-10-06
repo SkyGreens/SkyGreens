@@ -3,9 +3,11 @@ import customtkinter as ctk # pip install customtkinter
 
 from cd_usuario import cdUsuario 
 
-fg = "#3ab355"  # menu
-hover = "#316133"  # hover/principal
-bg = "#dfeedf"  # background
+fg = "#316133"  # Cor para botões
+hover = "#5d732f"  # Cor ao passar o mouse
+bg = "#D9D9D9"  # Cor de fundo
+
+bg_frame = "#E7E7E7"  # Cor de fundo do frame
 
 class telaUsuarios:
     
@@ -34,7 +36,7 @@ class telaUsuarios:
         btn_cadastrarUser.pack(pady=5, padx=10, side=RIGHT)
 
         # lista de fornecedores
-        self.lista_frame = ctk.CTkScrollableFrame(self.frame, width=1100, height=350)
+        self.lista_frame = ctk.CTkScrollableFrame(self.frame, width=1100, height=350,fg_color=bg_frame)
         self.lista_frame.pack(fill="both", expand=True, pady=10, padx=10)
 
         # Carrega a lista completa
