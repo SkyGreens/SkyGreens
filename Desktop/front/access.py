@@ -151,3 +151,4 @@ class Access:
 
     def editarFornecedor(id,s,e,t,end,cid,est,pais,ie,rs,cnpj,sementeid):
             print('Fornecedor Atualizado: ',id)
+            return True

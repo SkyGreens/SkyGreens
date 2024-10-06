@@ -42,7 +42,7 @@ class cdFornecedor:
             from tela_fornecedor import telaFornecedor
             telaFornecedor.fornecedor_lista(self.callback)
     
-    def cadastrar_fornecedor(self, cnpj, rzsocial, isced, email, status, tel, end, cid, est, pais, semente):
+    def modificacao_fornecedor(self, cnpj, rzsocial, isced, email, status, tel, end, cid, est, pais, semente):
         status = False if status == "Inativo" else True
         if self.dados:
             result = Access.editarFornecedor(self.dados['id'], status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj, semente)
@@ -102,7 +102,7 @@ class cdFornecedor:
         btn_cancelar.grid(row=9, column=0, padx=10, pady=10)
 
         btn_texto = 'Atualizar' if self.dados else 'Registrar'
-        btn_registrar = ctk.CTkButton(root, width=300, height=35, text=btn_texto, command=lambda: self.cadastrar_fornecedor(
+        btn_registrar = ctk.CTkButton(root, width=300, height=35, text=btn_texto, command=lambda: self.modificacao_fornecedor(
             self.widgets['cnpj'].get(), self.widgets['nome'].get(), self.widgets['inscricaoEstadual'].get(), self.widgets['email'].get(),
             self.widgets['status'].get(), self.widgets['telefone'].get(), self.widgets['endereco'].get(), self.widgets['cidade'].get(), 
             self.widgets['estado'].get(), self.widgets['pais'].get(), self.semente_selecionada_id
