@@ -37,7 +37,6 @@ class telaFornecedor:
                                fg_color=fg, hover_color=hover,command=lambda:todosFornecedores(self,self.root))
         listFornecedor_button.pack(pady=5, padx=10, side=RIGHT)
 
-        # lista de fornecedores
         self.lista_frame = ctk.CTkScrollableFrame(self.frame, width=1100, height=350)
         self.lista_frame.pack(fill="both", expand=True, pady=10, padx=10)
 
@@ -71,7 +70,12 @@ class telaFornecedor:
                 fornecedor_label = ctk.CTkLabel(fornecedor_frame, 
                                                 text=f"ID: {i['id']} - {i['nome']} - CNPJ: {i['cnpj']} - Endereço: {i['endereco']} - Insumo: {insumo} - Status: {status}", 
                                                 font=("Arial", 14))
-                fornecedor_label.pack(pady=5)
+                fornecedor_label.pack(side="left", pady=5)
+                
+                btn_editar = ctk.CTkButton(fornecedor_frame, text="Editar",  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados))
+                btn_editar.pack(side="right", padx=5, pady=5)
+                
+                fornecedor_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela_edicao(dados))
                 
             elif id_mostrar == 1:
                 fornecedor_frame = ctk.CTkFrame(self.lista_frame, corner_radius=10)
@@ -87,7 +91,10 @@ class telaFornecedor:
         if not fornecedores:
             msg_label = ctk.CTkLabel(self.lista_frame, text="Nenhum fornecedor encontrado.", font=("Arial", 14))
             msg_label.pack(pady=5)
-        
+            
+    def abrir_tela_edicao(self, dados):
+        cdFornecedor(self, dados=dados,editar=True)
+
     #função para abrir a tela clicada
     def mostrar(self):
         self.frame.pack()
