@@ -27,7 +27,7 @@ class main:
 
         self.telas["telaHome"] = telaHome(root, self)
         self.telas["telaMonitoramento"] = telaMonitoramento(root, self)
-        self.telas["telaFornecedor"] = telaFornecedor(root, self)
+        self.telas["telaFornecedor"] = telaFornecedor(root)
         self.telas["telaProducao"] = telaProducao(root, self)
         self.telas["telaPedidos"] = telaPedidos(root, self)
         self.telas["telaUsuarios"] = telaUsuarios(root, self)

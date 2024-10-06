@@ -22,8 +22,11 @@ if response.status_code == 200:
 
     # Dados da semente a ser cadastrada
     semente_data = {
-        "nome": "Semente de Alface",
+        #"nome": "Semente de Alface",
+        #"descricao": "Semente ideal para cultivo hidropônico"
+        "nome": "Semente de Milho",
         "descricao": "Semente ideal para cultivo hidropônico"
+        
     }
 
     # Cabeçalho com o token de autenticação
