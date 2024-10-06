@@ -149,4 +149,5 @@ class Access:
         except requests.exceptions.RequestException:
             messagebox.showinfo(title="Erro", message="Erro de Conexão") 
 
-
+    def editarFornecedor(id,s,e,t,end,cid,est,pais,ie,rs,cnpj,sementeid):
+            print('Fornecedor Atualizado: ',id)

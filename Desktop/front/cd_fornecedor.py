@@ -52,7 +52,6 @@ class cdFornecedor:
         if result:
             self.atualizar_pagina(1)
             
-
     def switch(self, switch_var):
         switch_var.set("Inativo")
     
@@ -63,7 +62,7 @@ class cdFornecedor:
     
     def elementos_tela(self, root):
         campos = [
-            ('CNPJ', 'cnpj', 0), ('Razão Social', 'razao_social', 1), ('Inscrição Estadual', 'inscricao_estadual', 2), 
+            ('CNPJ', 'cnpj', 0), ('Razão Social', 'nome', 1), ('Inscrição Estadual', 'inscricaoEstadual', 2), 
             ('E-mail', 'email', 3), ('Endereço', 'endereco', 4), ('Cidade', 'cidade', 5), 
             ('Telefone', 'telefone', 6, 0), ('Estado', 'estado', 6, 1), ('País', 'pais', 7, 0)
         ]
@@ -76,7 +75,7 @@ class cdFornecedor:
             
             if self.editar:
                 valor = self.dados.get(comp_nome,'')
-                if valor != '':
+                if valor != '' and valor != None:
                     self.widgets[comp_nome].insert(0, valor)
                 
             self.widgets[comp_nome].grid(row=row, column=col, columnspan=2 if not column else 1, padx=10, pady=10)
@@ -104,7 +103,7 @@ class cdFornecedor:
 
         btn_texto = 'Atualizar' if self.dados else 'Registrar'
         btn_registrar = ctk.CTkButton(root, width=300, height=35, text=btn_texto, command=lambda: self.cadastrar_fornecedor(
-            self.widgets['cnpj'].get(), self.widgets['razao_social'].get(), self.widgets['inscricao_estadual'].get(), self.widgets['email'].get(),
+            self.widgets['cnpj'].get(), self.widgets['nome'].get(), self.widgets['inscricaoEstadual'].get(), self.widgets['email'].get(),
             self.widgets['status'].get(), self.widgets['telefone'].get(), self.widgets['endereco'].get(), self.widgets['cidade'].get(), 
             self.widgets['estado'].get(), self.widgets['pais'].get(), self.semente_selecionada_id
         ))
