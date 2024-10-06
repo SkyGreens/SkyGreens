@@ -3,9 +3,9 @@ import customtkinter as ctk #pip install customtkinter
 
 from perfil_user import perfilUser
 
-fg = "#3ab355"  # menu
-hover = "#316133"  # hover/principal
-bg = "#dfeedf"  # background
+fg = "#316133"  # Cor para botões
+hover = "#5d732f"  # Cor ao passar o mouse
+bg = "#D9D9D9"  # Cor de fundo
 
 class telaBase:
     def __init__(self, root):

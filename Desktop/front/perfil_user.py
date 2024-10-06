@@ -3,9 +3,9 @@ from tkinter import Toplevel # pip install tkinter
 
 #from access import Access
 
-fg = "#3ab355"  # menu
-hover = "#316133"  # hover/principal
-bg = "#dfeedf"  # background
+fg = "#316133"  # Cor para botões
+hover = "#5d732f"  # Cor ao passar o mouse
+bg = "#D9D9D9"  # Cor de fundo
 
 class perfilUser:
     def __init__(self,nome,cpf,cargo,status,email):
@@ -21,7 +21,7 @@ class perfilUser:
         root.title("Perfil")
         root.geometry(f"{jn_x}x{jn_y}")
         root.wm_attributes('-toolwindow', 1)
-        root.configure(background='#dfeedf')
+        root.configure(background=bg)
 
         #ctk.set_appearance_mode("light")
         
@@ -65,6 +65,6 @@ class perfilUser:
         lb_status = ctk.CTkLabel(root, text=f"Status: {self.status}",font=('Arial',20,'bold'),width=300,height=35,text_color="#353847")
         lb_status.grid(row=4, column=1,padx=10, pady=10)
 
-        btn_ok = ctk.CTkButton(root, width=620, height=35, text='Ok',command=voltar_pagina)
+        btn_ok = ctk.CTkButton(root, width=620, height=35, text='Ok',command=voltar_pagina, fg_color=fg, hover_color=hover)
         btn_ok.grid(row=5, column=0,columnspan = 2, padx=10, pady=10)
     

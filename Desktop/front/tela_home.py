@@ -5,9 +5,11 @@ import matplotlib.pyplot as plt
 
 #from cd_fornecedor import cdFornecedor
 
-fg = "#3ab355"  # menu
-hover = "#316133"  # hover/principal
-bg = "#dfeedf"  # background
+fg = "#316133"  # Cor para botões
+hover = "#5d732f"  # Cor ao passar o mouse
+bg = "#D9D9D9"  # Cor de fundo
+
+bg_frame = "#E7E7E7"  # Cor de fundo do frame
 
 class telaHome:
 
@@ -15,12 +17,12 @@ class telaHome:
         self.root = root
         self.controller = controller
 
-        # Frame principal configurado para usar pack
+        
         self.frame = Frame(self.root, background=bg)
-        self.frame.pack(fill="both", expand=True)  # O frame deve se ajustar ao tamanho da janela
-
+        self.frame.pack(fill="both", expand=True)
+        
         # Card 1
-        card1 = ctk.CTkFrame(self.frame, width=260, height=440, corner_radius=10)
+        card1 = ctk.CTkFrame(self.frame, width=260, height=440, corner_radius=10,fg_color=bg_frame)
         card1.place(x=45, y=15)
 
         label_card1 = ctk.CTkLabel(card1, text="Aprenda a Usar o Sistema", font=("Arial", 18))
@@ -30,7 +32,7 @@ class telaHome:
         btn_saibamais1.place(x=20, y=150)
 
         # Card 2
-        card2 = ctk.CTkFrame(self.frame, width=260, height=440, corner_radius=10)
+        card2 = ctk.CTkFrame(self.frame, width=260, height=440, corner_radius=10,fg_color=bg_frame)
         card2.place(x=350, y=15)
 
         label_card2 = ctk.CTkLabel(card2, text="Pedidos", font=("Arial", 18))
@@ -40,7 +42,7 @@ class telaHome:
         btn_saibamais2.place(x=20, y=150)
 
         # Card 3
-        card3 = ctk.CTkFrame(self.frame, width=260, height=440, corner_radius=10)
+        card3 = ctk.CTkFrame(self.frame, width=260, height=440, corner_radius=10,fg_color=bg_frame)
         card3.place(x=650, y=15)
 
         label_card3 = ctk.CTkLabel(card3, text="Outros", font=("Arial", 18))
@@ -55,7 +57,6 @@ class telaHome:
             fig.patch.set_alpha(0.0)
             ax.pie(valor, labels=desc, autopct='%1.1f%%', startangle=90)
             ax.axis('equal')  # Para manter o formato do gráfico como círculo
-            plt.title(titulo)
             plt.title(titulo, fontsize=16, color="black")
             return fig
 

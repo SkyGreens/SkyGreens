@@ -1,9 +1,9 @@
 from tkinter import * #pip install tkinter
 import customtkinter as ctk #pip install customtkinter
 
-fg = "#3ab355"  # Cor para botões
-hover = "#316133"  # Cor ao passar o mouse
-bg = "#dfeedf"  # Cor de fundo
+fg = "#316133"  # Cor para botões
+hover = "#5d732f"  # Cor ao passar o mouse
+bg = "#D9D9D9"  # Cor de fundo
 
 class telaMonitoramento:
     def __init__(self, root, controller):

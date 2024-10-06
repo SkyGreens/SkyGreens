@@ -4,9 +4,11 @@ import customtkinter as ctk #pip install customtkinter
 from cd_fornecedor import cdFornecedor
 from access import Access
 
-fg = "#3ab355"  # Cor para botões
-hover = "#316133"  # Cor ao passar o mouse
-bg = "#dfeedf"  # Cor de fundo
+fg = "#316133"  # Cor para botões
+hover = "#5d732f"  # Cor ao passar o mouse
+bg = "#D9D9D9"  # Cor de fundo
+
+bg_frame = "#E7E7E7"  # Cor de fundo do frame
 
 class telaFornecedor:
     
@@ -37,10 +39,10 @@ class telaFornecedor:
         
         optionmenu_var = ctk.StringVar(value="Ativo")
         values = ["Todos","Ativo","Inativo"]
-        optionmenu = ctk.CTkOptionMenu(pesquisar_frame,values=values,variable=optionmenu_var, corner_radius=3, width=200, height=40,command=escolhanmenu)
+        optionmenu = ctk.CTkOptionMenu(pesquisar_frame,values=values,variable=optionmenu_var, corner_radius=3, width=200, height=40,command=escolhanmenu,fg_color=fg)
         optionmenu.pack(pady=5, padx=10, side=RIGHT)
 
-        self.lista_frame = ctk.CTkScrollableFrame(self.frame, width=1100, height=350)
+        self.lista_frame = ctk.CTkScrollableFrame(self.frame, width=1100, height=350,fg_color=bg_frame)
         self.lista_frame.pack(fill="both", expand=True, pady=10, padx=10)
 
         # Carrega a lista completa
@@ -75,7 +77,7 @@ class telaFornecedor:
                                                 font=("Arial", 14))
                 fornecedor_label.pack(side="left", pady=5)
                 
-                btn_editar = ctk.CTkButton(fornecedor_frame, text="Editar",  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados))
+                btn_editar = ctk.CTkButton(fornecedor_frame, text="Editar",  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados),fg_color=fg,hover_color=hover)
                 btn_editar.pack(side="right", padx=5, pady=5)
                 
                 fornecedor_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela_edicao(dados))
@@ -91,7 +93,7 @@ class telaFornecedor:
                                                 font=("Arial", 14))
                 fornecedor_label.pack(side="left", pady=5)
                 
-                btn_editar = ctk.CTkButton(fornecedor_frame, text="Editar",  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados))
+                btn_editar = ctk.CTkButton(fornecedor_frame, text="Editar",  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados),fg_color=fg,hover_color=hover)
                 btn_editar.pack(side="right", padx=5, pady=5)
                 
                 fornecedor_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela_edicao(dados))

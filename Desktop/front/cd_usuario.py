@@ -4,9 +4,9 @@ import random
 
 #from access import Access
 
-fg = "#3ab355"  # menu
-hover = "#316133"  # hover/principal
-bg = "#dfeedf"  # background
+fg = "#316133"  # Cor para botões
+hover = "#5d732f"  # Cor ao passar o mouse
+bg = "#D9D9D9"  # Cor de fundo
 
 class cdUsuario:
     def __init__(self):
@@ -16,7 +16,7 @@ class cdUsuario:
         root.title("Cadastrar Usuário")
         root.geometry(f"{jn_x}x{jn_y}")
         root.wm_attributes('-toolwindow', 1)
-        root.configure(background='#dfeedf')
+        root.configure(background=bg)
 
         #ctk.set_appearance_mode("light")
         
@@ -65,16 +65,16 @@ class cdUsuario:
 
         list_cargos = ["Administrador", "Gerente de Produção", "Assistente de Produção"]
         opmenu_var = ctk.StringVar(value='Escolha um Cargo')
-        widgets['cargo'] = ctk.CTkOptionMenu(root, width=300, height=35, values=list_cargos, variable=opmenu_var)
+        widgets['cargo'] = ctk.CTkOptionMenu(root, width=300, height=35, values=list_cargos, variable=opmenu_var,fg_color=fg)
         widgets['cargo'].grid(row=4, column=0, padx=10, pady=10)
 
         switch_var = ctk.StringVar(value="Ativo")
-        widgets['status'] = ctk.CTkSwitch(root, textvariable=switch_var, width=300, height=35, variable=switch_var, onvalue="Ativo", offvalue="Inativo")
+        widgets['status'] = ctk.CTkSwitch(root, textvariable=switch_var, width=300, height=35, variable=switch_var, onvalue="Ativo", offvalue="Inativo",fg_color=fg)
         widgets['status'].grid(row=4, column=1, padx=10, pady=10)
 
-        btn_cancelar = ctk.CTkButton(root, width=300, height=35, text='Cancelar', command=lambda: self.voltar_pagina(root))
+        btn_cancelar = ctk.CTkButton(root, width=300, height=35, text='Cancelar', command=lambda: self.voltar_pagina(root),fg_color=fg,hover_color=hover)
         btn_cancelar.grid(row=5, column=0, padx=10, pady=10)
 
         btn_registrar = ctk.CTkButton(root, width=300, height=35, text='Registrar', command=lambda: self.cadastrar_usuario(
-            widgets['cpf'].get(),widgets['cargo'].get(), widgets['nome'].get(), widgets['status'].get(),widgets['e-mail'].get()))
+            widgets['cpf'].get(),widgets['cargo'].get(), widgets['nome'].get(), widgets['status'].get(),widgets['e-mail'].get()),fg_color=fg,hover_color=hover)
         btn_registrar.grid(row=5, column=1, padx=10, pady=10)
