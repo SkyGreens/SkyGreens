@@ -1,6 +1,7 @@
 package com.skygreen.SkyGreen.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,29 +15,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skygreen.SkyGreen.entities.FornecedorEntity;
+import com.skygreen.SkyGreen.entities.SementeEntity;
 import com.skygreen.SkyGreen.services.interfaces.IFornecedorService;
 
 import jakarta.transaction.Transactional;
 
 @RestController
 @RequestMapping("/fornecedor")
-public class FornecedorRest {
+public class FornecedorController {
 
     @Autowired
     private IFornecedorService fornecedorService;
 
-    @GetMapping("/listar")
+    @GetMapping("/")
     public ResponseEntity<List<FornecedorEntity>> findAll(){
 
         return ResponseEntity.ok().body(fornecedorService.findAll());
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<FornecedorEntity> findById(@PathVariable Integer id) {
-        FornecedorEntity result = fornecedorService.findById(id);
+    public ResponseEntity<Optional<FornecedorEntity>> findById(@PathVariable Integer id) {
+        Optional<FornecedorEntity> result = fornecedorService.findById(id);
         return ResponseEntity.ok().body(result);
     }
-
 
     @Transactional
     @PostMapping("/adicionar")
@@ -61,4 +62,12 @@ public class FornecedorRest {
         FornecedorEntity fornecedorAtualizado = fornecedorService.update(fornecedor);
         return ResponseEntity.ok().body(fornecedorAtualizado);
     }
-}
+
+    @Transactional
+    @PutMapping("/{fornecedorId}/sementes")
+    public ResponseEntity<FornecedorEntity> updateSemente(@PathVariable Integer fornecedorId, @RequestBody List<SementeEntity> sementes){
+
+        return ResponseEntity.ok().body(fornecedorService.updateSementes(fornecedorId, sementes));
+    }
+
+    }

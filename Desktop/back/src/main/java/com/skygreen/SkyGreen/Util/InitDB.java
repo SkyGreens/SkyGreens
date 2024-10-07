@@ -6,13 +6,18 @@ import org.springframework.stereotype.Component;
 
 import com.skygreen.SkyGreen.Controller.AuthenticationController;
 import com.skygreen.SkyGreen.DTO.RegisterDTO;
+import com.skygreen.SkyGreen.entities.PrateleiraEntity;
 import com.skygreen.SkyGreen.entities.UsuarioRole;
+import com.skygreen.SkyGreen.repositories.PrateleiraRepository;
 
 @Component
 public class InitDB implements CommandLineRunner {
 
     @Autowired
     AuthenticationController authenticationController;
+
+    @Autowired
+    private PrateleiraRepository prateleiraRepository;
 
     public void inserindoRegistro() {
         System.out.println("Inserindo registros");
@@ -28,11 +33,17 @@ public class InitDB implements CommandLineRunner {
         RegisterDTO assistente = new RegisterDTO("01800980809", "assistente", UsuarioRole.ASSISTENTEPRODUCAO,
                 "assistenteproducao@skygreen.com", true, "Assistente Produção");
         authenticationController.register(assistente);
+
+        if (prateleiraRepository.count() == 0) {
+            prateleiraRepository.save(new PrateleiraEntity("Prateleira 1", true));
+            prateleiraRepository.save(new PrateleiraEntity("Prateleira 2", true));
+            prateleiraRepository.save(new PrateleiraEntity("Prateleira 3", true));
+            prateleiraRepository.save(new PrateleiraEntity("Prateleira 4", true));
+        }
     }
 
     @Override
     public void run(String... args) throws Exception {
         inserindoRegistro();
     }
-
 }

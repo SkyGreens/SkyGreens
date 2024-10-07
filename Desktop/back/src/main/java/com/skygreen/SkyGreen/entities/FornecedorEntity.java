@@ -1,16 +1,18 @@
 package com.skygreen.SkyGreen.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.br.CNPJ;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
 import lombok.Data;
 
 
@@ -22,9 +24,9 @@ public class FornecedorEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer fornecedorId;
     private Boolean ativo;
-    @Email
+
     private String email;
 
     private String telefone;
@@ -37,11 +39,13 @@ public class FornecedorEntity implements Serializable {
 
     private String pais;
 
-    private Integer inscricao_estadual;
+    private Integer inscricaoEstadual;
 
-    @Length(max = 50, message = "Limite de 50 caracteres excedido")
-    private String razao_social;
-    @CNPJ
+    private String razaoSocial;
     private String cnpj;
+
+    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<SementeEntity> sementes = new ArrayList<>();
 
 }

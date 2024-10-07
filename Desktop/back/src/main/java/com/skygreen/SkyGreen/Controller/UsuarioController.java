@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skygreen.SkyGreen.entities.UsuarioEntity;
-import com.skygreen.SkyGreen.services.UsuarioServiceImpl;
+import com.skygreen.SkyGreen.services.interfaces.IUsuarioService;
 
 import jakarta.transaction.Transactional;
 
@@ -22,7 +22,7 @@ import jakarta.transaction.Transactional;
 public class UsuarioController {
 
     @Autowired
-    private UsuarioServiceImpl usuarioService;
+    private IUsuarioService usuarioService;
 
     @GetMapping("/listar")
     public ResponseEntity<List<UsuarioEntity>> findAll(){
@@ -30,14 +30,14 @@ public class UsuarioController {
         return ResponseEntity.ok().body(usuarioService.findAll());
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<UsuarioEntity> findById(@PathVariable Integer id) {
         UsuarioEntity result = usuarioService.findById(id);
         return ResponseEntity.ok().body(result);
     }
 
     @Transactional
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable int id) {
 
         usuarioService.delete(id);
@@ -52,4 +52,21 @@ public class UsuarioController {
         return ResponseEntity.ok().body(usuarioAtualizado);
     }
 
+    @PutMapping("/inativar/{id}")
+    public ResponseEntity<UsuarioEntity> inativarUsuario(@PathVariable Integer id) {
+        UsuarioEntity usuarioInativado = usuarioService.inativarUsuario(id);
+        return ResponseEntity.ok(usuarioInativado);
+    }
+
+    @PutMapping("/ativar/{id}")
+    public ResponseEntity<UsuarioEntity> ativarUsuario(@PathVariable Integer id){
+        UsuarioEntity usuarioAtivo = usuarioService.ativarUsuario(id);
+        return ResponseEntity.ok(usuarioAtivo);
+    }
+
+    @GetMapping("/personal/{id}")
+    public ResponseEntity<UsuarioEntity> selfProfile(@PathVariable Integer id){
+        UsuarioEntity result = usuarioService.findById(id);
+        return ResponseEntity.ok().body(result);
+    }
 }
