@@ -83,7 +83,7 @@ public class UsuarioEntity implements UserDetails {
      
      @Override
      public boolean isEnabled() {
-        return true;
+        return ativo;
      }
     
      @Override

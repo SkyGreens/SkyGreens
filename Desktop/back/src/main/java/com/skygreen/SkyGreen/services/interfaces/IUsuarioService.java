@@ -21,4 +21,7 @@ public interface IUsuarioService {
 
     UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException;
 
+    UsuarioEntity inativarUsuario(Integer id);
+
+    UsuarioEntity ativarUsuario(Integer id);
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.skygreen.SkyGreen.entities.FornecedorEntity;
 import com.skygreen.SkyGreen.entities.SementeEntity;
 import com.skygreen.SkyGreen.repositories.FornecedorRepository;
 import com.skygreen.SkyGreen.repositories.SementeRepository;

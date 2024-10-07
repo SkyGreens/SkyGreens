@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.skygreen.SkyGreen.entities.UsuarioEntity;
@@ -44,6 +45,26 @@ public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService {
     }
 
     @Override
+    public UsuarioEntity inativarUsuario(@PathVariable Integer id) {
+        UsuarioEntity usuarioExistente = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com id " + id));
+
+        usuarioExistente.setAtivo(false);
+
+        
+        return repository.save(usuarioExistente);
+    }
+
+    @Override
+    public UsuarioEntity ativarUsuario(@PathVariable Integer id){
+        UsuarioEntity usuario = repository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com o id" + id));
+
+        usuario.setAtivo(true);
+        return repository.save(usuario);
+    }
+
+    @Override
     public UsuarioEntity updateUsuario(@RequestBody UsuarioEntity usuario) {
 
         usuario = repository.findById(usuario.getId()).orElse(null);
@@ -63,6 +84,13 @@ public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService {
     @Override
     public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
         return repository.findUsuarioByCpf(cpf);
+        
+    }
+
+    public UsuarioEntity selfProfile(@PathVariable Integer id){
+
+        return repository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com o id" + id));
     }
 
 }
