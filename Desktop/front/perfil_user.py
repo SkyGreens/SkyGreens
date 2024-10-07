@@ -9,8 +9,8 @@ bg = "#D9D9D9"  # Cor de fundo
 
 class perfilUser:
     def __init__(self,nome,cpf,cargo,status,email):
-        jn_x = 640
-        jn_y = 300
+        jn_x = 500
+        jn_y = 650
         self.nome=nome
         self.cpf=cpf
         self.cargo=cargo
@@ -18,12 +18,9 @@ class perfilUser:
         self.email = email
 
         root = Toplevel()
-        root.title("Perfil")
+        root.title("Perfil do Usuário")
         root.geometry(f"{jn_x}x{jn_y}")
         root.wm_attributes('-toolwindow', 1)
-        root.configure(background=bg)
-
-        #ctk.set_appearance_mode("light")
         
         self.centralizar_janela(root, jn_x, jn_y)
         self.elementos_tela(root)
@@ -41,30 +38,50 @@ class perfilUser:
 
         root.geometry(f"{largura}x{altura}+{x}+{y}")
     
-    
-
     def elementos_tela(self, root):
 
         def voltar_pagina():
             root.destroy()
 
-        lb_nome = ctk.CTkLabel(root, text=f"Nome: {self.nome}",font=('Arial',20,'bold'),width=620,height=35,text_color="#353847")
-        lb_nome.grid(row=1, column=0, columnspan=2,padx=10, pady=10)
+        main_frame = ctk.CTkFrame(root)
+        main_frame.pack(pady=20, padx=20, fill="both", expand=True)
 
-        lb_cpf = ctk.CTkLabel(root, text=f"CPF: {self.cpf}",font=('Arial',20,'bold'),width=300,height=35,text_color="#353847")
-        lb_cpf.grid(row=2, column=0,padx=10, pady=10)
-        lb_cargo = ctk.CTkLabel(root, text=f"Cargo: {self.cargo}",font=('Arial',20,'bold'),width=300,height=35,text_color="#353847")
-        lb_cargo.grid(row=2, column=1,padx=10, pady=10)
-        
+        prof_img = ctk.CTkLabel(main_frame, text="👤", width=100, height=100, font=("Arial", 40))
+        prof_img.pack(pady=(20, 10))
 
-        lb_email = ctk.CTkLabel(root, text=f"Email: {self.email}",font=('Arial',20,'bold'),width=620,height=35,text_color="#353847")
-        lb_email.grid(row=3, column=0, columnspan=2,padx=10, pady=10)
+        lb_nome = ctk.CTkLabel(main_frame, text="Cauane Oliveira", font=("Arial", 20, "bold"))
+        lb_nome.pack()
+        lb_cargo = ctk.CTkLabel(main_frame, text="Administrador", font=("Arial", 16))
+        lb_cargo.pack()
 
-        lb_empresa = ctk.CTkLabel(root, text="Empresa: SkyGreens",font=('Arial',20,'bold'),width=300,height=35,text_color="#353847")
-        lb_empresa.grid(row=4, column=0,padx=10, pady=10)
-        lb_status = ctk.CTkLabel(root, text=f"Status: {self.status}",font=('Arial',20,'bold'),width=300,height=35,text_color="#353847")
-        lb_status.grid(row=4, column=1,padx=10, pady=10)
+        frame_nomecompleto = ctk.CTkFrame(main_frame)
+        frame_nomecompleto.pack(pady=(40, 10), padx=10, fill="x")
+        lb_nomecompleto = ctk.CTkLabel(frame_nomecompleto, text="Nome Completo: Cauane Gonçalves de Oliveira", corner_radius=8, height=30)
+        lb_nomecompleto.pack(pady=5, padx=10)
 
-        btn_ok = ctk.CTkButton(root, width=620, height=35, text='Ok',command=voltar_pagina, fg_color=fg, hover_color=hover)
-        btn_ok.grid(row=5, column=0,columnspan = 2, padx=10, pady=10)
+        frame_email = ctk.CTkFrame(main_frame)
+        frame_email.pack(pady=(0, 10), padx=10, fill="x")
+        lb_email = ctk.CTkLabel(frame_email, text="E-mail: cauaneoliveira@pinkfarm.com", corner_radius=8, height=30)
+        lb_email.pack(pady=5, padx=10)
+
+        frame_senha = ctk.CTkFrame(main_frame)
+        frame_senha.pack(pady=(0, 10), padx=10, fill="x")
+        lb_senha = ctk.CTkLabel(frame_senha, text="CPF: 489-***-***-**", corner_radius=8, height=30)
+        lb_senha.pack(pady=5, padx=10)
+
+        frame_status = ctk.CTkFrame(main_frame)
+        frame_status.pack(pady=(0, 10), padx=10, fill="x")
+        lb_status = ctk.CTkLabel(frame_status, text="Status: Ativo", corner_radius=8, height=30)
+        lb_status.pack(pady=5, padx=10)
+
+        frame_emp = ctk.CTkFrame(main_frame)
+        frame_emp.pack(pady=(0, 10), padx=10, fill="x")
+        lb_emp = ctk.CTkLabel(frame_emp, text="Empresa: SkyGreens", corner_radius=8, height=30)
+        lb_emp.pack(pady=5, padx=10)
+
+        btn_frame = ctk.CTkFrame(main_frame)
+        btn_frame.pack(fill="x", pady=(70, 0))
+
+        btn_ok = ctk.CTkButton(btn_frame, text="Ok", width=180,fg_color=fg,hover_color=hover,command=voltar_pagina)
+        btn_ok.grid( padx=140, pady=20)
     
