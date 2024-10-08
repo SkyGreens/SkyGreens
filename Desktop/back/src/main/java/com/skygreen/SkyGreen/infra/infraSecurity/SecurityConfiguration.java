@@ -24,17 +24,18 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable() // Desabilitar CSRF para APIs stateless
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
+                .csrf(csrf -> csrf.disable())  // Desabilita CSRF
+                //.cors(cors -> cors.disable())  // Desabilita CORS da forma recomendada
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Define a política de sessão
+                .authorizeHttpRequests(auth -> auth                         
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/register").hasRole("ADMIN") 
+                        .requestMatchers(HttpMethod.POST, "/auth/register").hasRole("ADMIN")
                         .requestMatchers("/usuario/personal/**").authenticated()
                         .requestMatchers("/usuario/**", "/compras/**", "/sementes/**", "/fornecedor/**", "/estoque/**", "/prateleira/**").hasRole("ADMIN")
                         .requestMatchers("/h2-console/**").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
-                .headers(headers -> headers.frameOptions().disable())
+                .headers(headers -> headers.frameOptions().disable())  // Para permitir o uso do H2
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
