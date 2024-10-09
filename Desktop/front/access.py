@@ -6,6 +6,7 @@ api_login = "http://localhost:8080/skygreen/auth/login"
 api_cadastrarFornecedor = "http://localhost:8080/skygreen/fornecedor/adicionar"
 api_listarFornecedores = "http://localhost:8080/skygreen/fornecedor/"
 api_listarSementes = "http://localhost:8080/skygreen/sementes/listar"
+api_perfilUser = "http://localhost:8080/skygreen/usuario/personal/1"
 
 class Access:
     token = None
@@ -20,11 +21,10 @@ class Access:
             
             if response.status_code == 200:
                 Access.token = response.json().get("token")
-                #print(Access.token)
+                
                 app.iniciar_interface()
             else:
-                
-                app.retornar_login() 
+                app.retornar_login()
                 return True
 
         except requests.exceptions.RequestException:
@@ -150,5 +150,31 @@ class Access:
             messagebox.showinfo(title="Erro", message="Erro de Conexão") 
 
     def editarFornecedor(id,s,e,t,end,cid,est,pais,ie,rs,cnpj,sementeid):
-            print('Fornecedor Atualizado: ',id)
-            return True
+        print('Fornecedor Atualizado: ',id)
+        return True
+    
+    def visualizarPerfil():
+        
+        headers = {
+            "Authorization": f"Bearer {Access.token}"
+        }
+
+        try:
+            response = requests.get(api_perfilUser, headers=headers)
+            
+            if response.status_code == 200:
+                perfil_api = response.json()
+                dados_perfil = []
+                
+                print(perfil_api)
+                '''for i in perfil_api:
+                    dados_perfil.append({
+                        "id": f"{i.get('id')}"
+                    })
+                return dados_perfil'''
+            else:
+                print('Falha ao acessar informações:', response.status_code)
+                print('Resposta:', response.text)
+
+        except requests.exceptions.RequestException:
+            messagebox.showinfo(title="Erro", message="Erro de Conexão")

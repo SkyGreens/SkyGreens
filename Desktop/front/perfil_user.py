@@ -1,7 +1,7 @@
 import customtkinter as ctk # pip install customtkinter
 from tkinter import Toplevel # pip install tkinter
 
-#from access import Access
+from access import Access
 
 fg = "#316133"  # Cor para botões
 hover = "#5d732f"  # Cor ao passar o mouse
@@ -82,6 +82,8 @@ class perfilUser:
         btn_frame = ctk.CTkFrame(main_frame)
         btn_frame.pack(fill="x", pady=(70, 0))
 
+        Access.visualizarPerfil()
+        
         btn_ok = ctk.CTkButton(btn_frame, text="Ok", width=180,fg_color=fg,hover_color=hover,command=voltar_pagina)
         btn_ok.grid( padx=140, pady=20)
     
