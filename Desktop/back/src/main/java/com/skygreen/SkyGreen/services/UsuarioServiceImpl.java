@@ -1,5 +1,6 @@
 package com.skygreen.SkyGreen.services;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,14 +52,13 @@ public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService {
 
         usuarioExistente.setAtivo(false);
 
-        
         return repository.save(usuarioExistente);
     }
 
     @Override
-    public UsuarioEntity ativarUsuario(@PathVariable Integer id){
+    public UsuarioEntity ativarUsuario(@PathVariable Integer id) {
         UsuarioEntity usuario = repository.findById(id)
-        .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com o id" + id));
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com o id" + id));
 
         usuario.setAtivo(true);
         return repository.save(usuario);
@@ -84,13 +84,23 @@ public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService {
     @Override
     public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
         return repository.findUsuarioByCpf(cpf);
-        
+
     }
 
-    public UsuarioEntity selfProfile(@PathVariable Integer id){
+    @Override
+    public UsuarioEntity selfProfile(Integer idUsuarioLogado, Integer idRequisitado) throws AccessDeniedException {
+        if (!idUsuarioLogado.equals(idRequisitado)) {
+            throw new AccessDeniedException("Você não tem permissão para acessar este perfil.");
+        }
 
-        return repository.findById(id)
-        .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com o id" + id));
+        return repository.findById(idRequisitado)
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com o id " + idRequisitado));
+    }
+
+    @Override
+    public UsuarioEntity findByCpf(String cpf) {
+        return repository.findByCpf(cpf)
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com o CPF " + cpf));
     }
 
 }

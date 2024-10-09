@@ -28,7 +28,7 @@ public class PrateleiraServiceImpl implements IPrateleiraService {
         if (prateleiraOpt.isPresent()) {
             PrateleiraEntity prateleira = prateleiraOpt.get();
             if (prateleira.isDisponivel()) {
-                prateleira.setDisponivel(false); // Marca a prateleira como ocupada
+                prateleira.setDisponivel(false);
                 return repository.save(prateleira);
             } else {
                 throw new Exception("A prateleira escolhida não está disponível.");
