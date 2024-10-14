@@ -32,7 +32,7 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
-    @PostMapping("/login")
+    @PostMapping(value = "/login")
     public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data) {
 
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.cpf(), data.senha());

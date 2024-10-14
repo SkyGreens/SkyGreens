@@ -1,5 +1,6 @@
 package com.skygreen.SkyGreen.services.interfaces;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,4 +25,8 @@ public interface IUsuarioService {
     UsuarioEntity inativarUsuario(Integer id);
 
     UsuarioEntity ativarUsuario(Integer id);
+
+    UsuarioEntity selfProfile (Integer idUsuarioLogado, Integer idRequisitado) throws AccessDeniedException;
+
+    UsuarioEntity findByCpf(String cpf);
 }
