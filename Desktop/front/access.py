@@ -6,10 +6,11 @@ api_login = "http://localhost:8080/skygreen/auth/login"
 api_cadastrarFornecedor = "http://localhost:8080/skygreen/fornecedor/adicionar"
 api_listarFornecedores = "http://localhost:8080/skygreen/fornecedor/"
 api_listarSementes = "http://localhost:8080/skygreen/sementes/listar"
-api_perfilUser = "http://localhost:8080/skygreen/usuario/personal/1"
+api_perfilUser = "http://localhost:8080/skygreen/usuario/personal/"
 
 class Access:
     token = None
+    userId = None
     @staticmethod #deixa a função como estatica, não precisando passar o self
     def login(user,senha,app):
         login_data = {
@@ -20,8 +21,8 @@ class Access:
             response = requests.post(api_login, json=login_data)
             
             if response.status_code == 200:
-                Access.token = response.json().get("token")
-                
+                Access.token = response.json().get("tokenk")
+                Access.userId = response.json().get("userId")
                 app.iniciar_interface()
             else:
                 app.retornar_login()
@@ -160,18 +161,23 @@ class Access:
         }
 
         try:
-            response = requests.get(api_perfilUser, headers=headers)
+            api_MperfilUser = f"{api_perfilUser}{Access.userId}"
+            response = requests.get(api_MperfilUser, headers=headers)
             
             if response.status_code == 200:
                 perfil_api = response.json()
                 dados_perfil = []
                 
-                print(perfil_api)
-                '''for i in perfil_api:
-                    dados_perfil.append({
-                        "id": f"{i.get('id')}"
-                    })
-                return dados_perfil'''
+                dados_perfil.append({
+                    "id": perfil_api.get('id'),
+                    "email": perfil_api.get('email'),
+                    "ativo": perfil_api.get('ativo'),
+                    "cargo": perfil_api.get('role'),
+                    "nome": perfil_api.get('nome'),
+                    "cpf": perfil_api.get('cpf') 
+                })
+                return dados_perfil
+            
             else:
                 print('Falha ao acessar informações:', response.status_code)
                 print('Resposta:', response.text)
