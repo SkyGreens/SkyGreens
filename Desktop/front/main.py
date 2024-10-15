@@ -43,7 +43,6 @@ class main:
     def retornar_login(self):
         self.tela_login = telaLogin(self.root, self)
 
-
 if __name__ == "__main__":
     root = Tk()
     root.title("SkyGreens")
