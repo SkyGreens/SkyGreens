@@ -98,7 +98,7 @@ class telaHome:
             ped_frame = ctk.CTkFrame(self.listaPedidos_frame, corner_radius=10)
             ped_frame.pack(fill="x", padx=10, pady=5)
 
-            ped_label = ctk.CTkLabel(ped_frame, text=f"{i['id']} - {i['nome']} - {i['qtd']}", font=("Arial", 14))
+            ped_label = ctk.CTkLabel(ped_frame, text=f"{i['id']} | {i['nome']} | {i['qtd']}", font=("Arial", 14))
             ped_label.pack(pady=5)
                 
         if not pedidos:
