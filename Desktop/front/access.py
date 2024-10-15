@@ -6,9 +6,11 @@ api_login = "http://localhost:8080/skygreen/auth/login"
 api_cadastrarFornecedor = "http://localhost:8080/skygreen/fornecedor/adicionar"
 api_listarFornecedores = "http://localhost:8080/skygreen/fornecedor/"
 api_listarSementes = "http://localhost:8080/skygreen/sementes/listar"
+api_perfilUser = "http://localhost:8080/skygreen/usuario/personal/"
 
 class Access:
     token = None
+    userId = None
     @staticmethod #deixa a função como estatica, não precisando passar o self
     def login(user,senha,app):
         login_data = {
@@ -19,12 +21,11 @@ class Access:
             response = requests.post(api_login, json=login_data)
             
             if response.status_code == 200:
-                Access.token = response.json().get("token")
-                #print(Access.token)
+                Access.token = response.json().get("tokenk")
+                Access.userId = response.json().get("userId")
                 app.iniciar_interface()
             else:
-                
-                app.retornar_login() 
+                app.retornar_login()
                 return True
 
         except requests.exceptions.RequestException:
@@ -150,5 +151,36 @@ class Access:
             messagebox.showinfo(title="Erro", message="Erro de Conexão") 
 
     def editarFornecedor(id,s,e,t,end,cid,est,pais,ie,rs,cnpj,sementeid):
-            print('Fornecedor Atualizado: ',id)
-            return True
+        print('Fornecedor Atualizado: ',id)
+        return True
+    
+    def visualizarPerfil():
+        
+        headers = {
+            "Authorization": f"Bearer {Access.token}"
+        }
+
+        try:
+            api_MperfilUser = f"{api_perfilUser}{Access.userId}"
+            response = requests.get(api_MperfilUser, headers=headers)
+            
+            if response.status_code == 200:
+                perfil_api = response.json()
+                dados_perfil = []
+                
+                dados_perfil.append({
+                    "id": perfil_api.get('id'),
+                    "email": perfil_api.get('email'),
+                    "ativo": perfil_api.get('ativo'),
+                    "cargo": perfil_api.get('role'),
+                    "nome": perfil_api.get('nome'),
+                    "cpf": perfil_api.get('cpf') 
+                })
+                return dados_perfil
+            
+            else:
+                print('Falha ao acessar informações:', response.status_code)
+                print('Resposta:', response.text)
+
+        except requests.exceptions.RequestException:
+            messagebox.showinfo(title="Erro", message="Erro de Conexão")
