@@ -14,7 +14,7 @@ response = requests.post(url_login, json=login_data)
 
 if response.status_code == 200:
     # Obtém o token JWT
-    token = response.json().get("token")
+    token = response.json().get("tokenk")
     print(f"Token JWT recebido: {token}")
 
     # URL para cadastro da semente

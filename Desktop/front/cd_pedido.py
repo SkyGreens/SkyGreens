@@ -1,35 +1,74 @@
 from tkinter import *  # pip install tkinter
 import customtkinter as ctk  # pip install customtkinter
 
+from access import Access
 
 
-class cadastrarPedido:
+fg = "#316133"  # Cor para botões
+hover = "#5d732f"  # Cor ao passar o mouse
+bg = "#D9D9D9"  # Cor de fundo
+
+
+class cdPedido:
     def __init__(self):
-        self.root = Toplevel()
-        self.root.title("Cadastrar Pedido")
-        self.root.geometry("400x300")
-        self.root.configure(bg="#D9D9D9")
-
+        jn_x = 640
+        jn_y = 300
         
-        Label(self.root, text="Nome do Pedido:", bg="#D9D9D9", font=("Arial", 14)).pack(pady=10)
-        self.nome_entry = Entry(self.root, font=("Arial", 12), width=30)
-        self.nome_entry.pack(pady=5)
-
-        Label(self.root, text="Quantidade:", bg="#D9D9D9", font=("Arial", 14)).pack(pady=10)
-        self.quantidade_entry = Entry(self.root, font=("Arial", 12), width=30)
-        self.quantidade_entry.pack(pady=5)
-
-        Label(self.root, text="Preço:", bg="#D9D9D9", font=("Arial", 14)).pack(pady=10)
-        self.preco_entry = Entry(self.root, font=("Arial", 12), width=30)
-        self.preco_entry.pack(pady=5)
-
+        root = Toplevel()
+        root.title("Cadastrar Pedido")
+        root.geometry(f"{jn_x}x{jn_y}")
+        root.wm_attributes('-toolwindow', 1)
+        root.configure(background=bg)
         
-        btn_salvar = ctk.CTkButton(self.root, text='Salvar Pedido', font=('Arial', 15, 'bold'), corner_radius=3, 
-                                   width=100, height=40, fg_color="#316133", hover_color="#5d732f", 
-                                   command=self.salvar_pedido)
-        btn_salvar.pack(pady=20)
+        self.centralizar_janela(root, jn_x, jn_y)
+        self.elementos_tela(root)
+        root.maxsize(jn_x, jn_y)
+        root.minsize(jn_x, jn_y)
+        root.mainloop()
+        
+    def centralizar_janela(self,root, largura, altura):
 
+        tela_largura = root.winfo_screenwidth()
+        tela_altura = root.winfo_screenheight()
+
+        x = (tela_largura // 2) - (largura // 2)
+        y = (tela_altura // 2) - (altura // 2)
+
+        root.geometry(f"{largura}x{altura}+{x}+{y}")
+    
+    def opcaomenu(self, choice, opmenu_var):
+        if choice is None:
+            opmenu_var.set('Materia Prima')
+        self.semente_selecionada_id = choice
+    
     def salvar_pedido(self):
-        
         print(f"Pedido cadastrado: {self.nome_entry.get()}, {self.quantidade_entry.get()} unidades, R$ {self.preco_entry.get()}")
-        self.root.destroy()
+    
+    def elementos_tela(self,root):  
+        self.semente_selecionada_id = None
+        list_sementes = Access.listarSementes()
+        id_sementes = {"": None}
+        nomes_sementes = [""]
+        
+        for i in list_sementes:
+            id_sementes[i['nome']] = i['id']
+            nomes_sementes.append(i['nome'])
+        
+        opmenu_var = ctk.StringVar(value='Materia Prima')
+        self.sementes = ctk.CTkOptionMenu(root, width=620, height=35, values=nomes_sementes, variable=opmenu_var,
+                                                command=lambda choice: self.opcaomenu(id_sementes[choice], opmenu_var),fg_color=fg)
+        self.sementes.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
+        
+        en_pedido = ctk.CTkEntry(root, width=620, height=35, placeholder_text='Nome do Pedido')
+        en_pedido.grid(row=2,column=0,columnspan=2, padx=10, pady=10)
+
+        en_qtd= ctk.CTkEntry(root, width=620, height=35, placeholder_text='Quantidade')
+        en_qtd.grid(row=3,column=0,columnspan=2, padx=10, pady=10)
+        
+        en_preco = ctk.CTkEntry(root, width=620, height=35, placeholder_text='Preço')
+        en_preco.grid(row=4,column=0,columnspan=2, padx=10, pady=10)
+
+        btn_salvar = ctk.CTkButton(root, width=300, height=35, text='Salvar Pedido', command= self.salvar_pedido,fg_color=fg,hover_color=hover)
+        btn_salvar.grid(row=5, column=0,columnspan=2, padx=10, pady=10)
+
+    
