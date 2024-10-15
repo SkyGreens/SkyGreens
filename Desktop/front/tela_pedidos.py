@@ -42,9 +42,12 @@ class telaPedidos:
         self.pedido_lista()
 
     def pedido_lista(self, event=None):
-        pedidos = [{"id": "1", "nome": "Pedido A", "quantidade": "10", "preco": "100.00"},
-                   {"id": "2", "nome": "Pedido B", "quantidade": "5", "preco": "250.00"},
-                   {"id": "3", "nome": "Pedido C", "quantidade": "20", "preco": "150.00"}]
+        pedidos = [{"id":"000021","cliente":"Carlinhos da Pamonha","nome":"Alface","qtd":10},
+                   {"id":"000315","cliente":"Zé da Pizza","nome":"Tomate","qtd":2},
+                   {"id":"000561","cliente":"Maria Benedita Mercadin","nome":"Milho","qtd":25},
+                   {"id":"000369","cliente":"Pamonha Mil Grau","nome":"Pocã","qtd":20},
+                   {"id":"000456","cliente":"Tomate Cem","nome":"Banana","qtd":30},
+                   {"id":"000159","cliente":"Mercadin Seu Jão","nome":"Maça","qtd":15}]
 
         # Limpar os pedidos anteriores
         for widget in self.lista_frame.winfo_children():
@@ -62,7 +65,7 @@ class telaPedidos:
                 pedido_frame.pack(fill="x", padx=10, pady=5)
 
                 pedido_label = ctk.CTkLabel(pedido_frame, 
-                                            text=f"{i['id']} - {i['nome']} - Quantidade: {i['quantidade']} - Preço: R$ {i['preco']}", 
+                                            text=f"{i['id']} | {i['cliente']} | {i['nome']} | Quantidade: {i['qtd']}", 
                                             font=("Arial", 14))
                 pedido_label.pack(pady=5)
 
