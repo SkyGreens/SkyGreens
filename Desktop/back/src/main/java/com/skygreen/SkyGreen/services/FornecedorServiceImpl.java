@@ -1,6 +1,7 @@
 package com.skygreen.SkyGreen.services;
 
 import java.util.List;
+import java.lang.classfile.ClassFile.Option;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -65,7 +66,20 @@ public class FornecedorServiceImpl implements IFornecedorService {
 
     @Override
     public FornecedorEntity update(@RequestBody FornecedorEntity fornecedor) {
-        fornecedor = repository.save(fornecedor);
+        Optional<FornecedorEntity> fornecedorExistente = repository.findById(fornecedor.getFornecedorId());
+
+        fornecedorExistente.get().setAtivo(fornecedor.getAtivo()); 
+        fornecedorExistente.get().setEmail(fornecedor.getEmail());
+        fornecedorExistente.get().setTelefone(fornecedor.getTelefone());
+        fornecedorExistente.get().setEndereco(fornecedor.getEndereco());
+        fornecedorExistente.get().setCidade(fornecedor.getCidade());
+        fornecedorExistente.get().setEstado(fornecedor.getEstado()); 
+        fornecedorExistente.get().setPais(fornecedor.getPais());
+        fornecedorExistente.get().setInscricaoEstadual(fornecedor.getInscricaoEstadual());
+        fornecedorExistente.get().setRazaoSocial(fornecedor.getRazaoSocial());
+        fornecedorExistente.get().setCnpj(fornecedor.getCnpj());
+
+        fornecedor = repository.save(fornecedorExistente.get());
         return fornecedor;
     }
 
