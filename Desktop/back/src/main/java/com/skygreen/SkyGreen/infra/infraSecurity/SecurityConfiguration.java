@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.skygreen.SkyGreen.Util.JwtUtil;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
@@ -28,19 +30,12 @@ public class SecurityConfiguration {
                 //.cors(cors -> cors.disable())  // Desabilita CORS da forma recomendada
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) 
                 .authorizeHttpRequests(auth -> auth                         
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/register").hasRole("ADMIN")
-                        .requestMatchers( "/usuario/**").hasRole("ADMIN")
-                        .requestMatchers( "/compras/**").hasRole("ADMIN")
-                        .requestMatchers( "/sementes/**").hasRole("ADMIN")
-                        .requestMatchers( "/fornecedor/**").hasRole("ADMIN")
-                        .requestMatchers( "/producao/**").hasRole("ADMIN")
-                        .requestMatchers( "/estoque/**").hasRole("ADMIN")
-                        .requestMatchers( "/prateleira/**").hasRole("ADMIN")
-                        .requestMatchers("/usuario/personal/**").authenticated()
-                        .requestMatchers("/usuario/**", "/compras/**", "/sementes/**", "/fornecedor/**", "/estoque/**", "/prateleira/**").hasRole("ADMIN")
+                        .requestMatchers(JwtUtil.ENDPOINTS_WITH_USER_CAN_ACCESS).permitAll()
+                        .requestMatchers(JwtUtil.ENDPOINTS_WITH_ADMIN_CAN_ACCESS).hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, JwtUtil.ENDPOINTS_WITH_ASSISTENTE_CAN_ACCESS).hasAnyRole("ADMIN","ASSISTENTEPRODUCAO", "GERENTEPRODUCAO")
+                        .requestMatchers(JwtUtil.ENDPOINTS_WITH_GERENTE_CAN_ACCESS).hasAnyRole("ADMIN","GERENTEPRODUCAO")
                         .requestMatchers("/h2-console/**").permitAll()
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 )
                 .headers(headers -> headers.frameOptions().disable())  // Para permitir o uso do H2
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);

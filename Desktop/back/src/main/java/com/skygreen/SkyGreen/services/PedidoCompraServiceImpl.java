@@ -1,6 +1,8 @@
 package com.skygreen.SkyGreen.services;
 
 import java.util.List;
+import java.time.LocalDateTime;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,7 @@ public class PedidoCompraServiceImpl implements IPedidoCompraService {
     @Override
     public PedidoCompraEntity criarPedido(PedidoCompraEntity pedidoCompra) {
 
+        pedidoCompra.setDataPedido(LocalDateTime.now());
         PedidoCompraEntity novoPedido = pedidoRepository.save(pedidoCompra);
 
         SementeEntity semente = novoPedido.getSemente();
