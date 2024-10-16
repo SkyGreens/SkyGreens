@@ -81,7 +81,7 @@ public class ProducaoServiceImpl implements IProducaoService {
     @Override
     public ProducaoEntity update(@RequestBody ProducaoEntity producao) throws Exception {
 
-        Optional<ProducaoEntity> producaoExistente = producaoRepository.findById(producao.getInteger());
+        Optional<ProducaoEntity> producaoExistente = producaoRepository.findById(producao.getProducaoId());
         
         //validar se a producao existe
         if(!producaoExistente.isPresent()){

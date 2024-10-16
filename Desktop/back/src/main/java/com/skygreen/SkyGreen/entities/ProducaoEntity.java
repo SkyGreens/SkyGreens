@@ -26,7 +26,7 @@ public class ProducaoEntity implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Integer;
+    private int producaoId;
 
     private Integer sementeId; 
     private Integer sementeQuantidade; 
