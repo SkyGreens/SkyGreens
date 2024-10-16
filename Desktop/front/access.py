@@ -21,7 +21,7 @@ class Access:
             response = requests.post(api_login, json=login_data)
             
             if response.status_code == 200:
-                Access.token = response.json().get("tokenk")
+                Access.token = response.json().get("token")
                 Access.userId = response.json().get("userId")
                 app.iniciar_interface()
             else:
