@@ -1,6 +1,6 @@
 package com.skygreen.SkyGreen.entities;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,7 +27,7 @@ public class PedidoCompraEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer pedidoCompraId;
 
-    private LocalDate dataPedido;
+    private LocalDateTime dataPedido;
 
     private int quantidade;
 
