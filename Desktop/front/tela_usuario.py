@@ -2,6 +2,7 @@ from tkinter import * # pip install tkinter
 import customtkinter as ctk # pip install customtkinter
 
 from cd_usuario import cdUsuario 
+from access import Access
 
 fg = "#316133"  # Cor para botões
 hover = "#5d732f"  # Cor ao passar o mouse
@@ -44,34 +45,24 @@ class telaUsuarios:
 
     def usuario_lista(self, event=None):
         
-        usuarios = [{"id":"1","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente de Produção"},
-                     {"id":"2","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente de Administrador"},
-                     {"id":"3","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente"},
-                     {"id":"4","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Assistente"},
-                     {"id":"5","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente de Produção"},
-                     {"id":"6","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente de Produção"},
-                     {"id":"7","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente de Produção"},
-                     {"id":"8","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente de Produção"},
-                     {"id":"9","nome":"Carlos Alberto","cargo":"Gerente de Produção"}]
+        usuarios = Access.listarUsuarios()
+        
+        termoPesq = self.pesq_conteudo.get().lower()
         
         # Limpar os fornecedores anteriores
         for widget in self.lista_frame.winfo_children():
             widget.destroy()
-
-        termoPesq = self.pesq_conteudo.get().lower()
         
         # Exibir fornecedores correspondentes à pesquisa
         for i in usuarios:
-            if (termoPesq in i['id'].lower() or
+            if (termoPesq in i['cpf'].lower() or
                 termoPesq in i['nome'].lower() or
                 termoPesq in i['cargo'].lower()):
                 
                 user_frame = ctk.CTkFrame(self.lista_frame, corner_radius=10)
                 user_frame.pack(fill="x", padx=10, pady=5)
 
-                user_label = ctk.CTkLabel(user_frame, 
-                                                text=f"{i['id']} - {i['nome']} - Cargo: {i['cargo']}", 
-                                                font=("Arial", 14))
+                user_label = ctk.CTkLabel(user_frame, text=f"Nome: {i['nome']} | Cargo: {i['cargo']}", font=("Arial", 14))
                 user_label.pack(pady=5)
                 
         if not usuarios:

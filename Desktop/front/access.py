@@ -7,6 +7,7 @@ api_cadastrarFornecedor = "http://localhost:8080/skygreen/fornecedor/adicionar"
 api_listarFornecedores = "http://localhost:8080/skygreen/fornecedor/"
 api_listarSementes = "http://localhost:8080/skygreen/sementes/listar"
 api_perfilUser = "http://localhost:8080/skygreen/usuario/personal/"
+api_listarUsuario = "http://localhost:8080/skygreen/usuario/listar"
 
 class Access:
     token = None
@@ -184,3 +185,35 @@ class Access:
 
         except requests.exceptions.RequestException:
             messagebox.showinfo(title="Erro", message="Erro de Conexão")
+            
+    def listarUsuarios():
+        
+        headers = {
+            "Authorization": f"Bearer {Access.token}"
+        }
+
+        try:
+            response = requests.get(api_listarUsuario, headers=headers)
+            
+            if response.status_code == 200:
+                
+                usuarios_api = response.json()
+                usuarios = []
+                
+                for user in usuarios_api:
+                    
+                    usuarios.append({
+                        #"id":user.get('id'),
+                        "cpf": user.get('cpf'),
+                        "cargo": user.get('role'),
+                        "nome": user.get('nome'),
+                        "status": user.get('ativo'),
+                        "email": user.get('email')
+                    })
+                return usuarios 
+            else:
+                print('Falha ao listar fornecedores:', response.status_code)
+                print('Resposta:', response.text)
+
+        except requests.exceptions.RequestException:
+            messagebox.showinfo(title="Erro", message="Erro de Conexão")   
