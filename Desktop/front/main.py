@@ -1,5 +1,7 @@
 from tkinter import *  # pip install tkinter
 
+from jar import Jar
+
 from tela_login import telaLogin
 from tela_base import telaBase
 from tela_home import telaHome
@@ -44,6 +46,7 @@ class main:
         self.tela_login = telaLogin(self.root, self)
 
 if __name__ == "__main__":
+    jar_instance = Jar()
     root = Tk()
     root.title("SkyGreens")
     root.configure(background=bg)
