@@ -46,7 +46,7 @@ class cdUsuario:
         self.dados = None
         if i == 1:
             from tela_usuario import telaUsuarios
-            telaUsuarios.usuario_lista()
+            telaUsuarios.usuario_lista(self.callback)
 
     def modificacao_usuario(self, cpf, cargo, nome, status, email):
         status = "false" if status == "Inativo" else "true"
@@ -126,7 +126,7 @@ class cdUsuario:
                                                   ,command=lambda choice: self.opcaomenu(cargo_map_invertido[choice],opmenu_var))
         self.widgets['cargo'].grid(row=4, column=0, padx=10, pady=10)
         self.widgets['cargo'].configure(state=estado_campo)
-
+            
         status_inicial = "Ativo" if not self.dados or self.dados.get(
             'status', True) else "Inativo"
         self.switch_var = ctk.StringVar(value=status_inicial)
