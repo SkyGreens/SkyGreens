@@ -2,6 +2,7 @@ from tkinter import * # pip install tkinter
 import customtkinter as ctk # pip install customtkinter
 
 from cd_usuario import cdUsuario 
+from access import Access
 
 fg = "#316133"  # Cor para botões
 hover = "#5d732f"  # Cor ao passar o mouse
@@ -11,10 +12,9 @@ bg_frame = "#E7E7E7"  # Cor de fundo do frame
 
 class telaUsuarios:
     
-    def __init__(self,root,controller):
+    def __init__(self,root):
 
         self.root=root
-        self.controller=controller
         self.frame = Frame(self.root)
         self.frame.pack(side=LEFT)
         self.frame.configure(background=bg)
@@ -32,7 +32,7 @@ class telaUsuarios:
 
         
         btn_cadastrarUser = ctk.CTkButton(pesquisar_frame, text='Cadastrar Usuário', font=('Arial', 15, 'bold'), corner_radius=3, width=100, height=40,
-                               fg_color=fg, hover_color=hover,command=lambda:cdUsuario())
+                               fg_color=fg, hover_color=hover,command=lambda:cdUsuario(self))
         btn_cadastrarUser.pack(pady=5, padx=10, side=RIGHT)
 
         # lista de fornecedores
@@ -42,43 +42,43 @@ class telaUsuarios:
         # Carrega a lista completa
         self.usuario_lista()
 
-    def usuario_lista(self, event=None):
+    def usuario_lista(self,event=None):
         
-        usuarios = [{"id":"1","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente de Produção"},
-                     {"id":"2","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente de Administrador"},
-                     {"id":"3","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente"},
-                     {"id":"4","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Assistente"},
-                     {"id":"5","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente de Produção"},
-                     {"id":"6","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente de Produção"},
-                     {"id":"7","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente de Produção"},
-                     {"id":"8","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente de Produção"},
-                     {"id":"9","nome":"Carlos Alberto","cargo":"Gerente de Produção"}]
+        usuarios = Access.listarUsuarios()
+        termoPesq = self.pesq_conteudo.get().lower()
         
         # Limpar os fornecedores anteriores
         for widget in self.lista_frame.winfo_children():
             widget.destroy()
-
-        termoPesq = self.pesq_conteudo.get().lower()
+        
+        cargo_map = {"ADMIN": "Administrador","GERENTEPRODUCAO": "Gerente de Produção","ASSISTENTEPRODUCAO": "Assistente de Produção"}
         
         # Exibir fornecedores correspondentes à pesquisa
         for i in usuarios:
-            if (termoPesq in i['id'].lower() or
+            if (termoPesq in i['cpf'].lower() or
                 termoPesq in i['nome'].lower() or
                 termoPesq in i['cargo'].lower()):
                 
                 user_frame = ctk.CTkFrame(self.lista_frame, corner_radius=10)
                 user_frame.pack(fill="x", padx=10, pady=5)
+                
+                cargo_visual = cargo_map.get(i['cargo'])
 
-                user_label = ctk.CTkLabel(user_frame, 
-                                                text=f"{i['id']} - {i['nome']} - Cargo: {i['cargo']}", 
-                                                font=("Arial", 14))
-                user_label.pack(pady=5)
+                user_label = ctk.CTkLabel(user_frame, text=f"Nome: {i['nome']} | Cargo: {cargo_visual}", font=("Arial", 14))
+                user_label.pack(side="left",pady=5)
+                
+                btn_editar = ctk.CTkButton(user_frame, text="Editar",  width=30,height=30, command=lambda dados=i: self.abrir_tela(dados,1),fg_color=fg,hover_color=hover)
+                btn_editar.pack(side="right", padx=5, pady=5)
+                
+                user_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela(dados,0))
                 
         if not usuarios:
             msg_label = ctk.CTkLabel(self.lista_frame, text="Nenhum usuário encontrado.", font=("Arial", 14))
             msg_label.pack(pady=5)
 
-
+    def abrir_tela(self, dados,n):
+        cdUsuario(self, dados=dados,editar=n)
+    
     def mostrar(self):
         self.frame.pack()
 
