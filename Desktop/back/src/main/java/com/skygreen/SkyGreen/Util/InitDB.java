@@ -2,6 +2,7 @@ package com.skygreen.SkyGreen.Util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.skygreen.SkyGreen.Controller.AuthenticationController;
@@ -11,6 +12,7 @@ import com.skygreen.SkyGreen.entities.UsuarioRole;
 import com.skygreen.SkyGreen.repositories.PrateleiraRepository;
 
 @Component
+@Profile("dsv")
 public class InitDB implements CommandLineRunner {
 
     @Autowired

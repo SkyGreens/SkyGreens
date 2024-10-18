@@ -67,17 +67,17 @@ public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService {
     @Override
     public UsuarioEntity updateUsuario(@RequestBody UsuarioEntity usuario) {
 
-        usuario = repository.findById(usuario.getId()).orElse(null);
+       UsuarioEntity usuarioAntigo = repository.findById(usuario.getId()).orElse(null);
 
-        usuario.setAtivo(usuario.getAtivo());
-        usuario.setRole(usuario.getRole());
-        usuario.setCpf(usuario.getCpf());
-        usuario.setEmail(usuario.getEmail());
-        usuario.setId(usuario.getId());
-        usuario.setNome(usuario.getNome());
-        usuario.setSenha(usuario.getSenha());
+        usuarioAntigo.setAtivo(usuario.getAtivo());
+        //usuarioAntigo.setRole(usuario.getRole());
+        usuarioAntigo.setCpf(usuario.getCpf());
+        usuarioAntigo.setEmail(usuario.getEmail());
+        usuarioAntigo.setId(usuario.getId());
+        usuarioAntigo.setNome(usuario.getNome());
+        //usuarioAntigo.setSenha(usuario.getSenha());
 
-        usuario = repository.save(usuario);
+        usuario = repository.save(usuarioAntigo);
         return usuario;
     }
 
