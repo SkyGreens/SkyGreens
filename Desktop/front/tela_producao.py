@@ -10,9 +10,8 @@ hover = "#5d732f"  # Cor ao passar o mouse
 bg = "#D9D9D9"  # Cor de fundo
 
 class telaProducao:
-    def __init__(self, root, controller):
+    def __init__(self, root):
         self.root = root
-        self.controller = controller
         self.frame = Frame(self.root)
         self.frame.pack(side=LEFT)
         self.frame.configure(background=bg)

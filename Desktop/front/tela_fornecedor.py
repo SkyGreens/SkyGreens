@@ -48,7 +48,7 @@ class telaFornecedor:
         # Carrega a lista completa
         self.fornecedor_lista()
         
-    def fornecedor_lista(self,op_status="Ativo"):
+    def fornecedor_lista(self,op_status="Ativo",event=None):
         
         fornecedores = Access.listarFornecedores()
         

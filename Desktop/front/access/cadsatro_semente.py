@@ -14,7 +14,7 @@ response = requests.post(url_login, json=login_data)
 
 if response.status_code == 200:
     # Obtém o token JWT
-    token = response.json().get("tokenk")
+    token = response.json().get("token")
     print(f"Token JWT recebido: {token}")
 
     # URL para cadastro da semente
@@ -22,10 +22,10 @@ if response.status_code == 200:
 
     # Dados da semente a ser cadastrada
     semente_data = {
-        #"nome": "Semente de Alface",
-        #"descricao": "Semente ideal para cultivo hidropônico"
-        "nome": "Semente de Milho",
+        "nome": "Semente de Alface",
         "descricao": "Semente ideal para cultivo hidropônico"
+        #"nome": "Semente de Milho",
+        #"descricao": "Semente ideal para cultivo hidropônico"
         
     }
 

@@ -13,10 +13,9 @@ bg_frame = "#E7E7E7"  # Cor de fundo do frame
 
 class telaHome:
 
-    def __init__(self, root, controller):
+    def __init__(self, root):
         self.root = root
-        self.controller = controller
-
+        
         # Frame principal configurado para usar pack
         self.frame = Frame(self.root, background=bg)
         self.frame.pack(fill="both", expand=True)

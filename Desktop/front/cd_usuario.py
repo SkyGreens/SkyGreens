@@ -1,32 +1,37 @@
-import customtkinter as ctk # pip install customtkinter
-from tkinter import Toplevel # pip install tkinter
+import customtkinter as ctk  # pip install customtkinter
+from tkinter import Toplevel  # pip install tkinter
 import random
 
-#from access import Access
+from access import Access
 
 fg = "#316133"  # Cor para botões
 hover = "#5d732f"  # Cor ao passar o mouse
 bg = "#D9D9D9"  # Cor de fundo
 
+
 class cdUsuario:
-    def __init__(self):
-        jn_x = 640
-        jn_y = 300
-        root = Toplevel()
-        root.title("Cadastrar Usuário")
-        root.geometry(f"{jn_x}x{jn_y}")
-        root.wm_attributes('-toolwindow', 1)
-        root.configure(background=bg)
+    def __init__(self, callback, dados=None, editar=None):
+        self.jn_x = 640
+        self.jn_y = 290
 
-        #ctk.set_appearance_mode("light")
-        
-        self.centralizar_janela(root, jn_x, jn_y)
-        self.elementos_tela(root)
-        root.maxsize(jn_x, jn_y)
-        root.minsize(jn_x, jn_y)
-        root.mainloop()
+        self.callback = callback
+        self.dados = dados
+        self.editar = editar
 
-    def centralizar_janela(self,root, largura, altura):
+        self.root = Toplevel()
+        self.root.title("Consultar Fornecedor" if editar ==
+                        0 else "Editar Fornecedor" if editar == 1 else "Cadastrar Fornecedor")
+        self.root.geometry(f"{self.jn_x}x{self.jn_y}")
+        self.root.wm_attributes('-toolwindow', 1)
+        self.root.configure(background=bg)
+
+        self.centralizar_janela(self.root, self.jn_x, self.jn_y)
+        self.elementos_tela(self.root)
+        self.root.maxsize(self.jn_x, self.jn_y)
+        self.root.minsize(self.jn_x, self.jn_y)
+        self.root.mainloop()
+
+    def centralizar_janela(self, root, largura, altura):
 
         tela_largura = root.winfo_screenwidth()
         tela_altura = root.winfo_screenheight()
@@ -35,46 +40,116 @@ class cdUsuario:
         y = (tela_altura // 2) - (altura // 2)
 
         root.geometry(f"{largura}x{altura}+{x}+{y}")
-    
-    def cadastrar_usuario(self,cpf,cargo, nome, status,email):
-        status = False if status == "Inativo" else True
 
-        sn_parte = str(random.randint(100,999)) #gera 3 numeros aleatorios para compor a senha
-        senha = cpf[0:3]+sn_parte
+    def atualizar_pagina(self, i=0):
+        self.root.destroy()
+        self.dados = None
+        if i == 1:
+            from tela_usuario import telaUsuarios
+            telaUsuarios.usuario_lista(self.callback)
 
-        print(f"Usuário Cadastrado\nCPF: {cpf}\nNome: {nome}\nCargo: {cargo}\nSenha: {senha}\nStatus: {status}\nE-mail: {email}")
-        #Access.cadastrarUsuario(cpf,senha,cargo,nome,status,email)
+    def modificacao_usuario(self, cpf, cargo, nome, status, email):
+        status = "false" if status == "Inativo" else "true"
 
+        senha = cpf[0:3]
+        
+        if self.editar == 1:
+            iduser = self.dados['id']
+            result = Access.editarUsuario(
+                iduser, cpf, cargo, nome, status, email)
+        else:
+            result = Access.cadastroUsuario(
+                cpf, senha, cargo, nome, status, email)
+
+        if result:
+            self.atualizar_pagina(1)
+
+    def excluir_usuario(self):
+        iduser = self.dados['id']
+        result = Access.excluirUsuario(iduser)
+        
+        if result:
+            self.atualizar_pagina(1)
+        
     def voltar_pagina(self, root):
         root.destroy()
+        
+    def opcaomenu(self, choice, opmenu_var):
+        if choice is None:
+            opmenu_var.set('Administrador')
+        
+        if choice == 1:
+            escolha = "ADMIN"
+        elif choice == 2:
+            escolha = "GERENTEPRODUCAO"
+        elif choice == 3:
+            escolha = "ASSISTENTEPRODUCAO"
+            
+        self.cargo_selecionado_interno = escolha
 
     def switch(self, switch_var):
         switch_var.set("Inativo")
 
     def elementos_tela(self, root):
-        widgets = {}
+        estado_campo = "normal" if self.editar != 0 else "disabled"
 
-        widgets['cpf'] = ctk.CTkEntry(root, width=620, height=35, placeholder_text='CPF')
-        widgets['cpf'].grid(row=1,column=0,columnspan=2, padx=10, pady=10)
+        campos = [('CPF', 'cpf', 0), ('Nome', 'nome', 1),
+                  ('Email', 'email', 2)]
+        self.widgets = {}
 
-        widgets['nome'] = ctk.CTkEntry(root, width=620, height=35, placeholder_text='Nome')
-        widgets['nome'].grid(row=2,column=0,columnspan=2, padx=10, pady=10)
+        for (placeholder, comp_nome, row, *column) in campos:
+            col = column[0] if column else 0
+
+            self.widgets[comp_nome] = ctk.CTkEntry(
+                root, width=620 if not column else 300, height=35, placeholder_text=placeholder)
+
+            if self.dados and comp_nome in self.dados:
+                valor = self.dados[comp_nome]
+                if valor:
+                    self.widgets[comp_nome].insert(0, valor)
+
+            self.widgets[comp_nome].configure(state=estado_campo)
+            self.widgets[comp_nome].grid(
+                row=row, column=col, columnspan=2 if not column else 1, padx=10, pady=10)
+
+        cargo_map = {"ADMIN": "Administrador", "GERENTEPRODUCAO": "Gerente de Produção",
+                     "ASSISTENTEPRODUCAO": "Assistente de Produção"}
+        cargo_map_invertido = {"Administrador": 1, "Gerente de Produção":
+                               2, "Assistente de Produção": 3}
+
+        self.cargo_selecionado_interno = None
+        list_cargos = list(cargo_map.values())
+
+        # Variável e criação do menu de opções de cargo
+        opmenu_var = ctk.StringVar(value=cargo_map.get((self.dados.get('cargo'))) if self.dados and cargo_map.get((self.dados.get('cargo'))) else 'Escolha o Cargo')
+        self.widgets['cargo'] = ctk.CTkOptionMenu(root, width=300, height=35, values=list_cargos, variable=opmenu_var, fg_color=fg
+                                                  ,command=lambda choice: self.opcaomenu(cargo_map_invertido[choice],opmenu_var))
+        self.widgets['cargo'].grid(row=4, column=0, padx=10, pady=10)
+        self.widgets['cargo'].configure(state=estado_campo)
+            
+        status_inicial = "Ativo" if not self.dados or self.dados.get(
+            'status', True) else "Inativo"
+        self.switch_var = ctk.StringVar(value=status_inicial)
+        self.widgets['status'] = ctk.CTkSwitch(root, textvariable=self.switch_var, width=300,
+                                               height=35, variable=self.switch_var, onvalue="Ativo", offvalue="Inativo", fg_color=fg)
+        self.widgets['status'].grid(row=4, column=1, padx=10, pady=10)
+        self.widgets['status'].configure(state=estado_campo)
+
+        if self.editar == 1:
+            btn_excluir = ctk.CTkButton(root, width=200, height=20, text='Excluir Usuario',command = self.excluir_usuario, fg_color="red", hover_color=hover)
+            btn_excluir.grid(row=5, column=0,columnspan=2, padx=10, pady=10)
+            self.jn_y = 310
         
-        widgets['e-mail'] = ctk.CTkEntry(root, width=620, height=35, placeholder_text='E-mail')
-        widgets['e-mail'].grid(row=3,column=0,columnspan=2, padx=10, pady=10)
+        if self.editar != 0:
+            btn_cancelar = ctk.CTkButton(root, width=300, height=35, text='Cancelar',
+                                         command=lambda: self.voltar_pagina(root), fg_color=fg, hover_color=hover)
+            btn_cancelar.grid(row=6, column=0, padx=10, pady=10)
 
-        list_cargos = ["Administrador", "Gerente de Produção", "Assistente de Produção"]
-        opmenu_var = ctk.StringVar(value='Escolha um Cargo')
-        widgets['cargo'] = ctk.CTkOptionMenu(root, width=300, height=35, values=list_cargos, variable=opmenu_var,fg_color=fg)
-        widgets['cargo'].grid(row=4, column=0, padx=10, pady=10)
-
-        switch_var = ctk.StringVar(value="Ativo")
-        widgets['status'] = ctk.CTkSwitch(root, textvariable=switch_var, width=300, height=35, variable=switch_var, onvalue="Ativo", offvalue="Inativo",fg_color=fg)
-        widgets['status'].grid(row=4, column=1, padx=10, pady=10)
-
-        btn_cancelar = ctk.CTkButton(root, width=300, height=35, text='Cancelar', command=lambda: self.voltar_pagina(root),fg_color=fg,hover_color=hover)
-        btn_cancelar.grid(row=5, column=0, padx=10, pady=10)
-
-        btn_registrar = ctk.CTkButton(root, width=300, height=35, text='Registrar', command=lambda: self.cadastrar_usuario(
-            widgets['cpf'].get(),widgets['cargo'].get(), widgets['nome'].get(), widgets['status'].get(),widgets['e-mail'].get()),fg_color=fg,hover_color=hover)
-        btn_registrar.grid(row=5, column=1, padx=10, pady=10)
+            btn_texto = 'Atualizar' if self.dados else 'Registrar'
+            btn_registrar = ctk.CTkButton(root, width=300, height=35, text=btn_texto, command=lambda: self.modificacao_usuario(
+                self.widgets['cpf'].get(), self.cargo_selecionado_interno, self.widgets['nome'].get(), self.widgets['status'].get(), self.widgets['email'].get()), fg_color=fg, hover_color=hover)
+            btn_registrar.grid(row=6, column=1, padx=10, pady=10)
+        else:
+            btn_ok = ctk.CTkButton(root, width=300, height=35, text='Ok', command=lambda: self.voltar_pagina(
+                root), fg_color=fg, hover_color=hover)
+            btn_ok.grid(row=6, column=0, columnspan=2, padx=10, pady=10)
