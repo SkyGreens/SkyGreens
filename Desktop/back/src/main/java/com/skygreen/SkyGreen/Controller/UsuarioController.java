@@ -51,7 +51,7 @@ public class UsuarioController {
     @PutMapping("/update")
     public ResponseEntity<UsuarioEntity> updateUsuario(@RequestBody UsuarioEntity usuario) {
 
-        UsuarioEntity usuarioAtualizado = usuarioService.add(usuario);
+        UsuarioEntity usuarioAtualizado = usuarioService.updateUsuario(usuario);
         return ResponseEntity.ok().body(usuarioAtualizado);
     }
 
