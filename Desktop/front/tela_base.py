@@ -2,10 +2,14 @@ from tkinter import * #pip install tkinter
 import customtkinter as ctk #pip install customtkinter
 
 from perfil_user import perfilUser
+from style import Style
 
 fg = "#316133"  # Cor para botões
 hover = "#5d732f"  # Cor ao passar o mouse
 bg = "#D9D9D9"  # Cor de fundo
+
+#c30000 - vermelho botao
+#6f0000 - vermelho hover
 
 class telaBase:
     def __init__(self, root):
@@ -14,15 +18,21 @@ class telaBase:
         self.menu()
         self.verificar(1)
 
+    def fechar_programa(self):
+        self.root.quit()
+
     def top(self):
         frame_top = Frame(self.root)
         frame_top.pack(side=TOP, fill="x")
 
         label = ctk.CTkLabel(frame_top, text="SkyGreens", font=('Arial', 20, 'bold'), width=200, height=40, text_color="#353847")
         label.pack(pady=10, side=LEFT)
+        
+        btn_sair = ctk.CTkButton(frame_top,text="",image=Style.img('img_icon_saida'),width=0,hover_color="#6f0000",fg_color="#c30000",command=self.fechar_programa)
+        btn_sair.pack(pady=10,padx=20,side=RIGHT)
 
-        btn_perfil = ctk.CTkButton(frame_top, text="Perfil", width=60, hover_color=hover, fg_color=fg,command=perfilUser)
-        btn_perfil.pack(pady=10, padx=20, side=RIGHT)
+        btn_perfil = ctk.CTkButton(frame_top,text="",image=Style.img('img_icon_perfil'),width=0,hover_color=hover,fg_color="#172200",command=perfilUser)
+        btn_perfil.pack(pady=10,padx=20,side=RIGHT)
 
     def menu(self):
         frame = Frame(self.root)
