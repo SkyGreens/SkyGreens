@@ -46,13 +46,13 @@ class cdUsuario:
         self.dados = None
         if i == 1:
             from tela_usuario import telaUsuarios
-            telaUsuarios.usuario_lista(self.callback)
+            telaUsuarios.usuario_lista()
 
     def modificacao_usuario(self, cpf, cargo, nome, status, email):
         status = "false" if status == "Inativo" else "true"
 
         senha = cpf[0:3]
-        print(senha)
+        
         if self.editar == 1:
             iduser = self.dados['id']
             result = Access.editarUsuario(

@@ -12,10 +12,9 @@ bg_frame = "#E7E7E7"  # Cor de fundo do frame
 
 class telaUsuarios:
     
-    def __init__(self,root,controller):
+    def __init__(self,root):
 
         self.root=root
-        self.controller=controller
         self.frame = Frame(self.root)
         self.frame.pack(side=LEFT)
         self.frame.configure(background=bg)
@@ -43,7 +42,7 @@ class telaUsuarios:
         # Carrega a lista completa
         self.usuario_lista()
 
-    def usuario_lista(self):
+    def usuario_lista(self,event=None):
         
         usuarios = Access.listarUsuarios()
         termoPesq = self.pesq_conteudo.get().lower()
