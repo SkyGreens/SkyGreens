@@ -10,6 +10,7 @@ api_perfilUser = "http://localhost:8080/skygreen/usuario/personal/"
 api_listarUsuario = "http://localhost:8080/skygreen/usuario/listar"
 api_especificoUsuario = "http://localhost:8080/skygreen/usuario/"
 api_cadastrarUsuario = "http://localhost:8080/skygreen/auth/register"
+api_editarUsuario = "http://localhost:8080/skygreen/usuario/update"
 
 class Access:
     token = None
@@ -246,16 +247,40 @@ class Access:
         try:  
             response = requests.post(api_cadastrarUsuario, json=cadatro_data, headers=headers)
             if response.status_code == 200:
-                print('Fornecedor Adicionado')
+                print('Usuario Adicionado')
                 return True
             else:
                 
-                print('Fornecedor Não Adicionado',response.status_code)
+                print('Usuario Não Adicionado',response.status_code)
                 return False
                 
         except requests.exceptions.RequestException:
                 messagebox.showinfo(title="Erro",message=f"Erro de Conexão")
                 
-    def editarUsuario():
-        print('Usuario Atualizado: ')
-        return True
+    def editarUsuario(iduser,cpf,cargo,nome,status,email):
+        data = {
+            "id":iduser,
+            "cpf" : f"{cpf}",
+            "role" : f"{cargo}",
+            "nome" : f"{nome}",
+            "ativo" : f"{status}",
+            "email" : f"{email}"
+        }
+        
+        headers = {
+            'Content-Type': 'application/json',
+            "Authorization": f"Bearer {Access.token}"
+        }
+        
+        try:  
+            response = requests.put(api_editarUsuario, json=data, headers=headers)
+            if response.status_code == 200:
+                print('Usuario Atualizado')
+                return True
+            else:
+                
+                print('Usuario Não Atualizado',response.status_code)
+                return False
+                
+        except requests.exceptions.RequestException:
+                messagebox.showinfo(title="Erro",message=f"Erro de Conexão")
