@@ -11,6 +11,7 @@ api_listarUsuario = "http://localhost:8080/skygreen/usuario/listar"
 api_especificoUsuario = "http://localhost:8080/skygreen/usuario/"
 api_cadastrarUsuario = "http://localhost:8080/skygreen/auth/register"
 api_editarUsuario = "http://localhost:8080/skygreen/usuario/update"
+api_deleteUsuario = "http://localhost:8080/skygreen/usuario/delete/"
 
 class Access:
     token = None
@@ -284,3 +285,22 @@ class Access:
                 
         except requests.exceptions.RequestException:
                 messagebox.showinfo(title="Erro",message=f"Erro de Conexão")
+                
+    def excluirUsuario(iduser):
+        headers = {
+            "Authorization": f"Bearer {Access.token}"
+        }
+        try:
+            api_userDelete = f"{api_deleteUsuario}{iduser}"
+            response = requests.delete(api_userDelete, headers=headers)
+            
+            if response.status_code == 200:
+                print('Usuario Excluido:')
+                return True
+            
+            else:
+                print('Erro ao excluir usuario:', response.status_code)
+                print('Resposta:', response.text)
+
+        except requests.exceptions.RequestException:
+            messagebox.showinfo(title="Erro", message="Erro de Conexão")

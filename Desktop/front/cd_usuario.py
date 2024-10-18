@@ -11,8 +11,8 @@ bg = "#D9D9D9"  # Cor de fundo
 
 class cdUsuario:
     def __init__(self, callback, dados=None, editar=None):
-        jn_x = 640
-        jn_y = 300
+        self.jn_x = 640
+        self.jn_y = 290
 
         self.callback = callback
         self.dados = dados
@@ -21,14 +21,14 @@ class cdUsuario:
         self.root = Toplevel()
         self.root.title("Consultar Fornecedor" if editar ==
                         0 else "Editar Fornecedor" if editar == 1 else "Cadastrar Fornecedor")
-        self.root.geometry(f"{jn_x}x{jn_y}")
+        self.root.geometry(f"{self.jn_x}x{self.jn_y}")
         self.root.wm_attributes('-toolwindow', 1)
         self.root.configure(background=bg)
 
-        self.centralizar_janela(self.root, jn_x, jn_y)
+        self.centralizar_janela(self.root, self.jn_x, self.jn_y)
         self.elementos_tela(self.root)
-        self.root.maxsize(jn_x, jn_y)
-        self.root.minsize(jn_x, jn_y)
+        self.root.maxsize(self.jn_x, self.jn_y)
+        self.root.minsize(self.jn_x, self.jn_y)
         self.root.mainloop()
 
     def centralizar_janela(self, root, largura, altura):
@@ -51,8 +51,8 @@ class cdUsuario:
     def modificacao_usuario(self, cpf, cargo, nome, status, email):
         status = "false" if status == "Inativo" else "true"
 
-        senha = nome
-        
+        senha = cpf[0:3]
+        print(senha)
         if self.editar == 1:
             iduser = self.dados['id']
             result = Access.editarUsuario(
@@ -64,6 +64,13 @@ class cdUsuario:
         if result:
             self.atualizar_pagina(1)
 
+    def excluir_usuario(self):
+        iduser = self.dados['id']
+        result = Access.excluirUsuario(iduser)
+        
+        if result:
+            self.atualizar_pagina(1)
+        
     def voltar_pagina(self, root):
         root.destroy()
         
@@ -128,16 +135,21 @@ class cdUsuario:
         self.widgets['status'].grid(row=4, column=1, padx=10, pady=10)
         self.widgets['status'].configure(state=estado_campo)
 
+        if self.editar == 1:
+            btn_excluir = ctk.CTkButton(root, width=200, height=20, text='Excluir Usuario',command = self.excluir_usuario, fg_color="red", hover_color=hover)
+            btn_excluir.grid(row=5, column=0,columnspan=2, padx=10, pady=10)
+            self.jn_y = 310
+        
         if self.editar != 0:
             btn_cancelar = ctk.CTkButton(root, width=300, height=35, text='Cancelar',
                                          command=lambda: self.voltar_pagina(root), fg_color=fg, hover_color=hover)
-            btn_cancelar.grid(row=5, column=0, padx=10, pady=10)
+            btn_cancelar.grid(row=6, column=0, padx=10, pady=10)
 
             btn_texto = 'Atualizar' if self.dados else 'Registrar'
             btn_registrar = ctk.CTkButton(root, width=300, height=35, text=btn_texto, command=lambda: self.modificacao_usuario(
                 self.widgets['cpf'].get(), self.cargo_selecionado_interno, self.widgets['nome'].get(), self.widgets['status'].get(), self.widgets['email'].get()), fg_color=fg, hover_color=hover)
-            btn_registrar.grid(row=5, column=1, padx=10, pady=10)
+            btn_registrar.grid(row=6, column=1, padx=10, pady=10)
         else:
             btn_ok = ctk.CTkButton(root, width=300, height=35, text='Ok', command=lambda: self.voltar_pagina(
                 root), fg_color=fg, hover_color=hover)
-            btn_ok.grid(row=5, column=0, columnspan=2, padx=10, pady=10)
+            btn_ok.grid(row=6, column=0, columnspan=2, padx=10, pady=10)
