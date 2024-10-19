@@ -7,7 +7,7 @@ class Jar:
         self.executar_jar()
         
     def is_jar_running(self, jar_name):
-        """Verifica se o JAR está em execução."""
+        #Verifica se o JAR está em execução
         for process in psutil.process_iter(['name', 'cmdline']):
             try:
                 cmdline = process.info['cmdline']
@@ -34,6 +34,5 @@ class Jar:
         else:
             print(f"O arquivo {jar_file} não foi encontrado no diretório.")
 
-# Para usar a classe:
 if __name__ == "__main__":
     Jar()

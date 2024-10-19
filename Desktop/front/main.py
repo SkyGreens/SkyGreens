@@ -1,6 +1,7 @@
 from tkinter import *  # pip install tkinter
 
 from jar import Jar
+from style import Style
 
 from tela_login import telaLogin
 from tela_base import telaBase
@@ -10,10 +11,6 @@ from tela_producao import telaProducao
 from tela_pedidos import telaPedidos
 from tela_usuario import telaUsuarios
 from tela_fornecedor import telaFornecedor
-
-fg = "#316133"  # Cor para botões
-hover = "#5d732f"  # Cor ao passar o mouse
-bg = "#D9D9D9"  # Cor de fundo
 
 class main:
     def __init__(self, root):
@@ -49,7 +46,7 @@ if __name__ == "__main__":
     jar_instance = Jar()
     root = Tk()
     root.title("SkyGreens")
-    root.configure(background=bg)
+    root.configure(background=Style.color('bg'))
 
     largura_janela = 1300
     altura_janela = 600

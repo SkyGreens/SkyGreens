@@ -12,10 +12,11 @@ class Style:
             'fg' : "#316133",  # Cor para botões - Verde Escuro
             'hover' : "#5d732f",  # Cor ao passar o mouse - Verde Claro
             'bg' : "#D9D9D9",  # Cor de fundo - Cinza
-
             'bg_frame' : "#E7E7E7",  # Cor de fundo do frame - Quase Branco
             'fg_2' : "#cdcdcd", # Cor para botões - Cinza escuro
-            'hover_2' : "#a0a0a0" # Cor ao passar o mouse - Cinza Claro
+            'hover_2' : "#a0a0a0", # Cor ao passar o mouse - Cinza Claro
+            'fg_red' : "#c30000", #Cor do botao - Vermelho
+            'hover_red':"#6f0000" #Cor ao passar o mouse - Vermelho claro
         }
         return colors.get(color_nome)
     

@@ -1,7 +1,6 @@
 import requests #pip install requests
 from tkinter import messagebox #pip install tkinter
 
-#api para obter o token de acesso
 api_login = "http://localhost:8080/skygreen/auth/login"
 api_cadastrarFornecedor = "http://localhost:8080/skygreen/fornecedor/adicionar"
 api_listarFornecedores = "http://localhost:8080/skygreen/fornecedor/"
