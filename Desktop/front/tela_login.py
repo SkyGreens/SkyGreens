@@ -2,13 +2,8 @@ from tkinter import *  # pip install tkinter
 import customtkinter as ctk  # pip install customtkinter
 from tkinter import messagebox  # pip install tkinter
 
+from style import Style
 from access import Access
-
-fg = "#316133"  # Cor para botões
-hover = "#5d732f"  # Cor ao passar o mouse
-bg = "#D9D9D9"  # Cor de fundo
-
-bg_frame = "#E7E7E7"  # Cor de fundo do frame
 
 class telaLogin:
     def __init__(self, root, app):
@@ -19,7 +14,7 @@ class telaLogin:
     def janela_login(self):
         ctk.set_appearance_mode("light")
         
-        self.frame = ctk.CTkFrame(master=self.root, width=300, height=400,fg_color=bg_frame)
+        self.frame = ctk.CTkFrame(master=self.root, width=300, height=400,fg_color=Style.color('bg_frame'))
         self.frame.pack(expand=True, padx=20, pady=20)
 
         lb_titulo = ctk.CTkLabel(master=self.frame, text="Acesse sua conta", font=("Arial", 30, "bold"))
@@ -37,10 +32,10 @@ class telaLogin:
         lb_separador = ctk.CTkLabel(master=self.frame, text=37 * "-" + " ou " + 37 * "-", font=("Arial", 12))
         lb_separador.pack(pady=5)
 
-        bt_esqsenha = ctk.CTkButton(master=self.frame, text="Esqueceu a senha?", width=50, height=10, fg_color=fg, hover_color=hover)
+        bt_esqsenha = ctk.CTkButton(master=self.frame, text="Esqueceu a senha?", width=50, height=10, fg_color=Style.color('fg'), hover_color=Style.color('hover'))
         bt_esqsenha.pack(pady=5)
 
-        bt_ok = ctk.CTkButton(self.frame, text="Entrar", font=('Arial', 15, 'bold'), corner_radius=3, fg_color=fg, hover_color=hover,
+        bt_ok = ctk.CTkButton(self.frame, text="Entrar", font=('Arial', 15, 'bold'), corner_radius=3, fg_color=Style.color('fg'), hover_color=Style.color('hover'),
                               command=lambda: self.verificar_login(en_nome.get(), en_senha.get()), width=250, height=35)
         bt_ok.pack(pady=20)
 

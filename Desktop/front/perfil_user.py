@@ -1,11 +1,8 @@
 import customtkinter as ctk # pip install customtkinter
 from tkinter import Toplevel # pip install tkinter
 
+from style import Style
 from access import Access
-
-fg = "#316133"  # Cor para botões
-hover = "#5d732f"  # Cor ao passar o mouse
-bg = "#D9D9D9"  # Cor de fundo
 
 class perfilUser:
     def __init__(self):
@@ -54,7 +51,7 @@ class perfilUser:
 
         lb_nome = ctk.CTkLabel(main_frame, text=f"{nome}", font=("Arial", 20, "bold"))
         lb_nome.pack()
-        lb_cargo = ctk.CTkLabel(main_frame, text=f"{cargo}", font=("Arial", 16))
+        lb_cargo = ctk.CTkLabel(main_frame, text=f"{cargo}", font=Style.font_style())
         lb_cargo.pack()
 
         frame_nomecompleto = ctk.CTkFrame(main_frame)
@@ -86,6 +83,6 @@ class perfilUser:
         btn_frame = ctk.CTkFrame(main_frame)
         btn_frame.pack(fill="x", pady=(70, 0))
         
-        btn_ok = ctk.CTkButton(btn_frame, text="Ok", width=180,fg_color=fg,hover_color=hover,command=voltar_pagina)
+        btn_ok = ctk.CTkButton(btn_frame, text="Ok", width=180,fg_color=Style.color('fg'),hover_color=Style.color('hover'),command=voltar_pagina)
         btn_ok.grid( padx=140, pady=20)
     

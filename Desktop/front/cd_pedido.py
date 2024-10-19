@@ -1,11 +1,9 @@
 from tkinter import *  # pip install tkinter
 import customtkinter as ctk  # pip install customtkinter
 
+from style import Style
 from access import Access
 
-fg = "#316133"  # Cor para botões
-hover = "#5d732f"  # Cor ao passar o mouse
-bg = "#D9D9D9"  # Cor de fundo
 
 class cdPedido:
     def __init__(self):
@@ -16,7 +14,7 @@ class cdPedido:
         root.title("Cadastrar Pedido")
         root.geometry(f"{jn_x}x{jn_y}")
         root.wm_attributes('-toolwindow', 1)
-        root.configure(background=bg)
+        root.configure(background=Style.color('bg'))
         
         self.centralizar_janela(root, jn_x, jn_y)
         self.elementos_tela(root)
@@ -57,7 +55,7 @@ class cdPedido:
         
         opmenu_var = ctk.StringVar(value='Materia Prima')
         self.sementes = ctk.CTkOptionMenu(root, width=620, height=35, values=nomes_sementes, variable=opmenu_var,
-                                                command=lambda choice: self.opcaomenu(id_sementes[choice], opmenu_var),fg_color=fg)
+                                                command=lambda choice: self.opcaomenu(id_sementes[choice], opmenu_var),fg_color=Style.color('fg'))
         self.sementes.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
         
         en_id = ctk.CTkEntry(root, width=620, height=35, placeholder_text='Id Pedido')
@@ -75,8 +73,8 @@ class cdPedido:
         en_status = ctk.CTkEntry(root, width=620, height=35, placeholder_text='Status')
         en_status.grid(row=6,column=0,columnspan=2, padx=10, pady=10)
 
-        btn_cancelar = ctk.CTkButton(root, width=300, height=35, text='Cancelar', command=lambda: self.voltar_pagina(root),fg_color=fg,hover_color=hover)
+        btn_cancelar = ctk.CTkButton(root, width=300, height=35, text='Cancelar', command=lambda: self.voltar_pagina(root),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
         btn_cancelar.grid(row=7, column=0, padx=10, pady=10)
         
-        btn_salvar = ctk.CTkButton(root, width=300, height=35, text='Salvar Pedido', command= self.salvar_pedido,fg_color=fg,hover_color=hover)
+        btn_salvar = ctk.CTkButton(root, width=300, height=35, text='Salvar Pedido', command= self.salvar_pedido,fg_color=Style.color('fg'),hover_color=Style.color('hover'))
         btn_salvar.grid(row=7, column=1, padx=10, pady=10)

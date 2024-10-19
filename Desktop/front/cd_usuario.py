@@ -1,13 +1,8 @@
 import customtkinter as ctk  # pip install customtkinter
 from tkinter import Toplevel  # pip install tkinter
-import random
 
+from style import Style
 from access import Access
-
-fg = "#316133"  # Cor para botões
-hover = "#5d732f"  # Cor ao passar o mouse
-bg = "#D9D9D9"  # Cor de fundo
-
 
 class cdUsuario:
     def __init__(self, callback, dados=None, editar=None):
@@ -23,7 +18,7 @@ class cdUsuario:
                         0 else "Editar Fornecedor" if editar == 1 else "Cadastrar Fornecedor")
         self.root.geometry(f"{self.jn_x}x{self.jn_y}")
         self.root.wm_attributes('-toolwindow', 1)
-        self.root.configure(background=bg)
+        self.root.configure(background=Style.color('bg'))
 
         self.centralizar_janela(self.root, self.jn_x, self.jn_y)
         self.elementos_tela(self.root)
@@ -122,7 +117,7 @@ class cdUsuario:
 
         # Variável e criação do menu de opções de cargo
         opmenu_var = ctk.StringVar(value=cargo_map.get((self.dados.get('cargo'))) if self.dados and cargo_map.get((self.dados.get('cargo'))) else 'Escolha o Cargo')
-        self.widgets['cargo'] = ctk.CTkOptionMenu(root, width=300, height=35, values=list_cargos, variable=opmenu_var, fg_color=fg
+        self.widgets['cargo'] = ctk.CTkOptionMenu(root, width=300, height=35, values=list_cargos, variable=opmenu_var, fg_color=Style.color('fg')
                                                   ,command=lambda choice: self.opcaomenu(cargo_map_invertido[choice],opmenu_var))
         self.widgets['cargo'].grid(row=4, column=0, padx=10, pady=10)
         self.widgets['cargo'].configure(state=estado_campo)
@@ -131,25 +126,25 @@ class cdUsuario:
             'status', True) else "Inativo"
         self.switch_var = ctk.StringVar(value=status_inicial)
         self.widgets['status'] = ctk.CTkSwitch(root, textvariable=self.switch_var, width=300,
-                                               height=35, variable=self.switch_var, onvalue="Ativo", offvalue="Inativo", fg_color=fg)
+                                               height=35, variable=self.switch_var, onvalue="Ativo", offvalue="Inativo", fg_color=Style.color('fg'))
         self.widgets['status'].grid(row=4, column=1, padx=10, pady=10)
         self.widgets['status'].configure(state=estado_campo)
 
         if self.editar == 1:
-            btn_excluir = ctk.CTkButton(root, width=200, height=20, text='Excluir Usuario',command = self.excluir_usuario, fg_color="red", hover_color=hover)
+            btn_excluir = ctk.CTkButton(root, width=200, height=20, text='Excluir Usuario',command = self.excluir_usuario, fg_color="red", hover_color=Style.color('hover'))
             btn_excluir.grid(row=5, column=0,columnspan=2, padx=10, pady=10)
             self.jn_y = 310
         
         if self.editar != 0:
             btn_cancelar = ctk.CTkButton(root, width=300, height=35, text='Cancelar',
-                                         command=lambda: self.voltar_pagina(root), fg_color=fg, hover_color=hover)
+                                         command=lambda: self.voltar_pagina(root), fg_color=Style.color('fg'), hover_color=Style.color('hover'))
             btn_cancelar.grid(row=6, column=0, padx=10, pady=10)
 
             btn_texto = 'Atualizar' if self.dados else 'Registrar'
             btn_registrar = ctk.CTkButton(root, width=300, height=35, text=btn_texto, command=lambda: self.modificacao_usuario(
-                self.widgets['cpf'].get(), self.cargo_selecionado_interno, self.widgets['nome'].get(), self.widgets['status'].get(), self.widgets['email'].get()), fg_color=fg, hover_color=hover)
+                self.widgets['cpf'].get(), self.cargo_selecionado_interno, self.widgets['nome'].get(), self.widgets['status'].get(), self.widgets['email'].get()), fg_color=Style.color('fg'), hover_color=Style.color('hover'))
             btn_registrar.grid(row=6, column=1, padx=10, pady=10)
         else:
             btn_ok = ctk.CTkButton(root, width=300, height=35, text='Ok', command=lambda: self.voltar_pagina(
-                root), fg_color=fg, hover_color=hover)
+                root), fg_color=Style.color('fg'), hover_color=Style.color('hover'))
             btn_ok.grid(row=6, column=0, columnspan=2, padx=10, pady=10)

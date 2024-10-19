@@ -1,13 +1,9 @@
 from tkinter import * # pip install tkinter
 import customtkinter as ctk # pip install customtkinter
 
+from style import Style
 from cd_insumos import cdInsumos
 
-fg = "#316133"  # Cor para botões
-hover = "#5d732f"  # Cor ao passar o mouse
-bg = "#D9D9D9"  # Cor de fundo
-
-bg_frame = "#E7E7E7"  # Cor de fundo do frame
 
 class listaInsumos:
 
@@ -19,7 +15,7 @@ class listaInsumos:
         root.title("Insumos")
         root.geometry(f"{jn_x}x{jn_y}")
         root.wm_attributes('-toolwindow', 1)
-        root.configure(background=bg)
+        root.configure(background=Style.color('bg'))
 
         self.centralizar_janela(root, jn_x, jn_y)
         self.elementos_tela(root)
@@ -40,7 +36,7 @@ class listaInsumos:
     def elementos_tela(self,root):
 
 
-        pesquisar_frame = Frame(root, bg=bg)
+        pesquisar_frame = Frame(root, bg=Style.color('bg'))
         pesquisar_frame.pack(fill="x", padx=10, pady=10)
 
         self.pesq_conteudo = StringVar()
@@ -52,10 +48,10 @@ class listaInsumos:
         self.pesq_entry.bind("<KeyRelease>", self.insumos_lista)
 
         btn_cadastrarInsumo = ctk.CTkButton(pesquisar_frame, text='Cadastrar', font=('Arial', 15, 'bold'), corner_radius=3, width=100, height=40,
-                                fg_color=fg, hover_color=hover, command=cdInsumos)
+                                fg_color=Style.color('fg'), hover_color=Style.color('hover'), command=cdInsumos)
         btn_cadastrarInsumo.pack(pady=5, padx=10, side=RIGHT)
 
-        self.lista_frame = ctk.CTkScrollableFrame(root, width=1100, height=350,fg_color=bg_frame)
+        self.lista_frame = ctk.CTkScrollableFrame(root, width=1100, height=350,fg_color=Style.color('bg_frame'))
         self.lista_frame.pack(fill="both", expand=True, pady=10, padx=10)
 
         # Carrega a lista completa
