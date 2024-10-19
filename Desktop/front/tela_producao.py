@@ -6,7 +6,6 @@ from style import Style
 from lista_insumos import listaInsumos
 from relatorio import relatorio
 from cd_producao import cdProducao
-from estoque import Estoque
 
 class telaProducao:
     def __init__(self, root):
@@ -27,7 +26,7 @@ class telaProducao:
 
         btn_estoque = ctk.CTkButton(btn_frame, text="Estoque",font=Style.font_style(),text_color='black',image=Style.img('img_icon_estoque')
                                     ,compound=TOP, width=280, height=50, corner_radius=10,fg_color=Style.color('fg_2'), hover_color=Style.color('hover_2'),
-                                    command=Estoque,border_width=3,border_color=Style.color('hover_2'))
+                                    border_width=3,border_color=Style.color('hover_2'))
         btn_estoque.grid(row=0, column=1, padx=10, pady=10)
 
 

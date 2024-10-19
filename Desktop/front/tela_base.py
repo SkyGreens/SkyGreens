@@ -2,7 +2,6 @@ from tkinter import * #pip install tkinter
 import customtkinter as ctk #pip install customtkinter
 
 from style import Style
-
 from perfil_user import perfilUser
 
 class telaBase:
@@ -14,7 +13,7 @@ class telaBase:
 
     def fechar_programa(self):
         self.root.quit()
-
+        
     def top(self):
         frame_top = Frame(self.root)
         frame_top.pack(side=TOP, fill="x")
@@ -23,10 +22,10 @@ class telaBase:
         label.pack(pady=10, side=LEFT)
         
         btn_sair = ctk.CTkButton(frame_top,text="",image=Style.img('img_icon_saida'),width=0,hover_color=Style.color('hover_red'),fg_color=Style.color('fg_red'),command=self.fechar_programa)
-        btn_sair.pack(pady=10,padx=20,side=RIGHT)
+        btn_sair.pack(pady=10,padx=10,side=RIGHT)
 
         btn_perfil = ctk.CTkButton(frame_top,text="",image=Style.img('img_icon_perfil'),width=0,hover_color=Style.color('hover'),fg_color=Style.color('fg'),command=perfilUser)
-        btn_perfil.pack(pady=10,padx=20,side=RIGHT)
+        btn_perfil.pack(pady=10,padx=5,side=RIGHT)
 
     def menu(self):
         frame = Frame(self.root)
@@ -55,6 +54,7 @@ class telaBase:
             button.configure(fg_color=Style.color('fg'))
 
         self.menu_buttons[n-1].configure(fg_color=Style.color('hover'))
+        
         telas = ["telaHome", "telaMonitoramento", "telaFornecedor", "telaProducao", "telaPedidos", "telaUsuarios"]
         self.mostrar_tela(telas[n-1])
 

@@ -5,7 +5,6 @@ from style import Style
 from cd_fornecedor import cdFornecedor
 from access import Access
 
-
 class telaFornecedor:
     
     def __init__(self, root):

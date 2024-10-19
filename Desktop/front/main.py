@@ -12,7 +12,7 @@ from tela_pedidos import telaPedidos
 from tela_usuario import telaUsuarios
 from tela_fornecedor import telaFornecedor
 
-class main:
+class Main:
     def __init__(self, root):
         self.root = root
         self.telas = {}
@@ -24,7 +24,7 @@ class main:
         self.tela_base = telaBase(root)
         self.tela_base.mostrar_tela = self.mostrar_tela
 
-        self.telas["telaHome"] = telaHome(root)
+        self.telas["telaHome"] = telaHome(root, self)
         self.telas["telaMonitoramento"] = telaMonitoramento(root)
         self.telas["telaFornecedor"] = telaFornecedor(root)
         self.telas["telaProducao"] = telaProducao(root)
@@ -63,5 +63,5 @@ if __name__ == "__main__":
 
     centralizar_janela(root, largura_janela, altura_janela)
 
-    app = main(root)
+    app = Main(root)
     root.mainloop()

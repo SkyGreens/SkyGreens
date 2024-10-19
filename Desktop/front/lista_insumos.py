@@ -4,7 +4,6 @@ import customtkinter as ctk # pip install customtkinter
 from style import Style
 from cd_insumos import cdInsumos
 
-
 class listaInsumos:
 
     def __init__(self):

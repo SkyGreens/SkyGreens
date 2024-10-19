@@ -4,7 +4,6 @@ import customtkinter as ctk  # pip install customtkinter
 from style import Style
 from access import Access
 
-
 class cdPedido:
     def __init__(self):
         jn_x = 640

@@ -1,16 +1,14 @@
 from tkinter import * #pip install tkinter
 import customtkinter as ctk #pip install customtkinter
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg #pip install customtkinter matplotlib
-import matplotlib.pyplot as plt
 
 from style import Style
-
-#from cd_fornecedor import cdFornecedor
+from access import Access
 
 class telaHome:
 
-    def __init__(self, root):
+    def __init__(self, root, main_instance):
         self.root = root
+        self.main = main_instance
         
         self.frame = Frame(self.root, background=Style.color('bg'))
         self.frame.pack(fill="both", expand=True)
@@ -24,9 +22,8 @@ class telaHome:
 
         self.lista_fornecedores()
 
-        btn_saibamais1 = ctk.CTkButton(card1, text="Fornecedores", width=242,fg_color=Style.color('fg'),hover_color=Style.color('hover'))
+        btn_saibamais1 = ctk.CTkButton(card1, text="Fornecedores", width=242, fg_color=Style.color('fg'), hover_color=Style.color('hover'), command=self.show_fornecedores)
         btn_saibamais1.place(x=0, y=405)
-
         # Card 2
         card2 = ctk.CTkFrame(self.frame, width=260, height=440, corner_radius=10)
         card2.place(x=350, y=15)
@@ -68,7 +65,11 @@ class telaHome:
         canvas.draw()
         canvas.get_tk_widget().place(x=955, y=250, height=200, width=300)
         canvas.get_tk_widget().config(bg=Style.color('bg'), highlightthickness=0)
-
+    
+    def show_fornecedores(self):
+            from tela_base import telaBase
+            self.main.mostrar_tela("telaFornecedor")
+    
     def lista_pedidos(self):
         pedidos = [{"id":"000021","nome":"Alface","qtd":10},
                    {"id":"000315","nome":"Tomate","qtd":2},
@@ -90,15 +91,7 @@ class telaHome:
             msg_label.pack(pady=5)
 
     def lista_fornecedores(self):
-        fornecedores = [{"id":"1","nome":"Carlos Alberto"},
-                     {"id":"2","nome":"Carlos Alberto"},
-                     {"id":"3","nome":"Carlos Alberto"},
-                     {"id":"4","nome":"Carlos Alberto"},
-                     {"id":"5","nome":"Carlos Alberto"},
-                     {"id":"6","nome":"Carlos Alberto"},
-                     {"id":"7","nome":"Carlos Alberto"},
-                     {"id":"8","nome":"Carlos Alberto"},
-                     {"id":"9","nome":"Carlos Alberto"}]
+        fornecedores = Access.listarFornecedores()
         for i in fornecedores:
                 
             for_frame = ctk.CTkFrame(self.listaFornecedores_frame, corner_radius=10)
