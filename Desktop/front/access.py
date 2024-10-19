@@ -1,16 +1,19 @@
-import requests #pip install requests
-from tkinter import messagebox #pip install tkinter
+import requests
+from tkinter import messagebox
 
-api_login = "http://localhost:8080/skygreen/auth/login"
-api_cadastrarFornecedor = "http://localhost:8080/skygreen/fornecedor/adicionar"
-api_listarFornecedores = "http://localhost:8080/skygreen/fornecedor/"
-api_listarSementes = "http://localhost:8080/skygreen/sementes/listar"
-api_perfilUser = "http://localhost:8080/skygreen/usuario/personal/"
-api_listarUsuario = "http://localhost:8080/skygreen/usuario/listar"
-api_especificoUsuario = "http://localhost:8080/skygreen/usuario/"
-api_cadastrarUsuario = "http://localhost:8080/skygreen/auth/register"
-api_editarUsuario = "http://localhost:8080/skygreen/usuario/update"
-api_deleteUsuario = "http://localhost:8080/skygreen/usuario/delete/"
+API_BASE = "http://localhost:8080/skygreen"
+
+api_login = f"{API_BASE}/auth/login"
+api_cadastrarFornecedor = f"{API_BASE}/fornecedor/adicionar"
+api_listarFornecedores = f"{API_BASE}/fornecedor/"
+api_listarSementes = f"{API_BASE}/sementes/listar"
+api_perfilUser = f"{API_BASE}/usuario/personal/"
+api_listarUsuario = f"{API_BASE}/usuario/listar"
+api_especificoUsuario = f"{API_BASE}/usuario/"
+api_cadastrarUsuario = f"{API_BASE}/auth/register"
+api_editarUsuario = f"{API_BASE}/usuario/update"
+api_deleteUsuario = f"{API_BASE}/usuario/delete/"
+
 
 class Access:
     token = None
@@ -36,7 +39,7 @@ class Access:
                 messagebox.showinfo(title="Erro",message=f"Erro de Conexão")
                 app.retornar_login()
     
-    def cadatroFornecedor(s,e,t,end,cid,est,pais,ie,rs,cnpj,sementeid):
+    def cadastroFornecedor(s,e,t,end,cid,est,pais,ie,rs,cnpj,sementeid):
         
         if sementeid == None:
             cadatro_data = {

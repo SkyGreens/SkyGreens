@@ -45,7 +45,7 @@ class cdFornecedor:
         if self.dados:
             result = Access.editarFornecedor(self.dados['id'], status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj, semente)
         else:
-            result = Access.cadatroFornecedor(status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj, semente)
+            result = Access.cadastroFornecedor(status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj, semente)
         
         if result:
             self.atualizar_pagina(1)
