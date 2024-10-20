@@ -2,9 +2,6 @@ from tkinter import *
 import customtkinter as ctk
 
 from style import Style
-
-from tela_listaInsumos import listaInsumos
-from relatorio import relatorio
 from cd_producao import cdProducao
 
 class telaProducao:
@@ -20,19 +17,19 @@ class telaProducao:
 
         btn_relatorio = ctk.CTkButton(btn_frame, text="Relatório",font=Style.font_style(),text_color='black',image=Style.img('img_icon_relatorio')
                                       ,compound=TOP, width=280, height=50, corner_radius=10,fg_color=Style.color('fg_2'), hover_color=Style.color('hover_2'),
-                                      command=relatorio,border_width=3,border_color=Style.color('hover_2'))
+                                      command=lambda:self.verificar("Relatorio"),border_width=3,border_color=Style.color('hover_2'))
         btn_relatorio.grid(row=0, column=0, padx=10, pady=10)
         
 
         btn_estoque = ctk.CTkButton(btn_frame, text="Estoque",font=Style.font_style(),text_color='black',image=Style.img('img_icon_estoque')
                                     ,compound=TOP, width=280, height=50, corner_radius=10,fg_color=Style.color('fg_2'), hover_color=Style.color('hover_2'),
-                                    border_width=3,border_color=Style.color('hover_2'))
+                                    command=lambda:self.verificar("Estoque"),border_width=3,border_color=Style.color('hover_2'))
         btn_estoque.grid(row=0, column=1, padx=10, pady=10)
 
 
         btn_insumos = ctk.CTkButton(btn_frame, text="Insumos",font=Style.font_style(),text_color='black',image=Style.img('img_icon_insumos')
                                     ,compound=TOP, width=280, height=50, corner_radius=10,fg_color=Style.color('fg_2'), hover_color=Style.color('hover_2'),
-                                    command=lambda:self.verificar(7),border_width=3,border_color=Style.color('hover_2'))
+                                    command=lambda:self.verificar("listaInsumos"),border_width=3,border_color=Style.color('hover_2'))
         btn_insumos.grid(row=0, column=2, padx=10, pady=10)
 
 
@@ -107,7 +104,7 @@ class telaProducao:
             centro_lb(lbv_tempor)
 
     def verificar(self, n):
-        self.mostrar_tela("listaInsumos")
+        self.mostrar_tela(n)
         self.esconder()
     
     def mostrar_tela(self, tela_nome):

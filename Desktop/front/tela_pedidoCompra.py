@@ -4,7 +4,7 @@ import customtkinter as ctk
 from style import Style
 from cd_pedido import cdPedido
 
-class listaInsumos:
+class pedidoCompra:
     def __init__(self,root,main_instance):
 
         self.root = root

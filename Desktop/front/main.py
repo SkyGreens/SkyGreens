@@ -12,6 +12,8 @@ from tela_pedidos import telaPedidos
 from tela_usuario import telaUsuarios
 from tela_fornecedor import telaFornecedor
 from tela_listaInsumos import listaInsumos
+from tela_relatorio import Relatorio
+from tela_estoque import Estoque
 
 class Main:
     
@@ -33,6 +35,8 @@ class Main:
         self.telas["telaPedidos"] = telaPedidos(root)
         self.telas["telaUsuarios"] = telaUsuarios(root)
         self.telas["listaInsumos"] = listaInsumos(root,self)
+        self.telas["Relatorio"] = Relatorio(root,self)
+        self.telas["Estoque"] = Estoque(root,self)
 
         self.mostrar_tela("telaHome")
 
@@ -52,17 +56,7 @@ if __name__ == "__main__":
     largura_janela = 1300
     altura_janela = 600
 
-    def centralizar_janela(root, largura, altura):
-
-        tela_largura = root.winfo_screenwidth()
-        tela_altura = root.winfo_screenheight()
-
-        x = (tela_largura // 2) - (largura // 2)
-        y = (tela_altura // 2) - (altura // 2)
-
-        root.geometry(f"{largura}x{altura}+{x}+{y}")
-
-    centralizar_janela(root, largura_janela, altura_janela)
+    Style.centralizar_janela(root, largura_janela, altura_janela)
 
     app = Main(root)
     root.mainloop()
