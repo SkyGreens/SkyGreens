@@ -2,38 +2,23 @@ import customtkinter as ctk  # pip install customtkinter
 from tkinter import Toplevel  # pip install tkinter
 from access import Access
 
-fg = "#316133"  # Cor para botões
-hover = "#5d732f"  # Cor ao passar o mouse
-bg = "#D9D9D9"  # Cor de fundo
+from style import Style
 
 class cdFornecedor:
     
-    def __init__(self, callback, dados=None,editar=False):
-        jn_x = 640
-        jn_y = 560
+    def __init__(self,callback, dados=None,editar=False):
+            
+        self.jn_x = 640
+        self.jn_y = 560
         
         self.callback = callback
         self.dados = dados
         self.editar = editar
         
-        self.root = Toplevel()
-        self.root.title("Editar Fornecedor" if dados else "Cadastrar Fornecedor")
-        self.root.geometry(f"{jn_x}x{jn_y}")
-        self.root.wm_attributes('-toolwindow', 1)
-        self.root.configure(background=bg)
-        
-        self.centralizar_janela(self.root, jn_x, jn_y)
+        titulo = ("Editar Fornecedor" if dados else "Cadastrar Fornecedor")
+        self.root = Style.criar_janela_flutuante(titulo, self.jn_x, self.jn_y)
         self.elementos_tela(self.root)
-        self.root.maxsize(jn_x, jn_y)
-        self.root.minsize(jn_x, jn_y)
         self.root.mainloop()
-
-    def centralizar_janela(self, root, largura, altura):
-        tela_largura = root.winfo_screenwidth()
-        tela_altura = root.winfo_screenheight()
-        x = (tela_largura // 2) - (largura // 2)
-        y = (tela_altura // 2) - (altura // 2)
-        root.geometry(f"{largura}x{altura}+{x}+{y}")
     
     def atualizar_pagina(self,i=0):
         self.root.destroy()
@@ -47,7 +32,7 @@ class cdFornecedor:
         if self.dados:
             result = Access.editarFornecedor(self.dados['id'], status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj, semente)
         else:
-            result = Access.cadatroFornecedor(status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj, semente)
+            result = Access.cadastroFornecedor(status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj, semente)
         
         if result:
             self.atualizar_pagina(1)
@@ -81,7 +66,7 @@ class cdFornecedor:
             self.widgets[comp_nome].grid(row=row, column=col, columnspan=2 if not column else 1, padx=10, pady=10)
 
         self.switch_var = ctk.StringVar(value="Ativo" if not self.dados or self.dados.get('status', True) else "Inativo")
-        self.widgets['status'] = ctk.CTkSwitch(root, textvariable=self.switch_var, width=300, height=35, variable=self.switch_var, onvalue="Ativo", offvalue="Inativo",fg_color=fg)
+        self.widgets['status'] = ctk.CTkSwitch(root, textvariable=self.switch_var, width=300, height=35, variable=self.switch_var, onvalue="Ativo", offvalue="Inativo",fg_color=Style.color('fg'))
         self.widgets['status'].grid(row=7, column=1, padx=10, pady=10)
 
         self.semente_selecionada_id = None
@@ -95,10 +80,10 @@ class cdFornecedor:
         
         opmenu_var = ctk.StringVar(value=self.dados.get('semente') if self.dados and self.dados.get('semente') else 'Materia Prima')
         self.widgets['sementes'] = ctk.CTkOptionMenu(root, width=620, height=35, values=nomes_sementes, variable=opmenu_var,
-                                                command=lambda choice: self.opcaomenu(id_sementes[choice], opmenu_var),fg_color=fg)
+                                                command=lambda choice: self.opcaomenu(id_sementes[choice], opmenu_var),fg_color=Style.color('fg'))
         self.widgets['sementes'].grid(row=8, column=0, columnspan=2, padx=10, pady=10)
         
-        btn_cancelar = ctk.CTkButton(root, width=300, height=35, text='Cancelar', command=lambda: self.atualizar_pagina(),fg_color=fg,hover_color=hover)
+        btn_cancelar = ctk.CTkButton(root, width=300, height=35, text='Cancelar', command=lambda: self.atualizar_pagina(),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
         btn_cancelar.grid(row=9, column=0, padx=10, pady=10)
 
         btn_texto = 'Atualizar' if self.dados else 'Registrar'
@@ -106,5 +91,5 @@ class cdFornecedor:
             self.widgets['cnpj'].get(), self.widgets['nome'].get(), self.widgets['inscricaoEstadual'].get(), self.widgets['email'].get(),
             self.widgets['status'].get(), self.widgets['telefone'].get(), self.widgets['endereco'].get(), self.widgets['cidade'].get(), 
             self.widgets['estado'].get(), self.widgets['pais'].get(), self.semente_selecionada_id
-        ),fg_color=fg,hover_color=hover)
+        ),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
         btn_registrar.grid(row=9, column=1, padx=10, pady=10)

@@ -1,37 +1,16 @@
 import customtkinter as ctk # pip install customtkinter
-from tkinter import * # pip install tkinter
 
-#from access import Access
-
-fg = "#316133"  # Cor para botões
-hover = "#5d732f"  # Cor ao passar o mouse
-bg = "#D9D9D9"  # Cor de fundo
+from style import Style
 
 class cdProducao:
     def __init__(self):
-        jn_x = 640
-        jn_y = 280
-        root = Toplevel()
-        root.title("Incluir Produção")
-        root.geometry(f"{jn_x}x{jn_y}")
-        root.wm_attributes('-toolwindow', 1)
-        root.configure(background=bg)
-        
-        self.centralizar_janela(root, jn_x, jn_y)
-        self.elementos_tela(root)
-        root.maxsize(jn_x, jn_y)
-        root.minsize(jn_x, jn_y)
-        root.mainloop()
+        self.jn_x = 640
+        self.jn_y = 280
 
-    def centralizar_janela(self,root, largura, altura):
-
-        tela_largura = root.winfo_screenwidth()
-        tela_altura = root.winfo_screenheight()
-
-        x = (tela_largura // 2) - (largura // 2)
-        y = (tela_altura // 2) - (altura // 2)
-
-        root.geometry(f"{largura}x{altura}+{x}+{y}")
+        titulo = ("Incluir Produção")
+        self.root = Style.criar_janela_flutuante(titulo, self.jn_x, self.jn_y)
+        self.elementos_tela(self.root)
+        self.root.mainloop()
 
     def voltar_pagina(self, root):
         root.destroy()
@@ -40,7 +19,7 @@ class cdProducao:
         
         list_cargos = ["","Tomate", "Alecrim", "Alface"]
         opmenu_var = ctk.StringVar(value='Escolha uma semente')
-        insumos = ctk.CTkOptionMenu(root, width=620, height=35, values=list_cargos, variable=opmenu_var,fg_color=fg)
+        insumos = ctk.CTkOptionMenu(root, width=620, height=35, values=list_cargos, variable=opmenu_var,fg_color=Style.color('fg'))
         insumos.grid(row=1, column=0,columnspan=2, padx=10, pady=10)
 
         nomeinsumo = ctk.CTkEntry(root, width=620, height=35, placeholder_text='Quantidade')
@@ -52,8 +31,8 @@ class cdProducao:
         descinsumo = ctk.CTkEntry(root, width=620, height=35, placeholder_text='Restam')
         descinsumo.grid(row=4,column=0,columnspan=2, padx=10, pady=10)
 
-        btn_cancelar = ctk.CTkButton(root, width=300, height=35, text='Cancelar', command=lambda: self.voltar_pagina(root),fg_color=fg,hover_color=hover)
+        btn_cancelar = ctk.CTkButton(root, width=300, height=35, text='Cancelar', command=lambda: self.voltar_pagina(root),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
         btn_cancelar.grid(row=5, column=0, padx=10, pady=10)
 
-        btn_cadastrar = ctk.CTkButton(root, width=300, height=35, text='Cadastrar',fg_color=fg,hover_color=hover)
+        btn_cadastrar = ctk.CTkButton(root, width=300, height=35, text='Cadastrar',fg_color=Style.color('fg'),hover_color=Style.color('hover'))
         btn_cadastrar.grid(row=5, column=1, padx=10, pady=10)

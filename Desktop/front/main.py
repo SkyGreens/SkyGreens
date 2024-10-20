@@ -1,5 +1,8 @@
 from tkinter import *  # pip install tkinter
 
+from jar import Jar
+from style import Style
+
 from tela_login import telaLogin
 from tela_base import telaBase
 from tela_home import telaHome
@@ -9,11 +12,8 @@ from tela_pedidos import telaPedidos
 from tela_usuario import telaUsuarios
 from tela_fornecedor import telaFornecedor
 
-fg = "#316133"  # Cor para botões
-hover = "#5d732f"  # Cor ao passar o mouse
-bg = "#D9D9D9"  # Cor de fundo
-
-class main:
+class Main:
+    
     def __init__(self, root):
         self.root = root
         self.telas = {}
@@ -25,7 +25,7 @@ class main:
         self.tela_base = telaBase(root)
         self.tela_base.mostrar_tela = self.mostrar_tela
 
-        self.telas["telaHome"] = telaHome(root)
+        self.telas["telaHome"] = telaHome(root,self)
         self.telas["telaMonitoramento"] = telaMonitoramento(root)
         self.telas["telaFornecedor"] = telaFornecedor(root)
         self.telas["telaProducao"] = telaProducao(root)
@@ -40,13 +40,11 @@ class main:
 
         self.telas[tela_nome].mostrar()
 
-    def retornar_login(self):
-        self.tela_login = telaLogin(self.root, self)
-
 if __name__ == "__main__":
+    jar_instance = Jar()
     root = Tk()
     root.title("SkyGreens")
-    root.configure(background=bg)
+    root.configure(background=Style.color('bg'))
 
     largura_janela = 1300
     altura_janela = 600
@@ -63,5 +61,5 @@ if __name__ == "__main__":
 
     centralizar_janela(root, largura_janela, altura_janela)
 
-    app = main(root)
+    app = Main(root)
     root.mainloop()
