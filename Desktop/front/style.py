@@ -3,8 +3,6 @@ from PIL import Image
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg #pip install customtkinter matplotlib
 import matplotlib.pyplot as plt
 from tkinter import Toplevel  # pip install tkinter
-import os
-import sys
 
 class Style:
         
@@ -70,8 +68,7 @@ class Style:
         root = Toplevel()
         root.title(titulo)
         root.overrideredirect(True)
-        root.configure(background=Style.color('bg'), borderwidth=2, relief="ridge")
-        
+        root.configure(background="#c8c8c8", borderwidth=2, relief="ridge")
         Style.centralizar_janela(root, largura, altura)
         
         root.maxsize(largura, altura)

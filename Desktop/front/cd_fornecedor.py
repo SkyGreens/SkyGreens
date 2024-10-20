@@ -6,7 +6,8 @@ from style import Style
 
 class cdFornecedor:
     
-    def __init__(self, callback, dados=None,editar=False):
+    def __init__(self,callback, dados=None,editar=False):
+            
         self.jn_x = 640
         self.jn_y = 560
         

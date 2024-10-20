@@ -3,7 +3,6 @@ import customtkinter as ctk #pip install customtkinter
 import os
 import sys
 
-
 from style import Style
 from perfil_user import perfilUser
 
@@ -20,6 +19,7 @@ class telaBase:
         os.execv(sys.executable, ['python'] + sys.argv)
         
     def top(self):
+        
         frame_top = Frame(self.root)
         frame_top.pack(side=TOP, fill="x")
 

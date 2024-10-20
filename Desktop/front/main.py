@@ -13,6 +13,7 @@ from tela_usuario import telaUsuarios
 from tela_fornecedor import telaFornecedor
 
 class Main:
+    
     def __init__(self, root):
         self.root = root
         self.telas = {}
