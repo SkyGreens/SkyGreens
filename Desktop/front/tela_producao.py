@@ -3,13 +3,14 @@ import customtkinter as ctk
 
 from style import Style
 
-from lista_insumos import listaInsumos
+from tela_listaInsumos import listaInsumos
 from relatorio import relatorio
 from cd_producao import cdProducao
 
 class telaProducao:
-    def __init__(self, root):
+    def __init__(self, root,main_app):
         self.root = root
+        self.main_app = main_app
         self.frame = Frame(self.root)
         self.frame.pack(side=LEFT)
         self.frame.configure(background=Style.color('bg'))
@@ -31,7 +32,7 @@ class telaProducao:
 
         btn_insumos = ctk.CTkButton(btn_frame, text="Insumos",font=Style.font_style(),text_color='black',image=Style.img('img_icon_insumos')
                                     ,compound=TOP, width=280, height=50, corner_radius=10,fg_color=Style.color('fg_2'), hover_color=Style.color('hover_2'),
-                                    command=listaInsumos,border_width=3,border_color=Style.color('hover_2'))
+                                    command=lambda:self.verificar(7),border_width=3,border_color=Style.color('hover_2'))
         btn_insumos.grid(row=0, column=2, padx=10, pady=10)
 
 
@@ -42,6 +43,7 @@ class telaProducao:
 
         cards_frame = ctk.CTkScrollableFrame(self.frame,orientation="horizontal", width=200, height=400,fg_color=Style.color('bg'))
         cards_frame.pack(fill="x", expand=True, side=TOP)
+        
         
         semente = "Espinafre"
         codigo = "5501"
@@ -104,6 +106,13 @@ class telaProducao:
             lbv_tempor = ctk.CTkLabel(tempor_frame, text=f"{dias_restantes}", text_color="black", font=Style.font_style())
             centro_lb(lbv_tempor)
 
+    def verificar(self, n):
+        self.mostrar_tela("listaInsumos")
+        self.esconder()
+    
+    def mostrar_tela(self, tela_nome):
+        self.main_app.mostrar_tela(tela_nome)
+    
     def mostrar(self):
         self.frame.pack()
 

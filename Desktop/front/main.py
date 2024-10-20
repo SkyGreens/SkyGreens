@@ -11,6 +11,7 @@ from tela_producao import telaProducao
 from tela_pedidos import telaPedidos
 from tela_usuario import telaUsuarios
 from tela_fornecedor import telaFornecedor
+from tela_listaInsumos import listaInsumos
 
 class Main:
     
@@ -28,17 +29,19 @@ class Main:
         self.telas["telaHome"] = telaHome(root,self)
         self.telas["telaMonitoramento"] = telaMonitoramento(root)
         self.telas["telaFornecedor"] = telaFornecedor(root)
-        self.telas["telaProducao"] = telaProducao(root)
+        self.telas["telaProducao"] = telaProducao(root,self)
         self.telas["telaPedidos"] = telaPedidos(root)
         self.telas["telaUsuarios"] = telaUsuarios(root)
+        self.telas["listaInsumos"] = listaInsumos(root,self)
 
         self.mostrar_tela("telaHome")
 
     def mostrar_tela(self, tela_nome):
+                
         for tela in self.telas.values():
             tela.esconder()
-
-        self.telas[tela_nome].mostrar()
+        if tela_nome in self.telas:
+            self.telas[tela_nome].mostrar()
 
 if __name__ == "__main__":
     jar_instance = Jar()
