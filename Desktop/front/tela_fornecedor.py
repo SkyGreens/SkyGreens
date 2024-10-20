@@ -25,8 +25,8 @@ class telaFornecedor:
         self.pesq_entry.pack(pady=5, padx=10, side=LEFT)
         self.pesq_entry.bind("<KeyRelease>", self.fornecedor_lista)
 
-        cadFornecedor_button = ctk.CTkButton(pesquisar_frame, text='Cadastrar Fornecedor', font=('Arial', 15, 'bold'), corner_radius=3, width=100, height=40,
-                               fg_color=Style.color('fg'), hover_color=Style.color('hover'),command=lambda:cdFornecedor(self))
+        cadFornecedor_button = ctk.CTkButton(pesquisar_frame, text='Cadastrar Fornecedor', font=('Arial', 15, 'bold'), corner_radius=3
+                                             , width=100, height=40,fg_color=Style.color('fg'), hover_color=Style.color('hover'),command=lambda:cdFornecedor(self))
         cadFornecedor_button.pack(pady=5, padx=10, side=RIGHT)
         
         def escolhanmenu(choice):

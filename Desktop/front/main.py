@@ -24,7 +24,7 @@ class Main:
         self.tela_base = telaBase(root)
         self.tela_base.mostrar_tela = self.mostrar_tela
 
-        self.telas["telaHome"] = telaHome(root, self)
+        self.telas["telaHome"] = telaHome(root,self)
         self.telas["telaMonitoramento"] = telaMonitoramento(root)
         self.telas["telaFornecedor"] = telaFornecedor(root)
         self.telas["telaProducao"] = telaProducao(root)
@@ -38,9 +38,6 @@ class Main:
             tela.esconder()
 
         self.telas[tela_nome].mostrar()
-
-    def retornar_login(self):
-        self.tela_login = telaLogin(self.root, self)
 
 if __name__ == "__main__":
     jar_instance = Jar()

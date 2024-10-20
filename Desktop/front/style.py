@@ -3,11 +3,11 @@ from PIL import Image
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg #pip install customtkinter matplotlib
 import matplotlib.pyplot as plt
 from tkinter import Toplevel  # pip install tkinter
+import os
+import sys
 
 class Style:
-    def __init__(self):
-        pass
-
+        
     def color (color_nome):
         colors = {
             'fg' : "#316133",  # Cor para botões - Verde Escuro
@@ -80,4 +80,4 @@ class Style:
         root.grab_set()
         
         return root
-        
+    

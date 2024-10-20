@@ -1,10 +1,14 @@
 from tkinter import * #pip install tkinter
 import customtkinter as ctk #pip install customtkinter
+import os
+import sys
+
 
 from style import Style
 from perfil_user import perfilUser
 
 class telaBase:
+    
     def __init__(self, root):
         self.root = root
         self.top()
@@ -13,6 +17,7 @@ class telaBase:
 
     def fechar_programa(self):
         self.root.quit()
+        os.execv(sys.executable, ['python'] + sys.argv)
         
     def top(self):
         frame_top = Frame(self.root)
