@@ -6,6 +6,7 @@ API_BASE = "http://localhost:8080/skygreen"
 api_login = f"{API_BASE}/auth/login"
 api_cadastrarFornecedor = f"{API_BASE}/fornecedor/adicionar"
 api_listarFornecedores = f"{API_BASE}/fornecedor/"
+api_cadastrarSementes = f"{API_BASE}/sementes/adicionar"
 api_listarSementes = f"{API_BASE}/sementes/listar"
 api_perfilUser = f"{API_BASE}/usuario/personal/"
 api_listarUsuario = f"{API_BASE}/usuario/listar"
@@ -13,7 +14,6 @@ api_especificoUsuario = f"{API_BASE}/usuario/"
 api_cadastrarUsuario = f"{API_BASE}/auth/register"
 api_editarUsuario = f"{API_BASE}/usuario/update"
 api_deleteUsuario = f"{API_BASE}/usuario/delete/"
-
 
 class Access:
     token = None
@@ -106,6 +106,28 @@ class Access:
         else:
             print('Falha ao listar fornecedores:', response.text)
 
+    def editarFornecedor(id,s,e,t,end,cid,est,pais,ie,rs,cnpj,sementeid):
+        print('Fornecedor Atualizado: ',id)
+        return True
+    
+    def cadastrarSementes(nome,desc):
+
+        data = {
+            "nome": nome,
+            "descricao": desc
+        }
+
+        headers = {"Authorization": f"Bearer {Access.token}"}
+
+        response_semente = requests.post(api_cadastrarSementes, json=data, headers=headers)
+
+        if response_semente.status_code == 200:
+            print('Semente cadastrada com sucesso!')
+            return True
+        else:
+            print('Falha ao cadastrar a semente:', response_semente.status_code)
+            return False
+
     def listarSementes():
         headers = {"Authorization": f"Bearer {Access.token}"}
 
@@ -123,10 +145,6 @@ class Access:
             return sementes 
         else:
             print('Falha ao listar sementes:',  response.text)
-
-    def editarFornecedor(id,s,e,t,end,cid,est,pais,ie,rs,cnpj,sementeid):
-        print('Fornecedor Atualizado: ',id)
-        return True
     
     def visualizarPerfil():
         

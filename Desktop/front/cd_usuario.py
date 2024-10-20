@@ -4,6 +4,7 @@ from style import Style
 from access import Access
 
 class cdUsuario:
+    
     def __init__(self, callback, dados=None, editar=None):
         
         self.jn_x = 640
@@ -64,15 +65,13 @@ class cdUsuario:
     def elementos_tela(self, root):
         estado_campo = "normal" if self.editar != 0 else "disabled"
 
-        campos = [('CPF', 'cpf', 0), ('Nome', 'nome', 1),
-                  ('Email', 'email', 2)]
+        campos = [('CPF', 'cpf', 0), ('Nome', 'nome', 1),('Email', 'email', 2)]
         self.widgets = {}
 
         for (placeholder, comp_nome, row, *column) in campos:
             col = column[0] if column else 0
 
-            self.widgets[comp_nome] = ctk.CTkEntry(
-                root, width=620 if not column else 300, height=35, placeholder_text=placeholder)
+            self.widgets[comp_nome] = ctk.CTkEntry(root, width=620 if not column else 300, height=35, placeholder_text=placeholder)
 
             if self.dados and comp_nome in self.dados:
                 valor = self.dados[comp_nome]
@@ -80,16 +79,13 @@ class cdUsuario:
                     self.widgets[comp_nome].insert(0, valor)
             
             self.widgets[comp_nome].configure(state=estado_campo)
-            self.widgets[comp_nome].grid(
-                row=row, column=col, columnspan=2 if not column else 1, padx=10, pady=10)
+            self.widgets[comp_nome].grid(row=row, column=col, columnspan=2 if not column else 1, padx=10, pady=10)
             
         if self.editar == 1:
             self.widgets['cpf'].configure(state="disabled")
             
-        cargo_map = {"ADMIN": "Administrador", "GERENTEPRODUCAO": "Gerente de Produção",
-                     "ASSISTENTEPRODUCAO": "Assistente de Produção"}
-        cargo_map_invertido = {"Administrador": 1, "Gerente de Produção":
-                               2, "Assistente de Produção": 3}
+        cargo_map = {"ADMIN": "Administrador", "GERENTEPRODUCAO": "Gerente de Produção","ASSISTENTEPRODUCAO": "Assistente de Produção"}
+        cargo_map_invertido = {"Administrador": 1, "Gerente de Produção":2, "Assistente de Produção": 3}
 
         self.cargo_selecionado_interno = None
         list_cargos = list(cargo_map.values())
