@@ -65,21 +65,26 @@ public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService {
     }
 
     @Override
-    public UsuarioEntity updateUsuario(@RequestBody UsuarioEntity usuario) {
+public UsuarioEntity updateUsuario(@RequestBody UsuarioEntity usuario) {
 
-       UsuarioEntity usuarioAntigo = repository.findById(usuario.getId()).orElse(null);
+    UsuarioEntity usuarioAntigo = repository.findById(usuario.getId()).orElse(null);
 
+    if (usuarioAntigo != null) {
         usuarioAntigo.setAtivo(usuario.getAtivo());
-        //usuarioAntigo.setRole(usuario.getRole());
-        usuarioAntigo.setCpf(usuario.getCpf());
+        usuarioAntigo.setRole(usuario.getRole());
         usuarioAntigo.setEmail(usuario.getEmail());
         usuarioAntigo.setId(usuario.getId());
         usuarioAntigo.setNome(usuario.getNome());
-        //usuarioAntigo.setSenha(usuario.getSenha());
+        
+        // Não alteramos o CPF e a senha
+        // usuarioAntigo.setCpf(usuario.getCpf());
+        // usuarioAntigo.setSenha(usuario.getSenha());
 
         usuario = repository.save(usuarioAntigo);
-        return usuario;
     }
+
+    return usuario;
+}
 
     @Override
     public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
