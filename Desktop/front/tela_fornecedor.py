@@ -40,8 +40,14 @@ class telaFornecedor:
         self.lista_frame = ctk.CTkScrollableFrame(self.frame, width=1100, height=350,fg_color=Style.color('bg_frame'))
         self.lista_frame.pack(fill="both", expand=True, pady=10, padx=10)
 
-        # Carrega a lista completa
         self.fornecedor_lista()
+        
+    def excluir_fornecedor(self,dados):
+        idfor = dados['id']
+        #result = Access.excluirUsuario(iduser)
+        
+        #if result:
+            #self.fornecedor_lista()
         
     def fornecedor_lista(self,op_status="Ativo",event=None):
         
@@ -72,8 +78,11 @@ class telaFornecedor:
                                                 font=("Arial", 14))
                 fornecedor_label.pack(side="left", pady=5)
                 
-                btn_editar = ctk.CTkButton(fornecedor_frame, text="Editar",  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
+                btn_editar = ctk.CTkButton(fornecedor_frame, text='',image=Style.img('img_icon_edit'),  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
                 btn_editar.pack(side="right", padx=5, pady=5)
+                
+                btn_excluir = ctk.CTkButton(fornecedor_frame, width=30, height=30, text='',image=Style.img('img_icon_delete'),command = lambda dados=i: self.excluir_fornecedor(dados), fg_color=Style.color('fg_red'), hover_color=Style.color('hover_red'))
+                btn_excluir.pack(side="right", padx=5, pady=5)
                 
                 fornecedor_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela_edicao(dados))
                 
@@ -88,8 +97,11 @@ class telaFornecedor:
                                                 font=("Arial", 14))
                 fornecedor_label.pack(side="left", pady=5)
                 
-                btn_editar = ctk.CTkButton(fornecedor_frame, text="Editar",  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
+                btn_editar = ctk.CTkButton(fornecedor_frame, text="",image=Style.img('img_icon_edit'),  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
                 btn_editar.pack(side="right", padx=5, pady=5)
+                
+                btn_excluir = ctk.CTkButton(fornecedor_frame, width=30, height=30, text='',image=Style.img('img_icon_delete'),command = lambda dados=i: self.excluir_fornecedor(dados), fg_color=Style.color('fg_red'), hover_color=Style.color('hover_red'))
+                btn_excluir.pack(side="right", padx=5, pady=5)
                 
                 fornecedor_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela_edicao(dados))
             

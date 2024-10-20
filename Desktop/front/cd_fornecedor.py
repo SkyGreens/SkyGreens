@@ -7,31 +7,17 @@ from style import Style
 class cdFornecedor:
     
     def __init__(self, callback, dados=None,editar=False):
-        jn_x = 640
-        jn_y = 560
+        self.jn_x = 640
+        self.jn_y = 560
         
         self.callback = callback
         self.dados = dados
         self.editar = editar
         
-        self.root = Toplevel()
-        self.root.title("Editar Fornecedor" if dados else "Cadastrar Fornecedor")
-        self.root.geometry(f"{jn_x}x{jn_y}")
-        self.root.wm_attributes('-toolwindow', 1)
-        self.root.configure(background=Style.color('bg'))
-        
-        self.centralizar_janela(self.root, jn_x, jn_y)
+        titulo = ("Editar Fornecedor" if dados else "Cadastrar Fornecedor")
+        self.root = Style.criar_janela_flutuante(titulo, self.jn_x, self.jn_y)
         self.elementos_tela(self.root)
-        self.root.maxsize(jn_x, jn_y)
-        self.root.minsize(jn_x, jn_y)
         self.root.mainloop()
-
-    def centralizar_janela(self, root, largura, altura):
-        tela_largura = root.winfo_screenwidth()
-        tela_altura = root.winfo_screenheight()
-        x = (tela_largura // 2) - (largura // 2)
-        y = (tela_altura // 2) - (altura // 2)
-        root.geometry(f"{largura}x{altura}+{x}+{y}")
     
     def atualizar_pagina(self,i=0):
         self.root.destroy()

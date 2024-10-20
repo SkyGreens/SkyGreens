@@ -33,7 +33,7 @@ class telaHome:
 
         self.lista_sementes()
 
-        btn_saibamais2 = ctk.CTkButton(card2, text="Sementes", width=242,fg_color=Style.color('fg'),hover_color=Style.color('hover'))
+        btn_saibamais2 = ctk.CTkButton(card2, text="Insumos", width=242,fg_color=Style.color('fg'),hover_color=Style.color('hover'),command=self.show_sementes)
         btn_saibamais2.place(x=0, y=405)
 
         # Card 3
@@ -67,7 +67,8 @@ class telaHome:
         canvas.get_tk_widget().config(bg=Style.color('bg'), highlightthickness=0)
     
     def show_fornecedores(self):
-            from tela_base import telaBase
+            self.main.mostrar_tela("telaFornecedor")
+    def show_sementes(self):
             self.main.mostrar_tela("telaFornecedor")
     
     def lista_pedidos(self):
@@ -105,12 +106,7 @@ class telaHome:
             msg_label.pack(pady=5)
 
     def lista_sementes(self):
-        sementes = [{"nome":"Alface"},
-                     {"nome":"Tomate"},
-                     {"nome":"Milho"},
-                     {"nome":"Azeitona"},
-                     {"nome":"Mamao"},
-                     {"nome":"Pocã"}]
+        sementes = Access.listarSementes()
         
         for i in sementes:
                 
@@ -121,7 +117,7 @@ class telaHome:
             sem_label.pack(pady=5)
                 
         if not sementes:
-            msg_label = ctk.CTkLabel(self.listaSementes_frame, text="Nenhum usuário encontrado.", font=Style.font_style())
+            msg_label = ctk.CTkLabel(self.listaSementes_frame, text="Nenhum insumo cadastrado", font=Style.font_style())
             msg_label.pack(pady=5)
 
     # Função para exibir a tela

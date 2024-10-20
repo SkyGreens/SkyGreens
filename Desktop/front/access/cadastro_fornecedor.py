@@ -14,26 +14,25 @@ if response.status_code == 200:
     token = response.json().get("token")
     print(f"Token JWT recebido: {token}")
     
-    url = 'http://localhost:8080/skygreen/auth/register'
+    url = "http://localhost:8080/skygreen/fornecedor/adicionar"
 
-    # Dados a serem enviados no corpo da requisição
     data = {
-        "cpf" : "48983452803",
-        "senha" : "489",
-        "role" : "GERENTEPRODUCAO",
-        "nome" : "Cauane",
         "ativo" : "true",
-        "email" : "teste3@gmail.com"
+        "email" : "teste4@gmail.com",
+        "telefone" : "12988545461",
+        "endereco" : "Rua santa cruz",
+        "cidade" : "Jacarei",
+        "estado" : "SP",
+        "pais" : "Brasil",
+        "inscricaoEstadual" : "132458752",
+        "razaoSocial" : "Sementes Green",
+        "cnpj" : "03106082000303"
     }
 
-    headers = {
-        'Content-Type': 'application/json',
-        "Authorization": f"Bearer {token}"
-    }
-    # Fazer a requisição POST
+    headers = {'Content-Type': 'application/json',"Authorization": f"Bearer {token}"}
+    
     response = requests.post(url, json=data, headers=headers)
 
-    # Verificar a resposta
     if response.status_code == 200:
         print('Requisição bem-sucedida!')
         print('Resposta:', response.status_code)

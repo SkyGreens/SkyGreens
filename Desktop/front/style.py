@@ -2,6 +2,7 @@ import customtkinter as ctk
 from PIL import Image
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg #pip install customtkinter matplotlib
 import matplotlib.pyplot as plt
+from tkinter import Toplevel  # pip install tkinter
 
 class Style:
     def __init__(self):
@@ -39,7 +40,9 @@ class Style:
             'img_icon_estoque':abrir_img("img\\icon_estoque.png",(40, 40)),
             'img_icon_producao':abrir_img("img\\icon_producao.png",(40, 40)),
             'img_icon_perfil':abrir_img("img\\icon_perfil.png",(26, 26)),
-            'img_icon_saida':abrir_img("img\\icon_saida.png",(26, 26))
+            'img_icon_saida':abrir_img("img\\icon_saida.png",(26, 26)),
+            'img_icon_delete':abrir_img("img\\icon_delete.png",(26, 26)),
+            'img_icon_edit':abrir_img("img\\icon_edit.png",(26, 26))
         }
         return imgs.get(img_nome)
         
@@ -52,3 +55,29 @@ class Style:
         canvas = FigureCanvasTkAgg(fig, tela)
         plt.close()
         return canvas
+
+    def centralizar_janela(root, largura, altura):
+        
+        tela_largura = root.winfo_screenwidth()
+        tela_altura = root.winfo_screenheight()
+
+        x = (tela_largura // 2) - (largura // 2)
+        y = (tela_altura // 2) - (altura // 2)
+
+        root.geometry(f"{largura}x{altura}+{x}+{y}")
+        
+    def criar_janela_flutuante(titulo, largura, altura):
+        root = Toplevel()
+        root.title(titulo)
+        root.overrideredirect(True)
+        root.configure(background=Style.color('bg'), borderwidth=2, relief="ridge")
+        
+        Style.centralizar_janela(root, largura, altura)
+        
+        root.maxsize(largura, altura)
+        root.minsize(largura, altura)
+        root.focus_force()
+        root.grab_set()
+        
+        return root
+        

@@ -1,41 +1,24 @@
 import customtkinter as ctk  # pip install customtkinter
-from tkinter import Toplevel  # pip install tkinter
 
 from style import Style
 from access import Access
 
 class cdUsuario:
     def __init__(self, callback, dados=None, editar=None):
+        
         self.jn_x = 640
         self.jn_y = 290
-
         self.callback = callback
         self.dados = dados
         self.editar = editar
 
-        self.root = Toplevel()
-        self.root.title("Consultar Fornecedor" if editar ==
-                        0 else "Editar Fornecedor" if editar == 1 else "Cadastrar Fornecedor")
-        self.root.geometry(f"{self.jn_x}x{self.jn_y}")
-        self.root.wm_attributes('-toolwindow', 1)
-        self.root.configure(background=Style.color('bg'))
+        titulo = ("Consultar Fornecedor" if editar == 0 else "Editar Fornecedor" if editar == 1 else "Cadastrar Fornecedor")
 
-        self.centralizar_janela(self.root, self.jn_x, self.jn_y)
+        self.root = Style.criar_janela_flutuante(titulo, self.jn_x, self.jn_y)
+        
         self.elementos_tela(self.root)
-        self.root.maxsize(self.jn_x, self.jn_y)
-        self.root.minsize(self.jn_x, self.jn_y)
         self.root.mainloop()
-
-    def centralizar_janela(self, root, largura, altura):
-
-        tela_largura = root.winfo_screenwidth()
-        tela_altura = root.winfo_screenheight()
-
-        x = (tela_largura // 2) - (largura // 2)
-        y = (tela_altura // 2) - (altura // 2)
-
-        root.geometry(f"{largura}x{altura}+{x}+{y}")
-
+        
     def atualizar_pagina(self, i=0):
         self.root.destroy()
         self.dados = None
@@ -51,18 +34,11 @@ class cdUsuario:
         if self.editar == 1:
             iduser = self.dados['id']
             result = Access.editarUsuario(
-                iduser, cpf, cargo, nome, status, email)
+                iduser, cargo, nome, status, email)
         else:
             result = Access.cadastroUsuario(
                 cpf, senha, cargo, nome, status, email)
 
-        if result:
-            self.atualizar_pagina(1)
-
-    def excluir_usuario(self):
-        iduser = self.dados['id']
-        result = Access.excluirUsuario(iduser)
-        
         if result:
             self.atualizar_pagina(1)
         
@@ -102,11 +78,14 @@ class cdUsuario:
                 valor = self.dados[comp_nome]
                 if valor:
                     self.widgets[comp_nome].insert(0, valor)
-
+            
             self.widgets[comp_nome].configure(state=estado_campo)
             self.widgets[comp_nome].grid(
                 row=row, column=col, columnspan=2 if not column else 1, padx=10, pady=10)
-
+            
+        if self.editar == 1:
+            self.widgets['cpf'].configure(state="disabled")
+            
         cargo_map = {"ADMIN": "Administrador", "GERENTEPRODUCAO": "Gerente de Produção",
                      "ASSISTENTEPRODUCAO": "Assistente de Produção"}
         cargo_map_invertido = {"Administrador": 1, "Gerente de Produção":
@@ -130,10 +109,6 @@ class cdUsuario:
         self.widgets['status'].grid(row=4, column=1, padx=10, pady=10)
         self.widgets['status'].configure(state=estado_campo)
 
-        if self.editar == 1:
-            btn_excluir = ctk.CTkButton(root, width=200, height=20, text='Excluir Usuario',command = self.excluir_usuario, fg_color="red", hover_color=Style.color('hover'))
-            btn_excluir.grid(row=5, column=0,columnspan=2, padx=10, pady=10)
-            self.jn_y = 310
         
         if self.editar != 0:
             btn_cancelar = ctk.CTkButton(root, width=300, height=35, text='Cancelar',
