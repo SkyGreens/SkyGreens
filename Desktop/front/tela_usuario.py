@@ -25,7 +25,6 @@ class telaUsuarios:
         self.pesq_entry.pack(pady=5, padx=10, side=LEFT)
         self.pesq_entry.bind("<KeyRelease>", self.usuario_lista)
 
-        
         btn_cadastrarUser = ctk.CTkButton(pesquisar_frame, text='Cadastrar Usuário', font=('Arial', 15, 'bold'), corner_radius=3, width=100, height=40,
                                fg_color=Style.color('fg'), hover_color=Style.color('hover'),command=lambda:cdUsuario(self))
         btn_cadastrarUser.pack(pady=5, padx=10, side=RIGHT)

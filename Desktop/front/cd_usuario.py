@@ -90,7 +90,6 @@ class cdUsuario:
         self.cargo_selecionado_interno = None
         list_cargos = list(cargo_map.values())
 
-        # Variável e criação do menu de opções de cargo
         opmenu_var = ctk.StringVar(value=cargo_map.get((self.dados.get('cargo'))) if self.dados and cargo_map.get((self.dados.get('cargo'))) else 'Escolha o Cargo')
         self.widgets['cargo'] = ctk.CTkOptionMenu(root, width=300, height=35, values=list_cargos, variable=opmenu_var, fg_color=Style.color('fg')
                                                   ,command=lambda choice: self.opcaomenu(cargo_map_invertido[choice],opmenu_var))
