@@ -15,6 +15,9 @@ api_cadastrarUsuario = f"{API_BASE}/auth/register"
 api_editarUsuario = f"{API_BASE}/usuario/update"
 api_deleteUsuario = f"{API_BASE}/usuario/delete/"
 
+api_cadastrarProducao = f"{API_BASE}/producao/adicionar"
+api_listarProducao = f"{API_BASE}/producao/"
+
 class Access:
     token = None
     userId = None
@@ -254,3 +257,38 @@ class Access:
         
         else:
             print('Erro ao excluir usuario:', response.text)
+               
+    def listarProducao():
+        
+        headers = {"Authorization": f"Bearer {Access.token}"}
+
+        response = requests.get(api_listarProducao, headers=headers)
+        
+        if response.status_code == 200:
+            producao_api = response.json()
+            producao = []
+            print(producao_api)
+        else:
+            print('Falha ao listar Producao:',  response.text)
+            
+    def cadastrarProducao():
+        data = {
+            "sementeId":"1",
+            "sementeQuantidade": "5",
+            "tempoCultivo" : "1",
+            "dataInicio" : "2024-05-05",
+            "fotoSemente" : "",
+            "ativo": "true",
+            "prateleiraId" : "2"
+        }
+
+        headers = {'Content-Type': 'application/json',"Authorization": f"Bearer {Access.token}"}
+
+        response_semente = requests.post(api_cadastrarProducao, json=data, headers=headers)
+
+        if response_semente.status_code == 200:
+            print('Producao cadastrada com sucesso!')
+            return True
+        else:
+            print('Falha ao cadastrar a producao:', response_semente.status_code)
+            return False
