@@ -23,8 +23,9 @@ class Relatorio:
         pesq_label = ctk.CTkLabel(cont_frame, text="Selecione o Conteudo:", font=("Arial", 14))
         pesq_label.pack(pady=5, padx=5, side=LEFT)
         
-        list_cont = ["", "Produção", "Fornecedores", "Insumos", "Pedidos de Venda", "Pedidos de Compras"]
-        self.cont = ctk.CTkOptionMenu(cont_frame, width=800, height=35, values=list_cont, fg_color=Style.color('fg'))
+        optionmenu_var = ctk.StringVar(value="Escolha o conteudo")
+        list_cont = ["", "Produção", "Pedidos de Venda", "Pedidos de Compras"]
+        self.cont = ctk.CTkOptionMenu(cont_frame, width=800, height=35, values=list_cont,variable=optionmenu_var, fg_color=Style.color('fg'))
         self.cont.pack(pady=5, padx=5, side=LEFT)
 
         btn_gerarRelatorio = ctk.CTkButton(cont_frame, text='Gerar Relatorio', font=('Arial', 15, 'bold'), corner_radius=3, width=150, height=40,
