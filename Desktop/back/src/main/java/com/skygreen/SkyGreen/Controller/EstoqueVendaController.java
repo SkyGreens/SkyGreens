@@ -20,7 +20,6 @@ public class EstoqueVendaController {
 
     @GetMapping("/")
     public ResponseEntity<List<ProducaoEntity>> listarEstoqueVenda(){
-        System.out.println("cheguei aqui");
         return ResponseEntity.ok().body(producaoService.listarEstoqueVenda());
     } 
 }
