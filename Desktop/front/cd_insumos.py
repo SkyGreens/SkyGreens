@@ -1,6 +1,6 @@
 import customtkinter as ctk # pip install customtkinter
 
-from style import Style
+from style import Style,MessageBox
 from access import Access
 
 class cdInsumos:
@@ -29,11 +29,17 @@ class cdInsumos:
             listaInsumos.sementes_lista(self.callback)
     
     def modificacao_semente(self,nome,desc):
-
+        msg_box = MessageBox()
+        
         #if self.dados: editar
             #result = Access.editarFornecedor(self.dados['id'], status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj, semente)
         
         result = Access.cadastrarSementes(nome,desc)
+        if result:
+            msg_box.showinfo_autoclose(f"Insumo cadastrado com sucesso!")
+        else:
+            msg_box.showinfo_autoclose(f"Insumo não cadastrado!")
+        
         
         if result:
             self.atualizar_pagina(1)

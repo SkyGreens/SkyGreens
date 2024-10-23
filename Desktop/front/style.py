@@ -1,3 +1,4 @@
+import tkinter as tk
 import customtkinter as ctk
 from PIL import Image
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg #pip install matplotlib
@@ -5,7 +6,7 @@ import matplotlib.pyplot as plt
 from tkinter import Toplevel  # pip install tkinter
 import pandas as pd #pip install pandas
 from openpyxl.workbook import Workbook #pip install openpyxl
-
+from tkinter import messagebox
 
 class Style:
         
@@ -83,6 +84,39 @@ class Style:
         return root
     
     def gerar_relatorio(dados,nomearq):
+        msg_box = MessageBox()
+        if nomearq != None:
+            df = pd.DataFrame.from_dict(dados)
+            #df.to_excel(f"Relatorio {nomearq}.xlsx", index=False)
+            msg_box.showinfo("Sucesso", "Relatório gerado com sucesso!")
+        else:
+            msg_box.showerror("Erro", "Selecione o conteudo para gerar o relatorio")
+        
+class MessageBox:
+    Style = Style()
+    def showinfo(self, title, message):
+        return messagebox.showinfo(title, message)
 
-        df = pd.DataFrame.from_dict(dados)
-        df.to_excel(f"Relatorio {nomearq}.xlsx", index=False)
+    def showwarning(self, title, message):
+        return messagebox.showwarning(title, message)
+
+    def showerror(self, title, message):
+        return messagebox.showerror(title, message)
+
+    def askquestion(self, title, message):
+        return messagebox.askquestion(title, message)
+
+    def askretrycancel(self, title, message):
+        return messagebox.askretrycancel(title, message)
+    
+    def showinfo_autoclose(self, message, timeout=2000):
+        popup = Toplevel()
+        popup.overrideredirect(True)
+        popup.configure(bg=Style.color('hover'))
+        
+        Style.centralizar_janela(popup,400,100)
+        
+        label = tk.Label(popup, text=message, bg=Style.color('hover'), fg='white', font=Style.font_style())
+        label.pack(expand=True, fill="both", padx=10, pady=20)
+
+        popup.after(timeout, popup.destroy)
