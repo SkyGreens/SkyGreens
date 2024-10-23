@@ -69,7 +69,7 @@ class telaHome:
     def show_fornecedores(self):
             self.main.mostrar_tela("telaFornecedor")
     def show_sementes(self):
-            self.main.mostrar_tela("telaFornecedor")
+            self.main.mostrar_tela("listaInsumos")
     
     def lista_pedidos(self):
         pedidos = [{"id":"000021","nome":"Alface","qtd":10},
@@ -117,7 +117,7 @@ class telaHome:
             sem_label.pack(pady=5)
                 
         if not sementes:
-            msg_label = ctk.CTkLabel(self.listaSementes_frame, text="Nenhum insumo cadastrado", font=Style.font_style())
+            msg_label = ctk.CTkLabel(self.listaSementes_frame, text="Nenhum Insumo Cadastrado", font=Style.font_style())
             msg_label.pack(pady=5)
 
     # Função para exibir a tela

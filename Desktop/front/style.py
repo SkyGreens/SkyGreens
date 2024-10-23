@@ -1,8 +1,11 @@
 import customtkinter as ctk
 from PIL import Image
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg #pip install customtkinter matplotlib
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg #pip install matplotlib
 import matplotlib.pyplot as plt
 from tkinter import Toplevel  # pip install tkinter
+import pandas as pd #pip install pandas
+from openpyxl.workbook import Workbook #pip install openpyxl
+
 
 class Style:
         
@@ -40,7 +43,8 @@ class Style:
             'img_icon_perfil':abrir_img("img\\icon_perfil.png",(26, 26)),
             'img_icon_saida':abrir_img("img\\icon_saida.png",(26, 26)),
             'img_icon_delete':abrir_img("img\\icon_delete.png",(26, 26)),
-            'img_icon_edit':abrir_img("img\\icon_edit.png",(26, 26))
+            'img_icon_edit':abrir_img("img\\icon_edit.png",(26, 26)),
+            'img_icon_voltar':abrir_img("img\\icon_voltar.png",(26, 26))
         }
         return imgs.get(img_nome)
         
@@ -78,3 +82,7 @@ class Style:
         
         return root
     
+    def gerar_relatorio(dados,nomearq):
+
+        df = pd.DataFrame.from_dict(dados)
+        df.to_excel(f"Relatorio {nomearq}.xlsx", index=False)

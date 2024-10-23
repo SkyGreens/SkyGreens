@@ -1,5 +1,4 @@
 import customtkinter as ctk  # pip install customtkinter
-from tkinter import Toplevel  # pip install tkinter
 from access import Access
 
 from style import Style
