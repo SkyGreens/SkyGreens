@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from tkinter import Toplevel  # pip install tkinter
 import pandas as pd #pip install pandas
 from openpyxl.workbook import Workbook #pip install openpyxl
-
+from tkinter import messagebox
 
 class Style:
         
@@ -86,3 +86,21 @@ class Style:
 
         df = pd.DataFrame.from_dict(dados)
         df.to_excel(f"Relatorio {nomearq}.xlsx", index=False)
+
+class MessageBox:
+
+    def showinfo(self, title, message):
+        return messagebox.showinfo(title, message)
+
+    def showwarning(self, title, message):
+        return messagebox.showwarning(title, message)
+
+    def showerror(self, title, message):
+        return messagebox.showerror(title, message)
+
+    def askquestion(self, title, message):
+        return messagebox.askquestion(title, message)
+
+    def askretrycancel(self, title, message):
+        return messagebox.askretrycancel(title, message)
+    

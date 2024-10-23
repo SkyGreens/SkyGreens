@@ -3,8 +3,9 @@ import customtkinter as ctk #pip install customtkinter
 import os
 import sys
 
-from style import Style
+from style import Style,MessageBox
 from perfil_user import perfilUser
+
 
 class telaBase:
     
@@ -15,8 +16,11 @@ class telaBase:
         self.verificar(1)
 
     def fechar_programa(self):
-        self.root.quit()
-        os.execv(sys.executable, ['python'] + sys.argv)
+        message_box = MessageBox()
+        result = message_box.askquestion("Logout", "Deseja voltar a tela de login?")
+        if result == 'yes':
+            self.root.quit()
+            os.execv(sys.executable, ['python'] + sys.argv)
         
     def top(self):
         
