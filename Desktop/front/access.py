@@ -218,11 +218,8 @@ class Access:
         
         response = requests.post(api_cadastrarUsuario, json=cadatro_data, headers=headers)
         if response.status_code == 200:
-            print('Usuario Adicionado')
             return True
         else:
-            
-            print('Usuario Não Adicionado',response.text)
             return False
                 
     def editarUsuario(iduser,cargo,nome,status,email):
@@ -238,11 +235,8 @@ class Access:
          
         response = requests.put(api_editarUsuario, json=data, headers=headers)
         if response.status_code == 200:
-            print('Usuario Atualizado')
             return True
         else:
-            
-            print('Usuario Não Atualizado',response.text)
             return False
                 
     def excluirUsuario(iduser):

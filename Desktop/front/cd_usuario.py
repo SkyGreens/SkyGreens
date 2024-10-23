@@ -1,6 +1,6 @@
 import customtkinter as ctk  # pip install customtkinter
 
-from style import Style
+from style import Style,MessageBox
 from access import Access
 
 class cdUsuario:
@@ -28,17 +28,26 @@ class cdUsuario:
             telaUsuarios.usuario_lista(self.callback)
 
     def modificacao_usuario(self, cpf, cargo, nome, status, email):
+        
+        msg_box = MessageBox()
         status = "false" if status == "Inativo" else "true"
 
         senha = cpf[0:3]
         
         if self.editar == 1:
             iduser = self.dados['id']
-            result = Access.editarUsuario(
-                iduser, cargo, nome, status, email)
+            result = Access.editarUsuario(iduser, cargo, nome, status, email)
+            if result:
+                msg_box.showinfo_autoclose(f"Usuario atualizado com sucesso!")
+            else:
+                msg_box.showinfo_autoclose(f"Usuario não atualizado!")
+                
         else:
-            result = Access.cadastroUsuario(
-                cpf, senha, cargo, nome, status, email)
+            result = Access.cadastroUsuario(cpf, senha, cargo, nome, status, email)
+            if result:
+                msg_box.showinfo_autoclose(f"Usuario cadastrado com sucesso!")
+            else:
+                msg_box.showinfo_autoclose(f"Usuario não cadastrado!")
 
         if result:
             self.atualizar_pagina(1)

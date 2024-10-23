@@ -6,9 +6,11 @@ from access import Access
 
 class Relatorio:
     def __init__(self, root, main_instance):
-
         self.root = root
         self.main = main_instance
+        self.choice = None 
+        self.choicemenu = None
+        
         self.frame = Frame(self.root)
         self.frame.pack(side=LEFT)
         self.frame.configure(background=Style.color('bg'))
@@ -23,31 +25,31 @@ class Relatorio:
 
         pesq_label = ctk.CTkLabel(cont_frame, text="Selecione o Conteúdo:", font=("Arial", 14))
         pesq_label.pack(pady=5, padx=5, side=LEFT)
-
+        
         def escolhacont(choice):
             self.choice = choice
-            if choice == "Fornecedores":
+            if self.choice == "Fornecedores":
                 self.choicemenu = Access.listarFornecedores()
                 self.mostrar_dados(['ID', 'Nome', 'CNPJ', 'Endereço', 'Status', 'Email', 'Telefone', 'Cidade', 'Estado', 'País', 'Inscrição Estadual', 'Semente'], self.choicemenu)
-            elif choice == "Produção":
+            elif self.choice == "Produção":
                 #self.choicemenu = Access.listarProducao()
                 self.mostrar_dados(['ID', 'Nome do Produto', 'Quantidade', 'Data de Produção'])
-            elif choice == "Pedidos de Venda":
+            elif self.choice == "Pedidos de Venda":
                 #self.choicemenu = Access.listarpedidosVenda()
                 self.mostrar_dados(['ID', 'Cliente', 'Produto', 'Quantidade', 'Data de Venda'])
-            elif choice == "Pedidos de Compras":
+            elif self.choice == "Pedidos de Compras":
                 #self.choicemenu = Access.listarpedidosCompras()
                 self.mostrar_dados(['ID', 'Fornecedor', 'Produto', 'Quantidade', 'Data de Compra'])
 
         optionmenu_var = ctk.StringVar(value="Escolha o conteúdo")
-        list_cont = ["", "Produção", "Fornecedores", "Pedidos de Venda", "Pedidos de Compras"]
+        list_cont = ["Produção", "Fornecedores", "Pedidos de Venda", "Pedidos de Compras"]
         self.cont = ctk.CTkOptionMenu(cont_frame, width=800, height=35, values=list_cont, variable=optionmenu_var, command=escolhacont, fg_color=Style.color('fg'))
         self.cont.pack(pady=5, padx=5, side=LEFT)
-
+    
         btn_gerarRelatorio = ctk.CTkButton(cont_frame, text='Gerar Relatório', font=('Arial', 15, 'bold'), corner_radius=3, width=150, height=40,
-                                           command=lambda: Style.gerar_relatorio(self.choicemenu, self.choice), fg_color=Style.color('fg'), hover_color=Style.color('hover'))
+                                        command=lambda: Style.gerar_relatorio(self.choicemenu, self.choice), fg_color=Style.color('fg'), hover_color=Style.color('hover'))
         btn_gerarRelatorio.pack(pady=5, padx=10, side=RIGHT)
-
+        
         self.mostra_frame = Frame(self.frame, bg=Style.color('bg_frame'), width=1100, height=350)
         self.mostra_frame.pack(fill="both", expand=True, pady=10, padx=10)
 

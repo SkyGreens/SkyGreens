@@ -3,7 +3,7 @@ import customtkinter as ctk # pip install customtkinter
 
 from cd_usuario import cdUsuario 
 from access import Access
-from style import Style
+from style import Style,MessageBox
 
 class telaUsuarios:
     
@@ -35,9 +35,12 @@ class telaUsuarios:
         self.usuario_lista()
         
     def excluir_usuario(self,dados):
-        iduser = dados['id']
-        result = Access.excluirUsuario(iduser)
-        
+        msg_box = MessageBox()
+        result = msg_box.askquestion("Confirmação", "Deseja excluir este usuario?")
+        if result == 'yes':
+            iduser = dados['id']
+            result = Access.excluirUsuario(iduser)
+            
         if result:
             self.usuario_lista()
             
