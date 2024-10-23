@@ -1,9 +1,10 @@
 import customtkinter as ctk
 from PIL import Image
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg #pip install customtkinter matplotlib
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg #pip install matplotlib
 import matplotlib.pyplot as plt
 from tkinter import Toplevel  # pip install tkinter
-import pandas as pd
+import pandas as pd #pip install pandas
+from openpyxl.workbook import Workbook #pip install openpyxl
 
 
 class Style:
@@ -81,14 +82,7 @@ class Style:
         
         return root
     
-    def gerar_relatorio(dados):
-        '''dados = [{"id":"1","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente de Produção"},
-        {"id":"2","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente de Administrador"},
-        {"id":"3","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente"},
-        {"id":"4","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Assistente"}]'''
+    def gerar_relatorio(dados,nomearq):
 
         df = pd.DataFrame.from_dict(dados)
-        
-        print(df)
-
-        #df.to_excel("dados.xlsx", index=False)
+        df.to_excel(f"Relatorio {nomearq}.xlsx", index=False)
