@@ -20,14 +20,14 @@ public class PrateleiraServiceImpl implements IPrateleiraService {
     public List<PrateleiraEntity> listarPrateleirasDisponiveis() {
         return repository.findByDisponivelTrue();
     }
-
+    
     @Override
     public PrateleiraEntity alocarPrateleiraParaProducao(int prateleiraId) throws Exception {
         Optional<PrateleiraEntity> prateleiraOpt = repository.findById(prateleiraId);
 
         if (prateleiraOpt.isPresent()) {
             PrateleiraEntity prateleira = prateleiraOpt.get();
-            if (prateleira.isDisponivel()) {
+            if (prateleira.getDisponivel()) {
                 prateleira.setDisponivel(false);
                 return repository.save(prateleira);
             } else {
@@ -37,7 +37,7 @@ public class PrateleiraServiceImpl implements IPrateleiraService {
             throw new Exception("Prateleira não encontrada.");
         }
 
-    }
+    } 
 
     @Override
     public void liberarPrateleira(int prateleiraId) {

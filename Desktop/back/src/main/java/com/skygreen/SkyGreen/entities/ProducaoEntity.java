@@ -1,7 +1,10 @@
 package com.skygreen.SkyGreen.entities;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -40,5 +43,23 @@ public class ProducaoEntity implements Serializable{
 
     @OneToOne
     @JoinColumn(name = "prateleira_id")
+    @JsonBackReference
     private PrateleiraEntity prateleira;
+
+    public Date getDataFim(){
+        Date dt = this.dataInicio;
+        Calendar c = Calendar.getInstance(); 
+        c.setTime(dt); 
+        c.add(Calendar.DATE, this.tempoCultivo);
+        dt = c.getTime();
+        return dt;
+    }
+
+    public Boolean getAtivo(){
+        if(getDataFim().before(new Date())){
+            return false;
+        } else{
+            return this.ativo;
+        }
+    }
 }
