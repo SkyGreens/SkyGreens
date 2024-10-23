@@ -3,6 +3,8 @@ from PIL import Image
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg #pip install customtkinter matplotlib
 import matplotlib.pyplot as plt
 from tkinter import Toplevel  # pip install tkinter
+import pandas as pd
+
 
 class Style:
         
@@ -79,3 +81,14 @@ class Style:
         
         return root
     
+    def gerar_relatorio(dados):
+        '''dados = [{"id":"1","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente de Produção"},
+        {"id":"2","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente de Administrador"},
+        {"id":"3","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Gerente"},
+        {"id":"4","nome":"Carlos Alberto","user":"carlos.alberto","cargo":"Assistente"}]'''
+
+        df = pd.DataFrame.from_dict(dados)
+        
+        print(df)
+
+        #df.to_excel("dados.xlsx", index=False)

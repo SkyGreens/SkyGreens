@@ -2,6 +2,7 @@ from tkinter import *
 import customtkinter as ctk
 
 from style import Style
+from access import Access
 
 class Relatorio:
     def __init__(self,root,main_instance):
@@ -23,13 +24,19 @@ class Relatorio:
         pesq_label = ctk.CTkLabel(cont_frame, text="Selecione o Conteudo:", font=("Arial", 14))
         pesq_label.pack(pady=5, padx=5, side=LEFT)
         
+        def escolhacont(choice):
+            
+            if choice == "Fornecedor":
+                self.choicemenu = Access.listarFornecedores()
+            
+        
         optionmenu_var = ctk.StringVar(value="Escolha o conteudo")
-        list_cont = ["", "Produção", "Pedidos de Venda", "Pedidos de Compras"]
-        self.cont = ctk.CTkOptionMenu(cont_frame, width=800, height=35, values=list_cont,variable=optionmenu_var, fg_color=Style.color('fg'))
+        list_cont = ["", "Produção","Fornecedor" ,"Pedidos de Venda", "Pedidos de Compras"]
+        self.cont = ctk.CTkOptionMenu(cont_frame, width=800, height=35, values=list_cont,variable=optionmenu_var, command=escolhacont, fg_color=Style.color('fg'))
         self.cont.pack(pady=5, padx=5, side=LEFT)
 
         btn_gerarRelatorio = ctk.CTkButton(cont_frame, text='Gerar Relatorio', font=('Arial', 15, 'bold'), corner_radius=3, width=150, height=40,
-                                        fg_color=Style.color('fg'), hover_color=Style.color('hover'))
+                                        command=lambda:Style.gerar_relatorio(self.choicemenu),fg_color=Style.color('fg'), hover_color=Style.color('hover'))
         btn_gerarRelatorio.pack(pady=5, padx=10, side=RIGHT)
         
         mostra_frame = Frame(self.frame, bg=Style.color('bg_frame'),width=1100, height=350)

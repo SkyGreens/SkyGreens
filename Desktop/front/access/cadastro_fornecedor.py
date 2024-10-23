@@ -25,7 +25,7 @@ if response.status_code == 200:
         "estado" : "SP",
         "pais" : "Brasil",
         "inscricaoEstadual" : "132458752",
-        "razaoSocial" : "Sementes Green",
+        "razaoSocial" : "Sky Green",
         "cnpj" : "03106082000303"
     }
 
