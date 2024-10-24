@@ -22,14 +22,14 @@ class pedidoCompra:
         btn_voltar.pack(pady=5, padx=5, side=LEFT)
 
         self.pesq_conteudo = StringVar()
-        pesq_label = ctk.CTkLabel(pesquisar_frame, text="Pesquisar Insumo:", font=("Arial", 14))
+        pesq_label = ctk.CTkLabel(pesquisar_frame, text="Pesquisar Compra:", font=("Arial", 14))
         pesq_label.pack(pady=5, padx=5, side=LEFT)
 
         self.pesq_entry = ctk.CTkEntry(pesquisar_frame, textvariable=self.pesq_conteudo, width=800, height=35)
         self.pesq_entry.pack(pady=5, padx=10, side=LEFT)
         self.pesq_entry.bind("<KeyRelease>")
 
-        btn_cdInsumo = ctk.CTkButton(pesquisar_frame, text='Cadastrar Insumo', font=('Arial', 15, 'bold'), corner_radius=3, width=150, height=40,
+        btn_cdInsumo = ctk.CTkButton(pesquisar_frame, text='Cadastrar Compra', font=('Arial', 15, 'bold'), corner_radius=3, width=150, height=40,
                                         fg_color=Style.color('fg'), hover_color=Style.color('hover'), command=lambda: cdPedido())
         btn_cdInsumo.pack(pady=5, padx=10, side=RIGHT)
 
@@ -37,7 +37,7 @@ class pedidoCompra:
         self.lista_frame.pack(fill="both", expand=True, pady=10, padx=10)
 
     def show_telaAnterior(self):
-        self.main.mostrar_tela("telaProducao")
+        self.main.mostrar_tela("telaPedidos")
         
     def mostrar(self):
         self.frame.pack()
