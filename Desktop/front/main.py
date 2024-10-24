@@ -14,6 +14,8 @@ from tela_fornecedor import telaFornecedor
 from tela_listaInsumos import listaInsumos
 from tela_relatorio import Relatorio
 from tela_estoque import Estoque
+from tela_pedidoCompra import pedidoCompra
+from tela_pedidoVenda import pedidoVenda
 
 class Main:
     
@@ -32,11 +34,13 @@ class Main:
         self.telas["telaMonitoramento"] = telaMonitoramento(root)
         self.telas["telaFornecedor"] = telaFornecedor(root)
         self.telas["telaProducao"] = telaProducao(root,self)
-        self.telas["telaPedidos"] = telaPedidos(root)
+        self.telas["telaPedidos"] = telaPedidos(root,self)
         self.telas["telaUsuarios"] = telaUsuarios(root)
         self.telas["listaInsumos"] = listaInsumos(root,self)
         self.telas["Relatorio"] = Relatorio(root,self)
         self.telas["Estoque"] = Estoque(root,self)
+        self.telas["pedidoCompra"] = pedidoCompra(root,self)
+        self.telas["pedidoVenda"] = pedidoVenda(root,self)
 
         self.mostrar_tela("telaHome")
 
