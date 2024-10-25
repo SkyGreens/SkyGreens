@@ -201,6 +201,7 @@ class Access:
                 })
             return usuarios 
         else:
+            return False
             print('Falha ao listar fornecedores:', response.text)
   
     def cadastroUsuario(cpf,senha,cargo,nome,status,email):
@@ -286,3 +287,22 @@ class Access:
         else:
             print('Falha ao cadastrar a producao:', response_semente.status_code)
             return False
+        
+    def verificar_permissoes(self,n):
+        perfil = Access.visualizarPerfil()
+    
+        for i in perfil:
+            cargo = i['cargo']
+
+        if cargo == 'GERENTEPRODUCAO':
+            if n == 6:
+                return False
+            else:
+                return True
+        elif cargo == 'ASSISTENTEPRODUCAO':
+            if n == 3:
+                return False
+            elif n == 6:
+                return False
+        else:
+            return True

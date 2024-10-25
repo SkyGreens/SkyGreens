@@ -12,18 +12,7 @@ class telaHome:
         
         self.frame = Frame(self.root, background=Style.color('bg'))
         self.frame.pack(fill="both", expand=True)
-
-        # Card 1
-        card1 = ctk.CTkFrame(self.frame, width=260, height=440, corner_radius=10)
-        card1.place(x=45, y=15)
-
-        self.listaFornecedores_frame = ctk.CTkScrollableFrame(card1, width=200, height=400)
-        self.listaFornecedores_frame.pack( pady=10, padx=10)
-
-        self.lista_fornecedores()
-
-        btn_saibamais1 = ctk.CTkButton(card1, text="Fornecedores", width=242, fg_color=Style.color('fg'), hover_color=Style.color('hover'), command=self.show_fornecedores)
-        btn_saibamais1.place(x=0, y=405)
+        
         # Card 2
         card2 = ctk.CTkFrame(self.frame, width=260, height=440, corner_radius=10)
         card2.place(x=350, y=15)
@@ -66,8 +55,6 @@ class telaHome:
         canvas.get_tk_widget().place(x=955, y=250, height=200, width=300)
         canvas.get_tk_widget().config(bg=Style.color('bg'), highlightthickness=0)
     
-    def show_fornecedores(self):
-            self.main.mostrar_tela("telaFornecedor")
     def show_sementes(self):
             self.main.mostrar_tela("listaInsumos")
     
