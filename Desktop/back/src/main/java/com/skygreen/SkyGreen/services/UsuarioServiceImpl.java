@@ -2,6 +2,7 @@ package com.skygreen.SkyGreen.services;
 
 import java.nio.file.AccessDeniedException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -88,7 +89,8 @@ public UsuarioEntity updateUsuario(@RequestBody UsuarioEntity usuario) {
 
     @Override
     public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
-        return repository.findUsuarioByCpf(cpf);
+        return Optional.ofNullable(repository.findUsuarioByCpf(cpf))
+            .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com o CPF: " + cpf));
 
     }
 
