@@ -42,4 +42,5 @@ public class PedidoVendaEntity {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private ClienteEntity cliente;
+
 }
