@@ -12,40 +12,29 @@ class telaHome:
         
         self.frame = Frame(self.root, background=Style.color('bg'))
         self.frame.pack(fill="both", expand=True)
-
+        
         # Card 1
-        card1 = ctk.CTkFrame(self.frame, width=260, height=440, corner_radius=10)
-        card1.place(x=45, y=15)
+        card2 = ctk.CTkFrame(self.frame, width=350, height=440, corner_radius=10)
+        card2.place(x=45, y=15)
 
-        self.listaFornecedores_frame = ctk.CTkScrollableFrame(card1, width=200, height=400)
-        self.listaFornecedores_frame.pack( pady=10, padx=10)
-
-        self.lista_fornecedores()
-
-        btn_saibamais1 = ctk.CTkButton(card1, text="Fornecedores", width=242, fg_color=Style.color('fg'), hover_color=Style.color('hover'), command=self.show_fornecedores)
-        btn_saibamais1.place(x=0, y=405)
-        # Card 2
-        card2 = ctk.CTkFrame(self.frame, width=260, height=440, corner_radius=10)
-        card2.place(x=350, y=15)
-
-        self.listaSementes_frame = ctk.CTkScrollableFrame(card2, width=200, height=400)
+        self.listaSementes_frame = ctk.CTkScrollableFrame(card2, width=350, height=400)
         self.listaSementes_frame.pack( pady=10, padx=10)
 
         self.lista_sementes()
 
-        btn_saibamais2 = ctk.CTkButton(card2, text="Insumos", width=242,fg_color=Style.color('fg'),hover_color=Style.color('hover'),command=self.show_sementes)
+        btn_saibamais2 = ctk.CTkButton(card2, text="Insumos", width=392,fg_color=Style.color('fg'),hover_color=Style.color('hover'),command=self.show_sementes)
         btn_saibamais2.place(x=0, y=405)
 
-        # Card 3
-        card3 = ctk.CTkFrame(self.frame, width=260, height=440, corner_radius=10)
-        card3.place(x=650, y=15)
+        # Card 2
+        card3 = ctk.CTkFrame(self.frame, width=359, height=440, corner_radius=10)
+        card3.place(x=500, y=15)
 
-        self.listaPedidos_frame = ctk.CTkScrollableFrame(card3, width=200, height=400)
+        self.listaPedidos_frame = ctk.CTkScrollableFrame(card3, width=350, height=400)
         self.listaPedidos_frame.pack(pady=10, padx=10)
 
         self.lista_pedidos()
 
-        btn_saibamais3 = ctk.CTkButton(card3, text="Pedidos", width=242,fg_color=Style.color('fg'),hover_color=Style.color('hover'))
+        btn_saibamais3 = ctk.CTkButton(card3, text="Pedidos", width=392,fg_color=Style.color('fg'),hover_color=Style.color('hover'))
         btn_saibamais3.place(x=0, y=405)
 
         # Gráfico de Produção Geral
@@ -54,7 +43,7 @@ class telaHome:
         
         canvas = Style.criar_grafico_circular(self.frame,prod_valor, prod_desc, "Produção Geral")
         canvas.draw()
-        canvas.get_tk_widget().place(x=955, y=15, height=200, width=300)
+        canvas.get_tk_widget().place(x=895, y=15, height=240, width=380)
         canvas.get_tk_widget().config(bg=Style.color('bg'), highlightthickness=0)
 
         # Gráfico de Sementes
@@ -63,11 +52,9 @@ class telaHome:
         
         canvas = Style.criar_grafico_circular(self.frame,se_valor, se_desc, "Sementes")
         canvas.draw()
-        canvas.get_tk_widget().place(x=955, y=250, height=200, width=300)
+        canvas.get_tk_widget().place(x=895, y=250, height=240, width=380)
         canvas.get_tk_widget().config(bg=Style.color('bg'), highlightthickness=0)
     
-    def show_fornecedores(self):
-            self.main.mostrar_tela("telaFornecedor")
     def show_sementes(self):
             self.main.mostrar_tela("listaInsumos")
     

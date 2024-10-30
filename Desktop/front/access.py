@@ -7,13 +7,12 @@ api_login = f"{API_BASE}/auth/login"
 api_cadastrarFornecedor = f"{API_BASE}/fornecedor/adicionar"
 api_listarFornecedores = f"{API_BASE}/fornecedor/"
 api_cadastrarSementes = f"{API_BASE}/sementes/adicionar"
-api_listarSementes = f"{API_BASE}/sementes/listar"
+api_listarSementes = f"{API_BASE}/sementes/"
 api_perfilUser = f"{API_BASE}/usuario/personal/"
-api_listarUsuario = f"{API_BASE}/usuario/listar"
+api_listarUsuario = f"{API_BASE}/usuario/"
 api_especificoUsuario = f"{API_BASE}/usuario/"
 api_cadastrarUsuario = f"{API_BASE}/auth/register"
 api_editarUsuario = f"{API_BASE}/usuario/update"
-api_deleteUsuario = f"{API_BASE}/usuario/delete/"
 
 api_cadastrarProducao = f"{API_BASE}/producao/adicionar"
 api_listarProducao = f"{API_BASE}/producao/"
@@ -201,6 +200,7 @@ class Access:
                 })
             return usuarios 
         else:
+            return False
             print('Falha ao listar fornecedores:', response.text)
   
     def cadastroUsuario(cpf,senha,cargo,nome,status,email):
@@ -238,20 +238,7 @@ class Access:
             return True
         else:
             return False
-                
-    def excluirUsuario(iduser):
-        headers = {"Authorization": f"Bearer {Access.token}"}
-        
-        api_userDelete = f"{api_deleteUsuario}{iduser}"
-        response = requests.delete(api_userDelete, headers=headers)
-        
-        if response.status_code == 200:
-            print('Usuario Excluido:')
-            return True
-        
-        else:
-            print('Erro ao excluir usuario:', response.text)
-               
+                           
     def listarProducao():
         
         headers = {"Authorization": f"Bearer {Access.token}"}
@@ -286,3 +273,22 @@ class Access:
         else:
             print('Falha ao cadastrar a producao:', response_semente.status_code)
             return False
+        
+    def verificar_permissoes(self,n):
+        perfil = Access.visualizarPerfil()
+    
+        for i in perfil:
+            cargo = i['cargo']
+
+        if cargo == 'GERENTEPRODUCAO' :
+            if n == 6:
+                return False
+            else:
+                return True
+        elif cargo == 'ASSISTENTEPRODUCAO':
+            if n == 6:
+                return False
+            else:
+                return True
+        else:
+            return True

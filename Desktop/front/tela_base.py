@@ -5,19 +5,21 @@ import sys
 
 from style import Style,MessageBox
 from perfil_user import perfilUser
+from access import Access
 
 
 class telaBase:
     
     def __init__(self, root):
         self.root = root
+        self.message_box = MessageBox()
         self.top()
         self.menu()
         self.verificar(1)
 
     def fechar_programa(self):
-        message_box = MessageBox()
-        result = message_box.askquestion("Logout", "Deseja voltar a tela de login?")
+        
+        result = self.message_box.askquestion("Logout", "Deseja voltar a tela de login?")
         if result == 'yes':
             self.root.quit()
             os.execv(sys.executable, ['python'] + sys.argv)
@@ -58,14 +60,23 @@ class telaBase:
             self.menu_buttons.append(button)
 
     def verificar(self, n):
+        result = Access.verificar_permissoes(self,n)
         
-        for button in self.menu_buttons:
-            button.configure(fg_color=Style.color('fg'))
+        if result:
+            for button in self.menu_buttons:
+                button.configure(fg_color=Style.color('fg'))
 
-        self.menu_buttons[n-1].configure(fg_color=Style.color('hover'))
-        
-        telas = ["telaHome", "telaMonitoramento", "telaFornecedor", "telaProducao", "telaPedidos", "telaUsuarios"]
-        self.mostrar_tela(telas[n-1])
+            self.menu_buttons[n-1].configure(fg_color=Style.color('hover'))
+            
+            telas = ["telaHome", "telaMonitoramento", "telaFornecedor", "telaProducao", "telaPedidos", "telaUsuarios"]
+            self.mostrar_tela(telas[n-1])
+        else:
+            result = self.message_box.showerror("Autenticação","Acesso não autorizado!")
+            if result:
+                for button in self.menu_buttons:
+                    button.configure(fg_color=Style.color('fg'))
+                self.menu_buttons[1-1].configure(fg_color=Style.color('hover'))
+                self.mostrar_tela("telaHome")
 
     def mostrar_tela(self, tela_nome):
         pass
