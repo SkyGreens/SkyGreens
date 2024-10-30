@@ -7,9 +7,9 @@ api_login = f"{API_BASE}/auth/login"
 api_cadastrarFornecedor = f"{API_BASE}/fornecedor/adicionar"
 api_listarFornecedores = f"{API_BASE}/fornecedor/"
 api_cadastrarSementes = f"{API_BASE}/sementes/adicionar"
-api_listarSementes = f"{API_BASE}/sementes/listar"
+api_listarSementes = f"{API_BASE}/sementes/"
 api_perfilUser = f"{API_BASE}/usuario/personal/"
-api_listarUsuario = f"{API_BASE}/usuario/listar"
+api_listarUsuario = f"{API_BASE}/usuario/"
 api_especificoUsuario = f"{API_BASE}/usuario/"
 api_cadastrarUsuario = f"{API_BASE}/auth/register"
 api_editarUsuario = f"{API_BASE}/usuario/update"
@@ -280,7 +280,12 @@ class Access:
         for i in perfil:
             cargo = i['cargo']
 
-        if cargo == 'GERENTEPRODUCAO' or 'ASSISTENTEPRODUCAO':
+        if cargo == 'GERENTEPRODUCAO' :
+            if n == 6:
+                return False
+            else:
+                return True
+        elif cargo == 'ASSISTENTEPRODUCAO':
             if n == 6:
                 return False
             else:
