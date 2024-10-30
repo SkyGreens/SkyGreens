@@ -21,10 +21,19 @@ public class JwtUtil {
             "/estoque/**", 
             "/estoquevenda/**", 
             "/prateleira/**",
+            "/cliente/**",
+            "/vendas/**"
         };
         
         public static final String[] ENDPOINTS_WITH_ASSISTENTE_CAN_ACCESS = {
-             "/producao/",
-             "/estoquevenda/**"
+                "/compras/**", 
+                "/sementes/**", 
+                "/fornecedor/**",
+                "/producao/**", 
+                "/estoque/**", 
+                "/estoquevenda/**", 
+                "/prateleira/**",
+                "/cliente/**",
+                "/vendas/**"
     };
 }
