@@ -13,7 +13,6 @@ api_listarUsuario = f"{API_BASE}/usuario/listar"
 api_especificoUsuario = f"{API_BASE}/usuario/"
 api_cadastrarUsuario = f"{API_BASE}/auth/register"
 api_editarUsuario = f"{API_BASE}/usuario/update"
-api_deleteUsuario = f"{API_BASE}/usuario/delete/"
 
 api_cadastrarProducao = f"{API_BASE}/producao/adicionar"
 api_listarProducao = f"{API_BASE}/producao/"
@@ -239,20 +238,7 @@ class Access:
             return True
         else:
             return False
-                
-    def excluirUsuario(iduser):
-        headers = {"Authorization": f"Bearer {Access.token}"}
-        
-        api_userDelete = f"{api_deleteUsuario}{iduser}"
-        response = requests.delete(api_userDelete, headers=headers)
-        
-        if response.status_code == 200:
-            print('Usuario Excluido:')
-            return True
-        
-        else:
-            print('Erro ao excluir usuario:', response.text)
-               
+                           
     def listarProducao():
         
         headers = {"Authorization": f"Bearer {Access.token}"}
@@ -294,15 +280,10 @@ class Access:
         for i in perfil:
             cargo = i['cargo']
 
-        if cargo == 'GERENTEPRODUCAO':
+        if cargo == 'GERENTEPRODUCAO' or 'ASSISTENTEPRODUCAO':
             if n == 6:
                 return False
             else:
                 return True
-        elif cargo == 'ASSISTENTEPRODUCAO':
-            if n == 3:
-                return False
-            elif n == 6:
-                return False
         else:
             return True

@@ -42,72 +42,59 @@ class telaFornecedor:
 
         self.fornecedor_lista()
         
-    def excluir_fornecedor(self,dados):
-        idfor = dados['id']
-        #result = Access.excluirUsuario(iduser)
-        
-        #if result:
-            #self.fornecedor_lista()
-        
     def fornecedor_lista(self,op_status="Ativo",event=None):
         
         fornecedores = Access.listarFornecedores()
         
-        termoPesq = self.pesq_conteudo.get().lower()
-        
-        # Limpar os fornecedores anteriores
-        for self.widget in self.lista_frame.winfo_children():
-            self.widget.destroy()
-        
-        for i in fornecedores:
+        if fornecedores:
+            termoPesq = self.pesq_conteudo.get().lower()
             
-            status = "Inativo" if i['status'] == False else "Ativo"
+            for self.widget in self.lista_frame.winfo_children():
+                self.widget.destroy()
             
-            if (status == op_status) and(
-                termoPesq in i['id'].lower() or
-                termoPesq in i['nome'].lower() or
-                termoPesq in i['cnpj'].lower()):
+            for i in fornecedores:
                 
-                fornecedor_frame = ctk.CTkFrame(self.lista_frame, corner_radius=10)
-                fornecedor_frame.pack(fill="x", padx=10, pady=5)
+                status = "Inativo" if i['status'] == False else "Ativo"
                 
-                insumo = "Sem Cadastro" if i['semente'] == '' else i['semente']
+                if (status == op_status) and(
+                    termoPesq in i['id'].lower() or
+                    termoPesq in i['nome'].lower() or
+                    termoPesq in i['cnpj'].lower()):
+                    
+                    fornecedor_frame = ctk.CTkFrame(self.lista_frame, corner_radius=10)
+                    fornecedor_frame.pack(fill="x", padx=10, pady=5)
+                    
+                    insumo = "Sem Cadastro" if i['semente'] == '' else i['semente']
+                    
+                    fornecedor_label = ctk.CTkLabel(fornecedor_frame, 
+                                                    text=f"ID: {i['id']} - {i['nome']} - CNPJ: {i['cnpj']} - Endereço: {i['endereco']} - Insumo: {insumo} - Status: {status}", 
+                                                    font=("Arial", 14))
+                    fornecedor_label.pack(side="left", pady=5)
+                    
+                    btn_editar = ctk.CTkButton(fornecedor_frame, text='',image=Style.img('img_icon_edit'),  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
+                    btn_editar.pack(side="right", padx=5, pady=5)
+                    
+                    fornecedor_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela_edicao(dados))
+                    
+                elif op_status == "Todos":
+                    fornecedor_frame = ctk.CTkFrame(self.lista_frame, corner_radius=10)
+                    fornecedor_frame.pack(fill="x", padx=10, pady=5)
+                    
+                    insumo = "Sem Cadastro" if i['semente'] == '' else i['semente']
+                    
+                    fornecedor_label = ctk.CTkLabel(fornecedor_frame, 
+                                                    text=f"ID: {i['id']} - {i['nome']} - CNPJ: {i['cnpj']} - Endereço: {i['endereco']} - Insumo: {insumo} - Status: {status}", 
+                                                    font=("Arial", 14))
+                    fornecedor_label.pack(side="left", pady=5)
+                    
+                    btn_editar = ctk.CTkButton(fornecedor_frame, text="",image=Style.img('img_icon_edit'),  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
+                    btn_editar.pack(side="right", padx=5, pady=5)
+                    
+                    fornecedor_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela_edicao(dados))
                 
-                fornecedor_label = ctk.CTkLabel(fornecedor_frame, 
-                                                text=f"ID: {i['id']} - {i['nome']} - CNPJ: {i['cnpj']} - Endereço: {i['endereco']} - Insumo: {insumo} - Status: {status}", 
-                                                font=("Arial", 14))
-                fornecedor_label.pack(side="left", pady=5)
-                
-                btn_editar = ctk.CTkButton(fornecedor_frame, text='',image=Style.img('img_icon_edit'),  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
-                btn_editar.pack(side="right", padx=5, pady=5)
-                
-                btn_excluir = ctk.CTkButton(fornecedor_frame, width=30, height=30, text='',image=Style.img('img_icon_delete'),command = lambda dados=i: self.excluir_fornecedor(dados), fg_color=Style.color('fg_red'), hover_color=Style.color('hover_red'))
-                btn_excluir.pack(side="right", padx=5, pady=5)
-                
-                fornecedor_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela_edicao(dados))
-                
-            elif op_status == "Todos":
-                fornecedor_frame = ctk.CTkFrame(self.lista_frame, corner_radius=10)
-                fornecedor_frame.pack(fill="x", padx=10, pady=5)
-                
-                insumo = "Sem Cadastro" if i['semente'] == '' else i['semente']
-                
-                fornecedor_label = ctk.CTkLabel(fornecedor_frame, 
-                                                text=f"ID: {i['id']} - {i['nome']} - CNPJ: {i['cnpj']} - Endereço: {i['endereco']} - Insumo: {insumo} - Status: {status}", 
-                                                font=("Arial", 14))
-                fornecedor_label.pack(side="left", pady=5)
-                
-                btn_editar = ctk.CTkButton(fornecedor_frame, text="",image=Style.img('img_icon_edit'),  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
-                btn_editar.pack(side="right", padx=5, pady=5)
-                
-                btn_excluir = ctk.CTkButton(fornecedor_frame, width=30, height=30, text='',image=Style.img('img_icon_delete'),command = lambda dados=i: self.excluir_fornecedor(dados), fg_color=Style.color('fg_red'), hover_color=Style.color('hover_red'))
-                btn_excluir.pack(side="right", padx=5, pady=5)
-                
-                fornecedor_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela_edicao(dados))
-            
-        if not fornecedores:
-            msg_label = ctk.CTkLabel(self.lista_frame, text="Nenhum fornecedor encontrado.", font=("Arial", 14))
-            msg_label.pack(pady=5)
+            if not fornecedores:
+                msg_label = ctk.CTkLabel(self.lista_frame, text="Nenhum fornecedor encontrado.", font=("Arial", 14))
+                msg_label.pack(pady=5)
             
     def abrir_tela_edicao(self, dados):
         cdFornecedor(self, dados=dados,editar=True)

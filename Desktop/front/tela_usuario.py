@@ -34,16 +34,6 @@ class telaUsuarios:
         self.lista_frame.pack(fill="both", expand=True, pady=10, padx=10)
 
         self.usuario_lista()
-        
-    def excluir_usuario(self,dados):
-        msg_box = MessageBox()
-        result = msg_box.askquestion("Confirmação", "Deseja excluir este usuario?")
-        if result == 'yes':
-            iduser = dados['id']
-            result = Access.excluirUsuario(iduser)
-            
-        if result:
-            self.usuario_lista()
             
     def usuario_lista(self,event=None):
         usuarios = Access.listarUsuarios()
@@ -71,9 +61,6 @@ class telaUsuarios:
                     
                     btn_editar = ctk.CTkButton(user_frame, text='',image=Style.img('img_icon_edit'),  width=30,height=30, command=lambda dados=i: self.abrir_tela(dados,1),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
                     btn_editar.pack(side="right", padx=5, pady=5)
-                    
-                    btn_excluir = ctk.CTkButton(user_frame, width=30, height=30, text='',image=Style.img('img_icon_delete'),command = lambda dados=i: self.excluir_usuario(dados), fg_color=Style.color('fg_red'), hover_color=Style.color('hover_red'))
-                    btn_excluir.pack(side="right", padx=5, pady=5)
                     
                     user_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela(dados,0))
                     

@@ -49,8 +49,8 @@ class telaLogin:
         #user = 01800980809
         #senha = 'assistente'
         
-        #user= 48983452803
-        #senha='489'
+        #user = 48983452803
+        #senha ='489'
         
         self.frame.destroy()
         access = Access.login(user, senha, self.app)    
