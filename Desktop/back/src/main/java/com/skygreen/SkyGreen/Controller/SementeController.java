@@ -19,7 +19,7 @@ public class SementeController {
     @Autowired
     private ISementeService sementeService;
 
-    @GetMapping("/listar")
+    @GetMapping("/")
     public List<SementeEntity> getAllSementes() {
         return sementeService.findAll();
     }

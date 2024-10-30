@@ -24,7 +24,7 @@ public class PedidoVendasController {
         return pedidoVendaService.criarVenda(pedidoVenda);
     }
 
-    @GetMapping("/listar")
+    @GetMapping("/")
     public List<PedidoVendaEntity> getVenda() {
         return pedidoVendaService.getVenda();
     }
