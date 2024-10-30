@@ -6,6 +6,7 @@ API_BASE = "http://localhost:8080/skygreen"
 api_login = f"{API_BASE}/auth/login"
 api_cadastrarFornecedor = f"{API_BASE}/fornecedor/adicionar"
 api_listarFornecedores = f"{API_BASE}/fornecedor/"
+api_cadastrarSementes = f"{API_BASE}/sementes/adicionar"
 api_listarSementes = f"{API_BASE}/sementes/listar"
 api_perfilUser = f"{API_BASE}/usuario/personal/"
 api_listarUsuario = f"{API_BASE}/usuario/listar"
@@ -14,6 +15,8 @@ api_cadastrarUsuario = f"{API_BASE}/auth/register"
 api_editarUsuario = f"{API_BASE}/usuario/update"
 api_deleteUsuario = f"{API_BASE}/usuario/delete/"
 
+api_cadastrarProducao = f"{API_BASE}/producao/adicionar"
+api_listarProducao = f"{API_BASE}/producao/"
 
 class Access:
     token = None
@@ -106,6 +109,28 @@ class Access:
         else:
             print('Falha ao listar fornecedores:', response.text)
 
+    def editarFornecedor(id,s,e,t,end,cid,est,pais,ie,rs,cnpj,sementeid):
+        print('Fornecedor Atualizado: ',id)
+        return True
+    
+    def cadastrarSementes(nome,desc):
+
+        data = {
+            "nome": nome,
+            "descricao": desc
+        }
+
+        headers = {"Authorization": f"Bearer {Access.token}"}
+
+        response_semente = requests.post(api_cadastrarSementes, json=data, headers=headers)
+
+        if response_semente.status_code == 200:
+            print('Semente cadastrada com sucesso!')
+            return True
+        else:
+            print('Falha ao cadastrar a semente:', response_semente.status_code)
+            return False
+
     def listarSementes():
         headers = {"Authorization": f"Bearer {Access.token}"}
 
@@ -123,10 +148,6 @@ class Access:
             return sementes 
         else:
             print('Falha ao listar sementes:',  response.text)
-
-    def editarFornecedor(id,s,e,t,end,cid,est,pais,ie,rs,cnpj,sementeid):
-        print('Fornecedor Atualizado: ',id)
-        return True
     
     def visualizarPerfil():
         
@@ -197,11 +218,8 @@ class Access:
         
         response = requests.post(api_cadastrarUsuario, json=cadatro_data, headers=headers)
         if response.status_code == 200:
-            print('Usuario Adicionado')
             return True
         else:
-            
-            print('Usuario Não Adicionado',response.text)
             return False
                 
     def editarUsuario(iduser,cargo,nome,status,email):
@@ -217,11 +235,8 @@ class Access:
          
         response = requests.put(api_editarUsuario, json=data, headers=headers)
         if response.status_code == 200:
-            print('Usuario Atualizado')
             return True
         else:
-            
-            print('Usuario Não Atualizado',response.text)
             return False
                 
     def excluirUsuario(iduser):
@@ -236,3 +251,38 @@ class Access:
         
         else:
             print('Erro ao excluir usuario:', response.text)
+               
+    def listarProducao():
+        
+        headers = {"Authorization": f"Bearer {Access.token}"}
+
+        response = requests.get(api_listarProducao, headers=headers)
+        
+        if response.status_code == 200:
+            producao_api = response.json()
+            producao = []
+            print(producao_api)
+        else:
+            print('Falha ao listar Producao:',  response.text)
+            
+    def cadastrarProducao():
+        data = {
+            "sementeId":"1",
+            "sementeQuantidade": "5",
+            "tempoCultivo" : "1",
+            "dataInicio" : "2024-05-05",
+            "fotoSemente" : "",
+            "ativo": "true",
+            "prateleiraId" : "2"
+        }
+
+        headers = {'Content-Type': 'application/json',"Authorization": f"Bearer {Access.token}"}
+
+        response_semente = requests.post(api_cadastrarProducao, json=data, headers=headers)
+
+        if response_semente.status_code == 200:
+            print('Producao cadastrada com sucesso!')
+            return True
+        else:
+            print('Falha ao cadastrar a producao:', response_semente.status_code)
+            return False

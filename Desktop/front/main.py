@@ -11,6 +11,11 @@ from tela_producao import telaProducao
 from tela_pedidos import telaPedidos
 from tela_usuario import telaUsuarios
 from tela_fornecedor import telaFornecedor
+from tela_listaInsumos import listaInsumos
+from tela_relatorio import Relatorio
+from tela_estoque import Estoque
+from tela_pedidoCompra import pedidoCompra
+from tela_pedidoVenda import pedidoVenda
 
 class Main:
     
@@ -28,17 +33,23 @@ class Main:
         self.telas["telaHome"] = telaHome(root,self)
         self.telas["telaMonitoramento"] = telaMonitoramento(root)
         self.telas["telaFornecedor"] = telaFornecedor(root)
-        self.telas["telaProducao"] = telaProducao(root)
-        self.telas["telaPedidos"] = telaPedidos(root)
+        self.telas["telaProducao"] = telaProducao(root,self)
+        self.telas["telaPedidos"] = telaPedidos(root,self)
         self.telas["telaUsuarios"] = telaUsuarios(root)
+        self.telas["listaInsumos"] = listaInsumos(root,self)
+        self.telas["Relatorio"] = Relatorio(root,self)
+        self.telas["Estoque"] = Estoque(root,self)
+        self.telas["pedidoCompra"] = pedidoCompra(root,self)
+        self.telas["pedidoVenda"] = pedidoVenda(root,self)
 
         self.mostrar_tela("telaHome")
 
     def mostrar_tela(self, tela_nome):
+                
         for tela in self.telas.values():
             tela.esconder()
-
-        self.telas[tela_nome].mostrar()
+        if tela_nome in self.telas:
+            self.telas[tela_nome].mostrar()
 
 if __name__ == "__main__":
     jar_instance = Jar()
@@ -49,17 +60,7 @@ if __name__ == "__main__":
     largura_janela = 1300
     altura_janela = 600
 
-    def centralizar_janela(root, largura, altura):
-
-        tela_largura = root.winfo_screenwidth()
-        tela_altura = root.winfo_screenheight()
-
-        x = (tela_largura // 2) - (largura // 2)
-        y = (tela_altura // 2) - (altura // 2)
-
-        root.geometry(f"{largura}x{altura}+{x}+{y}")
-
-    centralizar_janela(root, largura_janela, altura_janela)
+    Style.centralizar_janela(root, largura_janela, altura_janela)
 
     app = Main(root)
     root.mainloop()

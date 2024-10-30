@@ -17,6 +17,14 @@
             "mainClass": "com.skygreen.SkyGreen.SkyGreenApplication",
             "projectName": "SkyGreen",
             "args": "--spring.profiles.active=prd"
+        },
+        {
+            "type": "java",
+            "name": "homologação",
+            "request": "launch",
+            "mainClass": "com.skygreen.SkyGreen.SkyGreenApplication",
+            "projectName": "SkyGreen",
+            "args": "--spring.profiles.active=dsv"
         }
     ]
 }

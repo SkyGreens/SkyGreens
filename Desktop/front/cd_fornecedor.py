@@ -1,8 +1,7 @@
 import customtkinter as ctk  # pip install customtkinter
-from tkinter import Toplevel  # pip install tkinter
 from access import Access
 
-from style import Style
+from style import Style,MessageBox
 
 class cdFornecedor:
     
@@ -28,11 +27,20 @@ class cdFornecedor:
             telaFornecedor.fornecedor_lista(self.callback)
     
     def modificacao_fornecedor(self, cnpj, rzsocial, isced, email, status, tel, end, cid, est, pais, semente):
+        msg_box = MessageBox()
         status = False if status == "Inativo" else True
         if self.dados:
             result = Access.editarFornecedor(self.dados['id'], status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj, semente)
+            if result:
+                msg_box.showinfo_autoclose(f"Fornecedor cadastrado com sucesso!")
+            else:
+                msg_box.showinfo_autoclose(f"Fornecedor não cadastrado!")
         else:
             result = Access.cadastroFornecedor(status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj, semente)
+            if result:
+                msg_box.showinfo_autoclose(f"Fornecedor cadastrado com sucesso!")
+            else:
+                msg_box.showinfo_autoclose(f"Fornecedor não cadastrado!")
         
         if result:
             self.atualizar_pagina(1)

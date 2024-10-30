@@ -3,7 +3,7 @@ import customtkinter as ctk # pip install customtkinter
 
 from cd_usuario import cdUsuario 
 from access import Access
-from style import Style
+from style import Style,MessageBox
 
 class telaUsuarios:
     
@@ -25,7 +25,6 @@ class telaUsuarios:
         self.pesq_entry.pack(pady=5, padx=10, side=LEFT)
         self.pesq_entry.bind("<KeyRelease>", self.usuario_lista)
 
-        
         btn_cadastrarUser = ctk.CTkButton(pesquisar_frame, text='Cadastrar Usuário', font=('Arial', 15, 'bold'), corner_radius=3, width=100, height=40,
                                fg_color=Style.color('fg'), hover_color=Style.color('hover'),command=lambda:cdUsuario(self))
         btn_cadastrarUser.pack(pady=5, padx=10, side=RIGHT)
@@ -36,9 +35,12 @@ class telaUsuarios:
         self.usuario_lista()
         
     def excluir_usuario(self,dados):
-        iduser = dados['id']
-        result = Access.excluirUsuario(iduser)
-        
+        msg_box = MessageBox()
+        result = msg_box.askquestion("Confirmação", "Deseja excluir este usuario?")
+        if result == 'yes':
+            iduser = dados['id']
+            result = Access.excluirUsuario(iduser)
+            
         if result:
             self.usuario_lista()
             
