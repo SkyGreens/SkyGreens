@@ -57,8 +57,8 @@ public class PedidoVendaServiceImpl implements IPedidoVendaService {
         }
         
         //valida se tem semente disponível para venda
-        if(pedidoVenda.getQuantidade() >= semente.get().getEstoque().getQuantidade()){
-            throw new Exception("Id de semente não encontrado.");
+        if(pedidoVenda.getQuantidade() > semente.get().getEstoque().getQuantidade()){
+            throw new Exception("Quantidade de semente excedida.");
         }
 
         EstoqueEntity novoEstoque = new EstoqueEntity();
