@@ -1,9 +1,8 @@
 package com.skygreen.SkyGreen.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.time.LocalDateTime;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +21,6 @@ import com.skygreen.SkyGreen.repositories.ProducaoRepository;
 import com.skygreen.SkyGreen.repositories.SementeRepository;
 import com.skygreen.SkyGreen.services.interfaces.IPedidoVendaService;
 
-import java.util.Date;
-
 @Service
 public class PedidoVendaServiceImpl implements IPedidoVendaService {
 
@@ -31,12 +28,12 @@ public class PedidoVendaServiceImpl implements IPedidoVendaService {
     private PedidoVendaRepository pedidoVendaRepository;
 
     @Autowired
-    private ClienteRepository clienteRepository; 
+    private ClienteRepository clienteRepository;
 
     @Autowired
-    private SementeRepository sementeRepository; 
+    private SementeRepository sementeRepository;
 
-    @Autowired 
+    @Autowired
     private PrateleiraRepository prateleiraRepository;
 
     @Autowired
@@ -46,18 +43,18 @@ public class PedidoVendaServiceImpl implements IPedidoVendaService {
     private ProducaoRepository producaoRepository;
 
     @Override
-    public PedidoVendaEntity criarVenda(PedidoVendaEntity pedidoVenda) throws Exception{
-        
+    public PedidoVendaEntity criarVenda(PedidoVendaEntity pedidoVenda) throws Exception {
+
         ProducaoEntity novaProducao = criaProducaoEntity(pedidoVenda);
-        
+
         Optional<SementeEntity> semente = sementeRepository.findById(pedidoVenda.getSemente().getSementeId());
-        //valida se semente existe
-        if(!semente.isPresent()){
+        // valida se semente existe
+        if (!semente.isPresent()) {
             throw new Exception("Id de semente não encontrado.");
         }
-        
-        //valida se tem semente disponível para venda
-        if(pedidoVenda.getQuantidade() > semente.get().getEstoque().getQuantidade()){
+
+        // valida se tem semente disponível para venda
+        if (pedidoVenda.getQuantidade() > semente.get().getEstoque().getQuantidade()) {
             throw new Exception("Quantidade de semente excedida.");
         }
 
@@ -67,32 +64,32 @@ public class PedidoVendaServiceImpl implements IPedidoVendaService {
         novoEstoque.setQuantidade(semente.get().getEstoque().getQuantidade() - pedidoVenda.getQuantidade());
 
         List<PrateleiraEntity> prateleirasDisponiveis = prateleiraRepository.findByDisponivelTrue();
-        //valida se tem prateleira disponível
-        if(prateleirasDisponiveis.size() < 1){
+        // valida se tem prateleira disponível
+        if (prateleirasDisponiveis.size() < 1) {
             throw new Exception("Nenhuma prateleira disponível!");
         }
-        
+
         PrateleiraEntity prateleiraUtilizada = prateleirasDisponiveis.get(0);
         prateleiraUtilizada.setDisponivel(false);
-        
+
         novaProducao.setPrateleira(prateleiraUtilizada);
-        
+
         Optional<ClienteEntity> cliente = clienteRepository.findById(pedidoVenda.getCliente().getClienteId());
-        
-        //valida se cliente existe
-        if (!cliente.isPresent()){
-            throw new Exception ("Id de cliente não encontrado.");
+
+        // valida se cliente existe
+        if (!cliente.isPresent()) {
+            throw new Exception("Id de cliente não encontrado.");
         }
-        
-        estoqueRepository.save(novoEstoque);       
+
+        estoqueRepository.save(novoEstoque);
         prateleiraRepository.save(prateleiraUtilizada);
         producaoRepository.save(novaProducao);
 
         return pedidoVendaRepository.save(pedidoVenda);
     }
 
-    private ProducaoEntity criaProducaoEntity(PedidoVendaEntity pedidoVenda){
-        //criar nova producao
+    private ProducaoEntity criaProducaoEntity(PedidoVendaEntity pedidoVenda) {
+        // criar nova producao
         ProducaoEntity novaProducao = new ProducaoEntity();
 
         novaProducao.setSementeId(pedidoVenda.getSemente().getSementeId());

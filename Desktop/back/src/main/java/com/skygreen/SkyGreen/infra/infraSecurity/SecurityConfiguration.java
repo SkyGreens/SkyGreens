@@ -29,7 +29,7 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable()) 
                 //.cors(cors -> cors.disable())  // Desabilita CORS da forma recomendada
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) 
-                .authorizeHttpRequests(auth -> auth                         
+                .authorizeHttpRequests(auth -> auth                          
                         .requestMatchers(JwtUtil.ENDPOINTS_WITH_USER_CAN_ACCESS).permitAll()
                         .requestMatchers(JwtUtil.ENDPOINTS_WITH_ADMIN_CAN_ACCESS).hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, JwtUtil.ENDPOINTS_WITH_ASSISTENTE_CAN_ACCESS).hasAnyRole("ADMIN","ASSISTENTEPRODUCAO", "GERENTEPRODUCAO")
@@ -37,7 +37,9 @@ public class SecurityConfiguration {
                         .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .headers(headers -> headers.frameOptions().disable())  // Para permitir o uso do H2
+                .headers(headers -> headers
+                    .frameOptions(frameOptions -> frameOptions.sameOrigin()) // Permite frames de origem igual
+                )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
