@@ -1,5 +1,7 @@
 package com.skygreen.SkyGreen.services;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -8,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skygreen.SkyGreen.entities.ClienteEntity;
-import com.skygreen.SkyGreen.entities.EstoqueEntity;
 import com.skygreen.SkyGreen.entities.PedidoVendaEntity;
 import com.skygreen.SkyGreen.entities.PrateleiraEntity;
 import com.skygreen.SkyGreen.entities.ProducaoEntity;
@@ -37,68 +38,62 @@ public class PedidoVendaServiceImpl implements IPedidoVendaService {
     private PrateleiraRepository prateleiraRepository;
 
     @Autowired
-    private EstoqueRepository estoqueRepository;
+    private ProducaoRepository producaoRepository;
 
     @Autowired
-    private ProducaoRepository producaoRepository;
+    private ProducaoServiceImpl producaoServiceImpl;
 
     @Override
     public PedidoVendaEntity criarVenda(PedidoVendaEntity pedidoVenda) throws Exception {
 
-        ProducaoEntity novaProducao = criaProducaoEntity(pedidoVenda);
-
+        pedidoVenda.setDataPedido(LocalDateTime.now());
         Optional<SementeEntity> semente = sementeRepository.findById(pedidoVenda.getSemente().getSementeId());
         // valida se semente existe
         if (!semente.isPresent()) {
             throw new Exception("Id de semente não encontrado.");
         }
-
+        
         // valida se tem semente disponível para venda
         if (pedidoVenda.getQuantidade() > semente.get().getEstoque().getQuantidade()) {
             throw new Exception("Quantidade de semente excedida.");
         }
-
-        EstoqueEntity novoEstoque = new EstoqueEntity();
-        novoEstoque.setEstoqueId(semente.get().getEstoque().getEstoqueId());
-        novoEstoque.setSemente(semente.get());
-        novoEstoque.setQuantidade(semente.get().getEstoque().getQuantidade() - pedidoVenda.getQuantidade());
-
+        
         List<PrateleiraEntity> prateleirasDisponiveis = prateleiraRepository.findByDisponivelTrue();
         // valida se tem prateleira disponível
         if (prateleirasDisponiveis.size() < 1) {
             throw new Exception("Nenhuma prateleira disponível!");
         }
-
-        PrateleiraEntity prateleiraUtilizada = prateleirasDisponiveis.get(0);
-        prateleiraUtilizada.setDisponivel(false);
-
-        novaProducao.setPrateleira(prateleiraUtilizada);
-
+        ;
+        
         Optional<ClienteEntity> cliente = clienteRepository.findById(pedidoVenda.getCliente().getClienteId());
-
+        
         // valida se cliente existe
         if (!cliente.isPresent()) {
             throw new Exception("Id de cliente não encontrado.");
         }
-
-        estoqueRepository.save(novoEstoque);
-        prateleiraRepository.save(prateleiraUtilizada);
-        producaoRepository.save(novaProducao);
-
+        criaProducaoEntity(pedidoVenda);
+        
         return pedidoVendaRepository.save(pedidoVenda);
     }
 
-    private ProducaoEntity criaProducaoEntity(PedidoVendaEntity pedidoVenda) {
-        // criar nova producao
+    private void criaProducaoEntity(PedidoVendaEntity pedidoVenda) throws Exception {
         ProducaoEntity novaProducao = new ProducaoEntity();
 
         novaProducao.setSementeId(pedidoVenda.getSemente().getSementeId());
         novaProducao.setSementeQuantidade(pedidoVenda.getQuantidade());
         novaProducao.setTempoCultivo(pedidoVenda.getTempoCultivo());
-        novaProducao.setDataInicio(new Date());
+
+        LocalDateTime dataPedido = pedidoVenda.getDataPedido();
+        if (dataPedido != null) {
+            novaProducao.setDataInicio(Date.from(dataPedido.atZone(ZoneId.systemDefault()).toInstant()));
+        } else {
+            throw new IllegalArgumentException("Data do pedido não pode ser nula");
+        }
+
         novaProducao.setAtivo(true);
 
-        return novaProducao;
+        producaoServiceImpl.add(novaProducao);
+        producaoRepository.save(novaProducao);
     }
 
     @Override

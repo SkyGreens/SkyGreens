@@ -131,6 +131,7 @@ public class InitDB implements CommandLineRunner {
 
         PedidoCompraEntity pedidoCompra = new PedidoCompraEntity();
 
+        pedidoCompra.setPedidoCompraId(0);
         pedidoCompra.setFornecedor(fornecedor);
         pedidoCompra.setQuantidade(100);
         pedidoCompra.setSemente(semente);
@@ -158,7 +159,7 @@ public class InitDB implements CommandLineRunner {
 
         //Pedido venda
 
-        PedidoVendaEntity pedidoVenda = new PedidoVendaEntity();
+       PedidoVendaEntity pedidoVenda = new PedidoVendaEntity();
 
         pedidoVenda.setAtivo(true);
         pedidoVenda.setCliente(cliente);
@@ -168,7 +169,7 @@ public class InitDB implements CommandLineRunner {
         pedidoVenda.setTempoCultivo(10);
 
         pedidoVenda = pedidoVendaService.criarVenda(pedidoVenda);
-        pedidoVendaRepository.save(pedidoVenda);
+        pedidoVendaRepository.save(pedidoVenda); 
 
 
     }

@@ -2,6 +2,7 @@ package com.skygreen.SkyGreen.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class PrateleiraEntity {
 
     private boolean disponivel;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "producao_id")
     @JsonManagedReference
     private ProducaoEntity producao;

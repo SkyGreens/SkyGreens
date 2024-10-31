@@ -62,10 +62,9 @@ public class ProducaoServiceImpl implements IProducaoService {
             prateleiraEscolhida.setProducao(producao);
             prateleiraEscolhida.setDisponivel(false);
             producao.setPrateleira(prateleiraEscolhida);
-            // setar como ativo ao criar producao
             producao.setAtivo(true);
         }
-
+        
         // pegando o estoque atual
         EstoqueEntity estoqueSemente = semente.get().getEstoque();
         // descontando quantidade de semente utilizada
@@ -76,8 +75,9 @@ public class ProducaoServiceImpl implements IProducaoService {
         sementeAtualizada.setEstoque(estoqueSemente);
         // persistindo no banco a semente com estoque atualizado
         sementeAtualizada = sementeRepository.save(sementeAtualizada);
-
+        
         producao = producaoRepository.save(producao);
+        prateleiraRepository.save(prateleiraEscolhida);
         return producao;
     }
 
