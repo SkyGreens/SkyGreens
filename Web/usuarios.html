@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="usuarios.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">      
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="script.js" defer></script> 
+
+    </head>
+    <body>
+        <div class="w3-top">
+            <div class="w3-bar navbar-custom w3-wide w3-padding w3-card">
+                <a href="home.html" class="w3-bar-item w3-button"><b>SkyGreens</b></a>
+        
+                <div class="w3-right w3-hide-small">
+                    <button onclick="monitoring_page()" class="w3-bar-item w3-button">Monitoramento</button>
+                    <button onclick="show_proveedores()" class="w3-bar-item w3-button">Fornecedores</button>
+                    <button onclick="show_production()" class="w3-bar-item w3-button">Produção</button>
+                    <button onclick="show_orders()" class="w3-bar-item w3-button">Pedidos</button>
+                    <button onclick="userpage()" class="w3-bar-item w3-button">Usuários</button>
+        
+                    <div class="profile-icon-container" onclick="toggleProfileMenu()">
+                        <i class="fas fa-user profile-icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="profileMenu" class="profile-menu hidden">
+            <p><strong>Usuário:</strong> João Silva</p>
+            <p><strong>Email:</strong> joao.silva@email.com</p>
+            <button class="btlogout" onclick="logout()">Logout</button>
+        </div>
+
+        <div class="card-container">
+            <div class="user-card">
+                <img src="img/jk.jpg" alt="Foto de perfil" class="profile-pic">
+                <h3>Jeon Jungkook</h3>
+                <p><i>Administrador</i></p>
+                <div class="user-details">
+                    <p>Status: <span class="user-status">Ativo</span></p>
+                    <p>Usuário: jjk97</p>
+                    <p>Email: JjkFromBTS@gmail.com</p>
+                    <p>Senha: ********</p>
+                </div>
+                <button class="inactivate-btn" onclick="inactivateUser(this)">Inativar Usuário</button>
+            </div>
+        
+            <div class="user-card">
+                <img src="img/sabrina.jpg" alt="Foto de perfil" class="profile-pic">
+                <h3>Sabrina Carpenter</h3>
+                <p>Gerente de Produção</p>
+                <div class="user-details">
+                    <p>Status: <span class="user-status">Ativo</span></p>
+                    <p>Usuário: sasa99</p>
+                    <p>Email: sabrinashowrt@gmail.com</p>
+                    <p>Senha: ********</p>
+                </div>
+                <button class="inactivate-btn" onclick="inactivateUser(this)">Inativar Usuário</button>
+            </div>
+        
+            <div class="user-card">
+                <img src="img/jorge.png" alt="Foto de perfil" class="profile-pic">
+                <h3>Jorge Mário da Silva</h3>
+                <p>Assistente Administrativo</p>
+                <div class="user-details">
+                    <p>Status: <span class="user-status">Ativo</span></p>
+                    <p>Usuário: jorgin70</p>
+                    <p>Email: seujorge@gmail.com</p>
+                    <p>Senha: ********</p>
+                </div>
+                <button class="inactivate-btn" onclick="inactivateUser(this)">Inativar Usuário</button>
+            </div>
+        </div>
+    
+
+    </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="producao.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <script src="script.js" defer></script> 
+    </head>
+    <body>
+        <div class="w3-top">
+            <div class="w3-bar navbar-custom w3-wide w3-padding w3-card">
+                <a href="home.html" class="w3-bar-item w3-button"><b>SkyGreens</b></a>
+        
+                <div class="w3-right w3-hide-small">
+                    <button onclick="monitoring_page()" class="w3-bar-item w3-button">Monitoramento</button>
+                    <button onclick="show_proveedores()" class="w3-bar-item w3-button">Fornecedores</button>
+                    <button onclick="show_production()" class="w3-bar-item w3-button">Produção</button>
+                    <button onclick="show_orders()" class="w3-bar-item w3-button">Pedidos</button>
+                    <button onclick="userpage()" class="w3-bar-item w3-button">Usuários</button>
+        
+                    <div class="profile-icon-container" onclick="toggleProfileMenu()">
+                        <i class="fas fa-user profile-icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="profileMenu" class="profile-menu hidden">
+            <p><strong>Usuário:</strong> João Silva</p>
+            <p><strong>Email:</strong> joao.silva@email.com</p>
+            <button class="btlogout" onclick="logout()">Logout</button>
+        </div>
+
+        <div class="container-prod">
+            <h2>Produção</h2>
+            <div class="menu">
+                <button class="menu-item" onclick=report_page()>Relatório</button>
+                <button class="menu-item">Estoque</button>
+                <button class="menu-item" onclick=pageInsumo()>Insumos</button>
+            </div>
+
+            <div class="prod-grid">
+                <div class="prod-item">
+                    <p>Espinafre</p>
+                </div>
+                <div class="prod-item">
+                    <p>Espinafre</p>
+                </div>
+                <div class="prod-item">
+                    <p>Espinafre</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

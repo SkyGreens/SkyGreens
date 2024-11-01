@@ -1,0 +1,146 @@
+html, body {
+    background-color: #ece3e3;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+    font-family: 'Arial', sans-serif;
+}
+
+.navbar-custom {
+    background-color: #304019;
+    color: white;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 15px 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Ícone de perfil com ajuste de alinhamento */
+.profile-icon-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    color: white;
+    margin-left: 15px;
+    padding-top: 5px; /* Ajuste este valor conforme necessário */
+}
+
+.profile-icon {
+    font-size: 20px;
+    vertical-align: middle; /* Ajuste de alinhamento */
+}
+
+/* Pop-out do menu de perfil */
+.profile-menu {
+    display: none; /* Oculto inicialmente */
+    position: fixed; /* Fixar na tela */
+    top: 60px; /* Distância da barra de navegação */
+    right: 10px; /* Alinhado à direita */
+    background-color: white;
+    color: #304019;
+    padding: 20px; /* Ajustar o padding conforme necessário */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    min-width: 200px;
+    z-index: 1001; /* Sobreposição acima da barra */
+}
+
+/* Classe para exibir o pop-out */
+.profile-menu.show {
+    display: block;
+}
+
+/* Ícone de perfil */
+.profile-icon-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    color: white;
+}
+
+.hidden { display: none; } /* Classe auxiliar */
+
+.btlogout {
+    background-color: #304019; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    border: none; /* Remove bordas padrão */
+    border-radius: 5px; /* Bordas arredondadas */
+    text-align: center;
+    cursor: pointer; /* Cursor muda para pointer */
+    transition: background-color 0.3s; /* Efeito de transição suave */
+}
+
+.btlogout:hover {
+    background-color: #718556; /* Cor de fundo ao passar o mouse */
+}
+
+.show {
+    display: block;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center; 
+    align-items: flex-start; 
+    gap: 20px;
+    flex-wrap: wrap;         
+    margin-top: 100px;       
+    padding: 20px;
+    max-width: 1200px;       
+    width: 100%;
+}
+
+
+.user-card {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;          
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.profile-pic {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.user-details {
+    margin-top: 15px;
+    text-align: left;
+}
+
+.user-details p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 14px;
+}
+
+h3 {
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.inactivate-btn {
+    background-color: #2c2727;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.inactivate-btn:hover {
+    background-color: #5f5a5a;
+}

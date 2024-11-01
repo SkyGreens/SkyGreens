@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="home.css"> 
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">       
+        <script src="script.js" defer></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    </head>
+    <body>
+
+        <div class="w3-top">
+            <div class="w3-bar navbar-custom w3-wide w3-padding w3-card">
+                <a href="home.html" class="w3-bar-item w3-button"><b>SkyGreens</b></a>
+        
+                <div class="w3-right w3-hide-small">
+                    <button onclick="monitoring_page()" class="w3-bar-item w3-button">Monitoramento</button>
+                    <button onclick="show_proveedores()" class="w3-bar-item w3-button">Fornecedores</button>
+                    <button onclick="show_production()" class="w3-bar-item w3-button">Produção</button>
+                    <button onclick="show_orders()" class="w3-bar-item w3-button">Pedidos</button>
+                    <button onclick="userpage()" class="w3-bar-item w3-button">Usuários</button>
+        
+                    <div class="profile-icon-container" onclick="toggleProfileMenu()">
+                        <i class="fas fa-user profile-icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="profileMenu" class="profile-menu hidden">
+            <p><strong>Usuário:</strong> João Silva</p>
+            <p><strong>Email:</strong> joao.silva@email.com</p>
+            <button class="btlogout" onclick="logout()">Logout</button>
+        </div>
+
+        <div class="homepage">
+            <div class="cards-container">
+
+                <div class="info-card">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Petras Logística</td>
+                            </tr>
+                            <tr>
+                                <td>Transpo Brasil</td>
+                            </tr>
+                            <tr>
+                                <td>Semesul Brasil</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        
+                <div class="card" id="fornecedores-card">
+                    <h3 onclick="show_proveedores()">Fornecedores</h3>
+                    <ul id="fornecedores-list"></ul>
+                </div>
+            </div>
+            
+            <div class="cards-container">
+            <div class="info-card">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Fertilizante orgânico</td>
+                        </tr>
+                        <tr>
+                            <td>Alface</td>
+                        </tr>
+                        <tr>
+                            <td>Substrato de coco</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card" id="sementes-card">
+                <h3 onclick=pageInsumo()>Sementes</h3>
+                <ul id="sementes-list"></ul>
+            </div>
+        </div>
+        
+        <div class="cards-container">
+            <div class="info-card">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>#12345 - Coentro</td>
+                        </tr>
+                        <tr>
+                            <td>#12346 - Alface</td>
+                        </tr>
+                        <tr>
+                            <td>#12347 - Espinafre</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card" id="pedidos-card">
+                <h3 onclick=show_orders()>Pedidos</h3>
+                <ul id="pedidos-list"></ul>
+            </div>
+
+        </div>
+
+        <!-- Gráficos à direita -->
+        <div class="charts">
+            <div class="chart-container">
+                <div class="chart" style="--value: 46%; --second-value: 19%; --third-value: 35%;"></div>
+                <span class="label label-plantio" style="--value: 46%;">Plantio: 46%</span> 
+                <span class="label" style="--value: 19%;">Colheita: 19%</span>
+                <span class="label" style="--value: 35%;">Pedidos: 35%</span> 
+        
+            </div>
+            <div class="chart-container">
+                <div class="chart" style="--value: 55.2%; --second-value: 19.3%; --third-value: 25.4%;"></div>
+                <span class="label" style="--value: 55.2%;">Alface: 55.2%</span> 
+                <span class="label" style="--value: 19.3%;">Milho: 19.3%</span>
+                <span class="label" style="--value: 25.4%;">Tomate: 25.4%</span> 
+            </div>
+        </div>
+
+    </body>
+</html>

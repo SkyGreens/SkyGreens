@@ -1,0 +1,203 @@
+html { 
+    background-color: #ece3e3; 
+    height: 100%;
+}
+
+body { 
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.navbar-custom {
+    background-color: #304019;
+    color: white;
+    position: fixed; 
+    width: 100%; 
+    top: 0; 
+    left: 0;
+    z-index: 1000; 
+    padding: 15px 20px;
+    box-shadow: 0px 4px 2px -2px gray;
+    overflow: visible;
+}
+
+/* Ícone de perfil com ajuste de alinhamento */
+.profile-icon-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    color: white;
+    margin-left: 15px;
+    padding-top: 5px; /* Ajuste este valor conforme necessário */
+}
+
+.profile-icon {
+    font-size: 20px;
+    vertical-align: middle; /* Ajuste de alinhamento */
+}
+
+/* Pop-out do menu de perfil */
+.profile-menu {
+    display: none; /* Oculto inicialmente */
+    position: fixed; /* Fixar na tela */
+    top: 60px; /* Distância da barra de navegação */
+    right: 10px; /* Alinhado à direita */
+    background-color: white;
+    color: #304019;
+    padding: 20px; /* Ajustar o padding conforme necessário */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    min-width: 200px;
+    z-index: 1001; /* Sobreposição acima da barra */
+}
+
+/* Classe para exibir o pop-out */
+.profile-menu.show {
+    display: block;
+}
+
+/* Ícone de perfil */
+.profile-icon-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    color: white;
+}
+
+.hidden { display: none; } /* Classe auxiliar */
+
+.btlogout {
+    background-color: #304019; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    border: none; /* Remove bordas padrão */
+    border-radius: 5px; /* Bordas arredondadas */
+    text-align: center;
+    cursor: pointer; /* Cursor muda para pointer */
+    transition: background-color 0.3s; /* Efeito de transição suave */
+}
+
+.btlogout:hover {
+    background-color: #718556; /* Cor de fundo ao passar o mouse */
+}
+
+.show {
+    display: block;
+}
+
+.homepage {
+    display: flex;
+    align-items: center; 
+    height: 100vh; 
+    gap: 40px;
+}
+
+.card {
+    background-color: #304019;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    width: 100%; 
+    max-width: 250px;
+    margin-left: 100px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.card:hover{
+    background-color: #495c2e;
+}
+
+.cards-container {
+    display: flex;
+    flex-direction: column; 
+}
+
+.info-card{
+    background-color: #b8bbb4;
+    border-radius: 10px;
+    width: 100%; 
+    height: 500px;
+    padding: 20px;
+    max-width: 250px; 
+    margin-left: 100px;
+    text-align: justify;
+    margin-bottom: 15px;
+    color: black;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+}
+
+.charts {
+    display: flex;
+    flex-direction: column; 
+    margin-left: auto; 
+    margin-top: 20px; 
+}
+
+.chart-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 20px 0;
+    margin-right: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: circle(50%);
+}
+
+.chart::before,
+.chart::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: circle(50%);
+    background: conic-gradient(
+        #304019 var(--value),
+        #495c2e var(--value),
+        #495c2e calc(var(--value) + var(--second-value)),
+        #b8bbb4 calc(var(--value) + var(--second-value)),
+        #b8bbb4 100%
+    );
+    border-radius: 50%;
+}
+
+.label {
+    color: rgb(255, 255, 255);
+    position: absolute; /* Agora é absoluto para melhor controle */
+    font-size: 12px;
+}
+
+.label-plantio {
+    top: 15%;  /* Ajuste a posição vertical da label */
+    left: 50%; /* Ajuste a posição horizontal */
+    transform: translate(-50%, -50%); /* Centraliza a label */
+}
+
+.label:nth-child(2) { /* Ajusta a label de "Colheita" */
+    top: 70%;  /* Posição ajustada para a parte inferior do gráfico */
+    left: 25%; /* Ajuste horizontal */
+    transform: translate(-50%, -50%);
+}
+
+.label:nth-child(3) { /* Ajusta a label de "Pedidos" */
+    top: 70%;  /* Posição ajustada para baixo */
+    left: 75%; /* Ajuste horizontal */
+    transform: translate(-50%, -50%);
+}

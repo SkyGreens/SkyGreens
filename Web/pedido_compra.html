@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="pedido_compra.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">  
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <script src="script.js"></script> 
+
+    </head>
+    <body>
+        <div class="w3-top">
+            <div class="w3-bar navbar-custom w3-wide w3-padding w3-card">
+                <a href="home.html" class="w3-bar-item w3-button"><b>SkyGreens</b></a>
+        
+                <div class="w3-right w3-hide-small">
+                    <button onclick="monitoring_page()" class="w3-bar-item w3-button">Monitoramento</button>
+                    <button onclick="show_proveedores()" class="w3-bar-item w3-button">Fornecedores</button>
+                    <button onclick="show_production()" class="w3-bar-item w3-button">Produção</button>
+                    <button onclick="show_orders()" class="w3-bar-item w3-button">Pedidos</button>
+                    <button onclick="userpage()" class="w3-bar-item w3-button">Usuários</button>
+        
+                    <div class="profile-icon-container" onclick="toggleProfileMenu()">
+                        <i class="fas fa-user profile-icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="profileMenu" class="profile-menu hidden">
+            <p><strong>Usuário:</strong> João Silva</p>
+            <p><strong>Email:</strong> joao.silva@email.com</p>
+            <button class="btlogout" onclick="logout()">Logout</button>
+        </div>
+
+        <div class="wrapper">
+            <div class="content" id="orderContent">
+                <div class="order">
+                    <p><strong>Compra:</strong> #A001</p>
+                    <p><strong>Fornecedor:</strong> AgroFácil Ltda.</p>
+                    <p><strong>Insumo:</strong> Fertilizante Orgânico</p>
+                    <p><strong>Prazo de Entrega:</strong> 5 dias</p>
+                </div>
+        
+                <div class="order">
+                    <p><strong>Compra:</strong> #A002</p>
+                    <p><strong>Fornecedor:</strong> Sementes Verdes</p>
+                    <p><strong>Insumo:</strong> Sementes de Alface</p>
+                    <p><strong>Prazo de Entrega:</strong> 10 dias</p>
+                </div>
+        
+                <div class="order">
+                    <p><strong>Compra:</strong> #A003</p>
+                    <p><strong>Fornecedor:</strong> Nutriplanta</p>
+                    <p><strong>Insumo:</strong> Herbicida Natural</p>
+                    <p><strong>Prazo de Entrega:</strong> 3 dias</p>
+                </div>
+        
+                <div class="order">
+                    <p><strong>Compra:</strong> #A004</p>
+                    <p><strong>Fornecedor:</strong> Terra Boa</p>
+                    <p><strong>Insumo:</strong> Adubo Orgânico</p>
+                    <p><strong>Prazo de Entrega:</strong> 7 dias</p>
+                </div>
+    
+            </div>
+        </div>
+
+    </body>
+</html>

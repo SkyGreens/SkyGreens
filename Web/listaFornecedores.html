@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="fornecedor.css"> 
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">       
+        <script src="script.js" defer></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    </head>
+    <body>
+        
+        <div class="w3-top">
+            <div class="w3-bar navbar-custom w3-wide w3-padding w3-card">
+                <a href="home.html" class="w3-bar-item w3-button"><b>SkyGreens</b></a>
+        
+                <div class="w3-right w3-hide-small">
+                    <button onclick="monitoring_page()" class="w3-bar-item w3-button">Monitoramento</button>
+                    <button onclick="show_proveedores()" class="w3-bar-item w3-button">Fornecedores</button>
+                    <button onclick="show_production()" class="w3-bar-item w3-button">Produção</button>
+                    <button onclick="show_orders()" class="w3-bar-item w3-button">Pedidos</button>
+                    <button onclick="userpage()" class="w3-bar-item w3-button">Usuários</button>
+        
+                    <div class="profile-icon-container" onclick="toggleProfileMenu()">
+                        <i class="fas fa-user profile-icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="profileMenu" class="profile-menu hidden">
+            <p><strong>Usuário:</strong> João Silva</p>
+            <p><strong>Email:</strong> joao.silva@email.com</p>
+            <button class="btlogout" onclick="logout()">Logout</button>
+        </div>
+
+       
+        <div class="container">
+            <div class="header">
+                <h2>Listagem de Fornecedores</h2>
+                <div class="search-filter-container">
+                    <input type="text" id="searchBar" class="search-bar" placeholder="Buscar Fornecedor...">
+                    <select id="statusFilter" class="status-filter" onchange="filterTable()"> 
+                        <option value="all">Todos</option>
+                        <option value="ativo">Ativos</option>
+                        <option value="inativo">Inativos</option>
+                    </select>
+                    <button class="btInsumo" onclick=pageInsumo()>Visualizar insumos</button>
+                </div>
+            </div>
+
+           
+            <div class="table-container">
+                <table class="supplier-table" id="supplierTable">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Inscrição Estadual</th>
+                            <th>CNPJ</th>
+                            <th>País</th>
+                            <th>Telefone</th>
+                            <th>Cidade</th>
+                            <th>Estado</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <!--TODO: <tbody id="tableBody"></tbody>-->
+                    <!--TODO: tirar isso, ta aqui só pra apresentação-->
+                    <tbody>
+                        <tr data-status="ativo">
+                            <td>PETRAS LOGÍSTICA</td>
+                            <td>nicolaspegap@petras.gov</td>
+                            <td>965.123.000.167</td>
+                            <td>68.188.339/0001-05</td>
+                            <td>Brasil</td>
+                            <td>12 96829-5569</td>
+                            <td>Caraguatatuba</td>
+                            <td>São Paulo</td>
+                            <td class="status">Ativo</td>
+                        </tr>
+                        <tr data-status="inativo">
+                            <td>TRANSPO BRASIL</td>
+                            <td>contato@transpobrasil.com.br</td>
+                            <td>123.456.789.000</td>
+                            <td>45.987.654/0001-99</td>
+                            <td>Brasil</td>
+                            <td>11 91234-5678</td>
+                            <td>São Paulo</td>
+                            <td>São Paulo</td>
+                            <td class="status">Inativo</td>
+                        </tr>
+                        <tr data-status="ativo">
+                            <td>SEMESUL BRASIL</td>
+                            <td>contato@transpobrasil.com.br</td>
+                            <td>126.576.995.371</td>
+                            <td>84.945.025/0001-62</td>
+                            <td>Brasil</td>
+                            <td>32 96251-5678</td>
+                            <td>Curitiba</td>
+                            <td>Curitiba</td>
+                            <td class="status">ativo</td>
+                        </tr>    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
