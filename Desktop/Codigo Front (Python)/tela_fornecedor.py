@@ -80,10 +80,10 @@ class telaFornecedor:
                     fornecedor_label.pack(side="left", pady=5)
                     
                     if result:
-                        btn_editar = ctk.CTkButton(fornecedor_frame, text='',image=Style.img('img_icon_edit'),  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
+                        btn_editar = ctk.CTkButton(fornecedor_frame, text='',image=Style.img('img_icon_edit'),  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados,1),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
                         btn_editar.pack(side="right", padx=5, pady=5)
                         
-                        fornecedor_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela_edicao(dados))
+                        fornecedor_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela_edicao(dados,0))
                     
                 elif op_status == "Todos":
                     fornecedor_frame = ctk.CTkFrame(self.lista_frame, corner_radius=10)
@@ -96,17 +96,17 @@ class telaFornecedor:
                                                     font=("Arial", 14))
                     fornecedor_label.pack(side="left", pady=5)
                     if result:
-                        btn_editar = ctk.CTkButton(fornecedor_frame, text="",image=Style.img('img_icon_edit'),  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
+                        btn_editar = ctk.CTkButton(fornecedor_frame, text="",image=Style.img('img_icon_edit'),  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados,1),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
                         btn_editar.pack(side="right", padx=5, pady=5)
                         
-                        fornecedor_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela_edicao(dados))
+                        fornecedor_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela_edicao(dados,0))
                 
             if not fornecedores:
                 msg_label = ctk.CTkLabel(self.lista_frame, text="Nenhum fornecedor encontrado.", font=("Arial", 14))
                 msg_label.pack(pady=5)
             
-    def abrir_tela_edicao(self, dados):
-        cdFornecedor(self, dados=dados,editar=True)
+    def abrir_tela_edicao(self, dados,n):
+        cdFornecedor(self, dados=dados,editar=n)
 
     def mostrar(self):
         self.frame.pack()
