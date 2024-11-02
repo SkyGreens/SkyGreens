@@ -13,7 +13,7 @@ class cdUsuario:
         self.dados = dados
         self.editar = editar
 
-        titulo = ("Consultar Fornecedor" if editar == 0 else "Editar Fornecedor" if editar == 1 else "Cadastrar Fornecedor")
+        titulo = ("Consultar Usuario" if editar == 0 else "Editar Usuario" if editar == 1 else "Cadastrar Usuario")
 
         self.root = Style.criar_janela_flutuante(titulo, self.jn_x, self.jn_y)
         

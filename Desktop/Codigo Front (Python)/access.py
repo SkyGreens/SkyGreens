@@ -4,10 +4,14 @@ from tkinter import messagebox
 API_BASE = "http://localhost:8080/skygreen"
 
 api_login = f"{API_BASE}/auth/login"
+
 api_cadastrarFornecedor = f"{API_BASE}/fornecedor/adicionar"
 api_listarFornecedores = f"{API_BASE}/fornecedor/"
+api_editarFornecedores = f"{API_BASE}/fornecedor/update"
+
 api_cadastrarSementes = f"{API_BASE}/sementes/adicionar"
 api_listarSementes = f"{API_BASE}/sementes/"
+
 api_perfilUser = f"{API_BASE}/usuario/personal/"
 api_listarUsuario = f"{API_BASE}/usuario/"
 api_especificoUsuario = f"{API_BASE}/usuario/"
@@ -108,9 +112,31 @@ class Access:
         else:
             print('Falha ao listar fornecedores:', response.text)
 
-    def editarFornecedor(id,s,e,t,end,cid,est,pais,ie,rs,cnpj,sementeid):
-        print('Fornecedor Atualizado: ',id)
-        return True
+    def editarFornecedor(idfornecedor,status,email,tel,end,cid,est,pais,isced,rzsocial,cnpj,sementeid=None):
+        
+        data = {
+            "fornecedorId" : idfornecedor,
+            "ativo" : status,
+            "email" : email,
+            "telefone" : tel,
+            "endereco" : end,
+            "cidade" : cid,
+            "estado" : est,
+            "pais" : pais,
+            "inscricaoEstadual" : isced,
+            "razaoSocial" : rzsocial,
+            "cnpj" : cnpj
+        }
+        if sementeid is not None:
+            data["sementes"] = [{"sementeId": sementeid}]
+        
+        headers = {'Content-Type': 'application/json',"Authorization": f"Bearer {Access.token}"}
+         
+        response = requests.put(api_editarFornecedores, json=data, headers=headers)
+        if response.status_code == 200:
+            return True
+        else:
+            return False
     
     def cadastrarSementes(nome,desc):
 

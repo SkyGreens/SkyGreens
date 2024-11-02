@@ -14,7 +14,7 @@ class telaUsuarios:
         self.message_box = MessageBox()
         self.frame.pack(side=LEFT)
         self.frame.configure(background=Style.color('bg'))
-
+        
         pesquisar_frame = Frame(self.frame, bg=Style.color('bg'))
         pesquisar_frame.pack(fill="x", padx=10, pady=10)
 
