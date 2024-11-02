@@ -37,9 +37,9 @@ class cdFornecedor:
             iduser = self.dados['id']
             result = Access.editarFornecedor(iduser, status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj, semente)
             if result:
-                msg_box.showinfo_autoclose(f"Fornecedor cadastrado com sucesso!")
+                msg_box.showinfo_autoclose(f"Fornecedor atualizado com sucesso!")
             else:
-                msg_box.showinfo_autoclose(f"Fornecedor não cadastrado!")
+                msg_box.showinfo_autoclose(f"Fornecedor não atualizado!")
         else:
             result = Access.cadastroFornecedor(status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj, semente)
             if result:
