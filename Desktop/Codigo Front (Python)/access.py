@@ -26,6 +26,9 @@ api_listarProducao = f"{API_BASE}/producao/"
 api_listarPedidosCompras = f"{API_BASE}/compras/"
 api_CadastrarPedidosCompras = f"{API_BASE}/compras/pedido"
 
+api_listarPedidosVenda = f"{API_BASE}/vendas/"
+api_CadastrarPedidosVenda = f"{API_BASE}/vendas/pedido"
+
 class Access:
     token = None
     userId = None
@@ -347,6 +350,51 @@ class Access:
         headers = {'Content-Type': 'application/json',"Authorization": f"Bearer {Access.token}"}
         
         response = requests.post(api_CadastrarPedidosCompras, json=cadastro_data, headers=headers)
+        if response.status_code == 200:
+            return True
+        else:
+            return False
+   
+    def listarpedidosVenda():
+        headers = {"Authorization": f"Bearer {Access.token}"}
+            
+        response = requests.get(api_listarPedidosVenda, headers=headers)
+        
+        if response.status_code == 200:
+            
+            vendas_api = response.json()
+            listvendas = []
+            
+            for vendas in vendas_api:
+                
+                listvendas.append({
+                    "cliente":vendas.get('cliente'),
+                    "qtd":vendas.get('quantidade'),
+                    "semente":vendas.get('semente'),
+                    "tempocultivo":vendas.get('tempoCultivo'),
+                    "status":vendas.get('ativo')
+                })
+            return listvendas 
+        else:
+            return False
+     
+    def cadastroPedidoVenda(clienteid,qtd,sementeid,tempocultivo,status):
+        
+        cadastro_data = {
+            "cliente": {
+                "clienteId" : clienteid
+            },
+            "quantidade" : qtd,
+            "semente" : {
+                "sementeId" : sementeid
+            },
+            "tempoCultivo": tempocultivo,
+            "ativo": status
+        }
+
+        headers = {'Content-Type': 'application/json',"Authorization": f"Bearer {Access.token}"}
+        
+        response = requests.post(api_CadastrarPedidosVenda, json=cadastro_data, headers=headers)
         if response.status_code == 200:
             return True
         else:
