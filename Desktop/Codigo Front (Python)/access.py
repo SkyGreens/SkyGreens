@@ -8,6 +8,7 @@ api_login = f"{API_BASE}/auth/login"
 api_cadastrarFornecedor = f"{API_BASE}/fornecedor/adicionar"
 api_listarFornecedores = f"{API_BASE}/fornecedor/"
 api_editarFornecedores = f"{API_BASE}/fornecedor/update"
+api_editarSementesFornecedores = f"{API_BASE}/fornecedor/"
 
 api_cadastrarSementes = f"{API_BASE}/sementes/adicionar"
 api_listarSementes = f"{API_BASE}/sementes/"
@@ -20,6 +21,10 @@ api_editarUsuario = f"{API_BASE}/usuario/update"
 
 api_cadastrarProducao = f"{API_BASE}/producao/adicionar"
 api_listarProducao = f"{API_BASE}/producao/"
+
+
+api_listarPedidosCompras = f"{API_BASE}/compras/"
+api_CadastrarPedidosCompras = f"{API_BASE}/compras/pedido"
 
 class Access:
     token = None
@@ -114,6 +119,8 @@ class Access:
 
     def editarFornecedor(idfornecedor,status,email,tel,end,cid,est,pais,isced,rzsocial,cnpj,sementeid=None):
         
+        headers = {'Content-Type': 'application/json',"Authorization": f"Bearer {Access.token}"}
+        
         data = {
             "fornecedorId" : idfornecedor,
             "ativo" : status,
@@ -128,11 +135,16 @@ class Access:
             "cnpj" : cnpj
         }
         if sementeid is not None:
-            data["sementes"] = [{"sementeId": sementeid}]
+            datasemente = [
+                {
+                    "sementeId" : sementeid
+                }
+            ]
+            api_editarSementes = f"{api_editarSementesFornecedores}{idfornecedor}/sementes"
+            requests.put(api_editarSementes, json=datasemente, headers=headers)
         
-        headers = {'Content-Type': 'application/json',"Authorization": f"Bearer {Access.token}"}
-         
         response = requests.put(api_editarFornecedores, json=data, headers=headers)
+    
         if response.status_code == 200:
             return True
         else:
@@ -227,7 +239,6 @@ class Access:
             return usuarios 
         else:
             return False
-            print('Falha ao listar fornecedores:', response.text)
   
     def cadastroUsuario(cpf,senha,cargo,nome,status,email):
         
@@ -299,7 +310,48 @@ class Access:
         else:
             print('Falha ao cadastrar a producao:', response_semente.status_code)
             return False
+     
+    def listarpedidosCompra():
+        headers = {"Authorization": f"Bearer {Access.token}"}
+            
+        response = requests.get(api_listarPedidosCompras, headers=headers)
         
+        if response.status_code == 200:
+            
+            compras_api = response.json()
+            listcompras = []
+            
+            for compras in compras_api:
+                
+                listcompras.append({
+                    "fornecedor":compras.get('fornecedor'),
+                    "qtd":compras.get('quantidade'),
+                    "semente":compras.get('semente')
+                })
+            return listcompras 
+        else:
+            return False
+     
+    def cadastroPedidoCompra(fornecedorid,qtd,sementeid):
+        
+        cadastro_data = {
+            "fornecedor": {
+                "fornecedorId" : fornecedorid
+            },
+            "quantidade" : qtd,
+            "semente" : {
+                "sementeId" : sementeid
+            }
+        }
+
+        headers = {'Content-Type': 'application/json',"Authorization": f"Bearer {Access.token}"}
+        
+        response = requests.post(api_CadastrarPedidosCompras, json=cadastro_data, headers=headers)
+        if response.status_code == 200:
+            return True
+        else:
+            return False
+            
     def verificar_permissoes(self,n):
         
         #0 - botao

@@ -2,7 +2,7 @@ from tkinter import *
 import customtkinter as ctk
 
 from style import Style, MessageBox
-from cd_pedido import cdPedido
+from cd_pedidoCompra import cdPedidoCompra
 from access import Access
 
 class pedidoVenda:
@@ -41,7 +41,7 @@ class pedidoVenda:
     def modificar_pedido(self):
         result = Access.verificar_permissoes(self,0)
         if result:
-            cdPedido()
+            cdPedidoCompra()
         else:
             result = self.message_box.showerror("Autenticação","Acesso não autorizado!")
     
