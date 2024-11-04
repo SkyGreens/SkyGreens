@@ -2,21 +2,6 @@ function show_proveedores(){
     window.location.href = "listaFornecedores.html";
 }
 
-// function filterTable() {
-//     const filter = document.getElementById("statusFilter").value;
-//     const rows = document.querySelectorAll("#supplierTable tbody tr");
-
-//     rows.forEach(row => {
-//         const status = row.getAttribute("data-status");
-
-//         if (filter === "all" || status === filter) {
-//             row.style.display = "";
-//         } else {
-//             row.style.display = "none";
-//         }
-//     });
-// }
-
 function filterTable() {
     const filter = document.getElementById("statusFilter").value;
     const rows = document.querySelectorAll("#supplierTable tbody tr");
@@ -70,41 +55,6 @@ async function get_proveedores(token) {
     }
 }
 
-// async function fetchSuppliers(token) { 
-//     try {
-//         const suppliers = await get_proveedores(token);
-//         console.log(suppliers);
-
-//         if (suppliers) {
-//             const tableBody = document.getElementById('tableBody');
-
-//             tableBody.innerHTML = '';
-
-//             suppliers.forEach(supplier => {
-//                 const row = document.createElement('tr');
-                
-//                 row.innerHTML = `
-//                     <td>${supplier.razaoSocial}</td>
-//                     <td>${supplier.email}</td>
-//                     <td>${supplier.inscricaoEstadual}</td>
-//                     <td>${supplier.cnpj}</td>
-//                     <td>${supplier.pais}</td>
-//                     <td>${supplier.telefone}</td>
-//                     <td>${supplier.cidade}</td>
-//                     <td>${supplier.estado}</td>
-//                     <td class="status">${supplier.ativo}</td>
-//                 `;
-
-//                 tableBody.appendChild(row);
-//             });
-//         } else {
-//             console.error('Erro ao buscar fornecedores.');
-//         }
-//     } catch (error) {
-//         console.error('Erro ao realizar a consulta:', error);
-//     }
-// }
-
 async function fetchSuppliers(token) { 
     try {
         const suppliers = await get_proveedores(token);
@@ -118,7 +68,6 @@ async function fetchSuppliers(token) {
             suppliers.forEach(supplier => {
                 const row = document.createElement('tr');
                 
-                // Defina o atributo `data-status` com base no valor booleano de `ativo`
                 const status = supplier.ativo ? "ativo" : "inativo";
                 row.setAttribute("data-status", status);
                 
