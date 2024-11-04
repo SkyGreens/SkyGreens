@@ -44,36 +44,31 @@ class telaProducao:
         cards_frame.pack(fill="x", expand=True, side=TOP)
         
         
-        semente = "Espinafre"
-        codigo = "5501"
-        status = "Disponivel"
-        quantidade = 99
-        tempo_cultivo = 30
-        dias_restantes = 10
+        #card
+        dados = Access.listarProducao()
         
         def centro_lb(valor):
             label_x = (260 - valor.winfo_reqwidth()) // 2 
             label_y = (40 - valor.winfo_reqheight()) // 2 
             valor.place(x=label_x, y=label_y)
+        
+        a = 0
+        for i in dados:
             
-        for i in range(0, 5):
-            card = f"card{i}"
+            a+=1
+            card = f"card{a}"
             card = ctk.CTkFrame(cards_frame, width=280, height=340, corner_radius=10, 
                                 fg_color=Style.color('fg_2'), border_width=3, 
                                 border_color=Style.color('hover_2'))
-            card.grid(row=1, column=i, padx=10, pady=10)
+            card.grid(row=1, column=a, padx=10, pady=10)
             
-
-            lb_semente = ctk.CTkLabel(card, text=f"{semente}", text_color="black", font=Style.font_style())
+            lb_semente = ctk.CTkLabel(card, text=f"{i['nome_semente']}", text_color="black", font=Style.font_style())
             lb_semente.place(x=10, y=10)
-            
-            btn_editar = ctk.CTkButton(card, text='',image=Style.img('img_icon_edit'),  width=10,height=10,fg_color=Style.color('fg'),hover_color=Style.color('hover'))
-            btn_editar.place(x=230, y=10)
 
-            lb_codigo = ctk.CTkLabel(card, text=f"Código: {codigo}", text_color="black", font=Style.font_style())
+            lb_codigo = ctk.CTkLabel(card, text=f"Código: {i['id']}", text_color="black", font=Style.font_style())
             lb_codigo.place(x=10, y=35)
 
-            lb_status = ctk.CTkLabel(card, text=f"{status}", text_color="black", font=Style.font_style())
+            lb_status = ctk.CTkLabel(card, text=f"{i['status']}", text_color="black", font=Style.font_style())
             lb_status.place(x=10, y=60)
 
             # ===
@@ -84,7 +79,7 @@ class telaProducao:
             qtd_frame = ctk.CTkFrame(card, corner_radius=10, fg_color=Style.color('bg'), border_color=Style.color('hover_2'), width=260, height=40)
             qtd_frame.place(x=10, y=140)
 
-            lbv_qtd = ctk.CTkLabel(qtd_frame, text=f"{quantidade}", text_color="black", font=Style.font_style())
+            lbv_qtd = ctk.CTkLabel(qtd_frame, text=f"{i['qtd']}", text_color="black", font=Style.font_style())
             centro_lb(lbv_qtd)
             
             lb_tempoc = ctk.CTkLabel(card, text=f"Dias de Cultivo", text_color="black", font=Style.font_style())
@@ -93,7 +88,7 @@ class telaProducao:
             tempoc_frame = ctk.CTkFrame(card, corner_radius=10, fg_color=Style.color('bg'), border_color=Style.color('hover_2'), width=260, height=40)
             tempoc_frame.place(x=10, y=210)
 
-            lbv_tempoc = ctk.CTkLabel(tempoc_frame, text=f"{tempo_cultivo}", text_color="black", font=Style.font_style())
+            lbv_tempoc = ctk.CTkLabel(tempoc_frame, text=f"{i['tempoCultivo']}", text_color="black", font=Style.font_style())
             centro_lb(lbv_tempoc)
             
             lb_diasr = ctk.CTkLabel(card, text=f"Dias Restantes", text_color="black", font=Style.font_style())
@@ -102,8 +97,12 @@ class telaProducao:
             tempor_frame = ctk.CTkFrame(card, corner_radius=10, fg_color=Style.color('bg'), border_color=Style.color('hover_2'), width=260, height=40)
             tempor_frame.place(x=10, y=282)
 
-            lbv_tempor = ctk.CTkLabel(tempor_frame, text=f"{dias_restantes}", text_color="black", font=Style.font_style())
+            lbv_tempor = ctk.CTkLabel(tempor_frame, text=f"{i['diasRestantes']}", text_color="black", font=Style.font_style())
             centro_lb(lbv_tempor)
+        if not dados:
+            msg_label = ctk.CTkLabel(cards_frame, text="Nenhum Insumo encontrado.", font=("Arial", 14))
+            msg_label.pack(pady=5)
+        
     def cdproducao(self):
         
         result = Access.verificar_permissoes(self,0)

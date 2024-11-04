@@ -21,13 +21,16 @@ api_editarUsuario = f"{API_BASE}/usuario/update"
 
 api_cadastrarProducao = f"{API_BASE}/producao/adicionar"
 api_listarProducao = f"{API_BASE}/producao/"
-
+api_listarPrateleira = f"{API_BASE}/prateleira/disponiveis"
 
 api_listarPedidosCompras = f"{API_BASE}/compras/"
 api_CadastrarPedidosCompras = f"{API_BASE}/compras/pedido"
 
 api_listarPedidosVenda = f"{API_BASE}/vendas/"
 api_CadastrarPedidosVenda = f"{API_BASE}/vendas/pedido"
+
+api_listarPedidosVenda = f"{API_BASE}/vendas/"
+
 
 class Access:
     token = None
@@ -288,10 +291,54 @@ class Access:
         if response.status_code == 200:
             producao_api = response.json()
             producao = []
-            print(producao_api)
-        else:
-            print('Falha ao listar Producao:',  response.text)
+            list_sementes = Access.listarSementes()
             
+            def nome_semente(id_semente):
+                for semente in list_sementes:
+                    if semente['id'] == id_semente:
+                        return semente['nome']
+                return None
+
+            for prod in producao_api:
+                id_semente = prod.get('sementeId')
+                producao.append({
+                    "id": prod.get('producaoId'),
+                    "nome_semente": nome_semente(id_semente),
+                    "qtd": prod.get('sementeQuantidade'),
+                    "status": "Ativo" if prod.get('ativo') == True else "Inativo",
+                    "tempoCultivo": prod.get('tempoCultivo'),
+                    "diasRestantes": '4',
+                    "dataInicio": prod.get('dataInicio')
+                })
+            return producao
+        else:
+            print('Falha ao listar Producao:', response.text)
+           
+    def listarPrateleira():
+        
+        headers = {"Authorization": f"Bearer {Access.token}"}
+
+        response = requests.get(api_listarPrateleira, headers=headers)
+        
+        if response.status_code == 200:
+            prateleira_api = response.json()
+            prateleira = []
+            
+            print(prateleira_api)
+            '''for prat in prateleira_api:
+                
+                prateleira.append({
+                    "id": prat.get('prateleira_id'),
+                    "qtd": prat.get('sementeQuantidade'),
+                    "status": prat.get('disponivel'),
+                    "producao": '4',
+                })
+            return prateleira'''
+            
+        else:
+            print('Falha ao listar Prateleiras:', response.text)       
+           
+           
     def cadastrarProducao():
         data = {
             "sementeId":"1",
@@ -299,7 +346,7 @@ class Access:
             "tempoCultivo" : "1",
             "dataInicio" : "2024-05-05",
             "fotoSemente" : "",
-            "ativo": "true",
+            "ativo": True,
             "prateleiraId" : "2"
         }
 
