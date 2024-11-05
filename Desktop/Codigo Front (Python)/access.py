@@ -1,5 +1,7 @@
 import requests
 from tkinter import messagebox
+from datetime import datetime, timezone
+from dateutil import parser
 
 API_BASE = "http://localhost:8080/skygreen"
 
@@ -21,7 +23,7 @@ api_editarUsuario = f"{API_BASE}/usuario/update"
 
 api_cadastrarProducao = f"{API_BASE}/producao/adicionar"
 api_listarProducao = f"{API_BASE}/producao/"
-api_listarPrateleira = f"{API_BASE}/prateleira/disponiveis"
+api_listarPrateleira = f"{API_BASE}/prateleira/"
 
 api_listarPedidosCompras = f"{API_BASE}/compras/"
 api_CadastrarPedidosCompras = f"{API_BASE}/compras/pedido"
@@ -31,11 +33,20 @@ api_CadastrarPedidosVenda = f"{API_BASE}/vendas/pedido"
 
 api_listarPedidosVenda = f"{API_BASE}/vendas/"
 
+class Funcoes:
+    
+    def calcular_dias_restantes(data_inicio, tempo_cultivo):
+        data_inicio = parser.isoparse(data_inicio)  # Lida com o formato ISO 8601
+        data_atual = datetime.now(timezone.utc)
+        dias_passados = (data_atual - data_inicio).days  # Calcula a diferença em dias
+        dias_restantes = tempo_cultivo - dias_passados  # Subtrai dos dias totais de cultivo
 
+        return dias_restantes if dias_restantes > 0 else 0
+    
 class Access:
     token = None
     userId = None
-    
+
     @staticmethod #deixa a função como estatica, não precisando passar o self
     def login(user, senha, app):
         login_data = {
@@ -281,7 +292,7 @@ class Access:
             return True
         else:
             return False
-                           
+                    
     def listarProducao():
         
         headers = {"Authorization": f"Bearer {Access.token}"}
@@ -298,7 +309,7 @@ class Access:
                     if semente['id'] == id_semente:
                         return semente['nome']
                 return None
-
+            
             for prod in producao_api:
                 id_semente = prod.get('sementeId')
                 producao.append({
@@ -307,7 +318,7 @@ class Access:
                     "qtd": prod.get('sementeQuantidade'),
                     "status": "Ativo" if prod.get('ativo') == True else "Inativo",
                     "tempoCultivo": prod.get('tempoCultivo'),
-                    "diasRestantes": '4',
+                    "diasRestantes": Funcoes.calcular_dias_restantes(prod.get('dataInicio'), prod.get('tempoCultivo')),
                     "dataInicio": prod.get('dataInicio')
                 })
             return producao
@@ -315,30 +326,42 @@ class Access:
             print('Falha ao listar Producao:', response.text)
            
     def listarPrateleira():
-        
         headers = {"Authorization": f"Bearer {Access.token}"}
-
         response = requests.get(api_listarPrateleira, headers=headers)
         
         if response.status_code == 200:
+
             prateleira_api = response.json()
+            list_sementes = {semente['id']: semente['nome'] for semente in Access.listarSementes()}
             prateleira = []
             
-            print(prateleira_api)
-            '''for prat in prateleira_api:
+            for prat in prateleira_api:
+                producao = prat.get('producao')
+                statusprat = prat.get('disponivel')
+                
+                if producao and 'dataInicio' in producao and 'tempoCultivo' in producao:
+                    diasRestantes = Funcoes.calcular_dias_restantes(producao['dataInicio'], producao['tempoCultivo'])
+                    tempoCultivo = producao.get('tempoCultivo')
+                else:
+                    diasRestantes = None
+                    tempoCultivo = None
                 
                 prateleira.append({
                     "id": prat.get('prateleira_id'),
-                    "qtd": prat.get('sementeQuantidade'),
-                    "status": prat.get('disponivel'),
-                    "producao": '4',
+                    "disponivel": "Produção" if not statusprat else "Disponivel",
+                    "producao": {
+                        "idseed": producao.get('sementeId'),
+                        "nome_semente": list_sementes.get(producao.get('sementeId')),
+                        "dataInicio": producao.get('dataInicio'),
+                        "status": "Ativo" if producao.get('ativo') else "Inativo",
+                        "graf_valor": [tempoCultivo,diasRestantes]
+                    } if not statusprat and producao else None
                 })
-            return prateleira'''
-            
+
+            return prateleira
         else:
-            print('Falha ao listar Prateleiras:', response.text)       
-           
-           
+            return False
+        
     def cadastrarProducao():
         data = {
             "sementeId":"1",
