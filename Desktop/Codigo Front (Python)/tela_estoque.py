@@ -44,8 +44,7 @@ class Estoque:
             widget.destroy()
         
         for i in estoque:
-            if (termoPesq in i['nome_semente'].lower() or
-                termoPesq in i['id'].lower()):
+            if (termoPesq in i['nome_semente'].lower()):
                 
                 est_frame = ctk.CTkFrame(self.lista_frame, corner_radius=10)
                 est_frame.pack(fill="x", padx=10, pady=5)

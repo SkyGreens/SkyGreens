@@ -39,10 +39,13 @@ class telaProducao:
                                      ,compound=TOP,text_color='black', width=280, height=50, corner_radius=10,fg_color=Style.color('fg_2'), hover_color=Style.color('hover_2'), 
                                      command=lambda:self.cdproducao(self),border_width=3,border_color=Style.color('hover_2'))
         btn_producao.grid(row=0, column=3, padx=10, pady=10)
-
-        cards_frame = ctk.CTkScrollableFrame(self.frame,orientation="horizontal", width=200, height=400,fg_color=Style.color('bg'))
-        cards_frame.pack(fill="x", expand=True, side=TOP)
         
+        self.cards_frame = ctk.CTkScrollableFrame(self.frame,orientation="horizontal", width=200, height=400,fg_color=Style.color('bg'))
+        self.cards_frame.pack(fill="x", expand=True, side=TOP)
+        self.atualizar_lista()
+
+        
+    def atualizar_lista(self,event=None):
         
         #card
         dados = Access.listarProducao()
@@ -57,7 +60,7 @@ class telaProducao:
             
             a+=1
             card = f"card{a}"
-            card = ctk.CTkFrame(cards_frame, width=280, height=340, corner_radius=10, 
+            card = ctk.CTkFrame(self.cards_frame, width=280, height=340, corner_radius=10, 
                                 fg_color=Style.color('fg_2'), border_width=3, 
                                 border_color=Style.color('hover_2'))
             card.grid(row=1, column=a, padx=10, pady=10)
@@ -100,7 +103,7 @@ class telaProducao:
             lbv_tempor = ctk.CTkLabel(tempor_frame, text=f"{i['diasRestantes']}", text_color="black", font=Style.font_style())
             centro_lb(lbv_tempor)
         if not dados:
-            msg_label = ctk.CTkLabel(cards_frame, text="Nenhum Insumo encontrado.", font=("Arial", 14))
+            msg_label = ctk.CTkLabel(self.cards_frame, text="Nenhum Insumo encontrado.", font=("Arial", 14))
             msg_label.pack(pady=5)
         
     def cdproducao(self,callback):

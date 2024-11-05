@@ -23,8 +23,8 @@ class cdProducao:
         self.root.destroy()
         self.dados = None
         if i == 1:
-            from tela_estoque import Estoque
-            Estoque.estoque_lista(self.callback)
+            from tela_producao import telaProducao
+            telaProducao.atualizar_lista(self.callback)
             
     def opcaomenu(self, choice, opmenu_var):
         if choice is None:
