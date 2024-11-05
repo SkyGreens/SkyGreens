@@ -24,6 +24,7 @@ api_editarUsuario = f"{API_BASE}/usuario/update"
 api_cadastrarProducao = f"{API_BASE}/producao/adicionar"
 api_listarProducao = f"{API_BASE}/producao/"
 api_listarPrateleira = f"{API_BASE}/prateleira/"
+api_listarEstoque = f"{API_BASE}/estoque/"
 
 api_listarPedidosCompras = f"{API_BASE}/compras/"
 api_CadastrarPedidosCompras = f"{API_BASE}/compras/pedido"
@@ -34,7 +35,7 @@ api_CadastrarPedidosVenda = f"{API_BASE}/vendas/pedido"
 api_listarPedidosVenda = f"{API_BASE}/vendas/"
 
 class Funcoes:
-    
+
     def calcular_dias_restantes(data_inicio, tempo_cultivo):
         data_inicio = parser.isoparse(data_inicio)  # Lida com o formato ISO 8601
         data_atual = datetime.now(timezone.utc)
@@ -324,7 +325,29 @@ class Access:
             return producao
         else:
             print('Falha ao listar Producao:', response.text)
-           
+    
+    def listarEstoque():
+        headers = {"Authorization": f"Bearer {Access.token}"}
+
+        response = requests.get(api_listarEstoque, headers=headers)
+        
+        if response.status_code == 200:
+            estoque_api = response.json()
+            estoque = []
+        
+            for est in estoque_api:
+                semente = est.get('semente')
+                
+                estoque.append({
+                    "id": f"{est.get('estoqueId')}",
+                    "qtd": est.get('quantidade'),
+                    "nome_semente": semente.get('nome'),
+                    "desc": semente.get('descricao')
+                })
+            return estoque
+        else:
+            print('Falha ao listar Estoque:', response.text)
+    
     def listarPrateleira():
         headers = {"Authorization": f"Bearer {Access.token}"}
         response = requests.get(api_listarPrateleira, headers=headers)
@@ -362,15 +385,17 @@ class Access:
         else:
             return False
         
-    def cadastrarProducao():
+    def cadastrarProducao(Idsemente,qtd,tempo):
+        
+        datainicio = datetime.now().strftime("%Y-%m-%d")
+    
         data = {
-            "sementeId":"1",
-            "sementeQuantidade": "5",
-            "tempoCultivo" : "1",
-            "dataInicio" : "2024-05-05",
+            "sementeId": f"{Idsemente}",
+            "sementeQuantidade": f"{qtd}",
+            "tempoCultivo" : f"{tempo}",
+            "dataInicio" : f"{datainicio}",
             "fotoSemente" : "",
-            "ativo": True,
-            "prateleiraId" : "2"
+            "ativo": True
         }
 
         headers = {'Content-Type': 'application/json',"Authorization": f"Bearer {Access.token}"}

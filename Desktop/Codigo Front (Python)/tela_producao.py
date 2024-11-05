@@ -37,7 +37,7 @@ class telaProducao:
 
         btn_producao = ctk.CTkButton(btn_frame, text="Incluir Produção",font=Style.font_style(),image=Style.img('img_icon_producao')
                                      ,compound=TOP,text_color='black', width=280, height=50, corner_radius=10,fg_color=Style.color('fg_2'), hover_color=Style.color('hover_2'), 
-                                     command=self.cdproducao,border_width=3,border_color=Style.color('hover_2'))
+                                     command=lambda:self.cdproducao(self),border_width=3,border_color=Style.color('hover_2'))
         btn_producao.grid(row=0, column=3, padx=10, pady=10)
 
         cards_frame = ctk.CTkScrollableFrame(self.frame,orientation="horizontal", width=200, height=400,fg_color=Style.color('bg'))
@@ -103,11 +103,11 @@ class telaProducao:
             msg_label = ctk.CTkLabel(cards_frame, text="Nenhum Insumo encontrado.", font=("Arial", 14))
             msg_label.pack(pady=5)
         
-    def cdproducao(self):
+    def cdproducao(self,callback):
         
         result = Access.verificar_permissoes(self,0)
         if result:
-            cdProducao()
+            cdProducao(callback)
         else:
             result = self.message_box.showerror("Autenticação","Acesso não autorizado!")
             
