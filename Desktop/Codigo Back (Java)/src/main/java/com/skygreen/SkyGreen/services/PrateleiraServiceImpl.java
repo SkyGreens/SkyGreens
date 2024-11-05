@@ -48,4 +48,8 @@ public class PrateleiraServiceImpl implements IPrateleiraService {
             repository.save(prateleira);
         }
     }
+
+    public List<PrateleiraEntity> listar(){
+        return repository.findAll();
+    }
 }
