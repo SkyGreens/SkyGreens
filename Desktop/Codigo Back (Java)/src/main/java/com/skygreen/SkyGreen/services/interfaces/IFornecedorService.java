@@ -20,5 +20,8 @@ public interface IFornecedorService {
     
     void delete(Integer id);
 
+    List<SementeEntity> buscarSementePorFornecedor(int forncedorId);
+
+    FornecedorEntity removeSementeFromFornecedor(Integer fornecedorId, Integer sementeId);
 
 }
