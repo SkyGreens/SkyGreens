@@ -58,7 +58,7 @@ if __name__ == "__main__":
     root.configure(background=Style.color('bg'))
 
     largura_janela = 1300
-    altura_janela = 600
+    altura_janela = 640
 
     Style.centralizar_janela(root, largura_janela, altura_janela)
 
