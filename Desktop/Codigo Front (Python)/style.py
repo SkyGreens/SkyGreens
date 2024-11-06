@@ -45,7 +45,8 @@ class Style:
             'img_icon_saida':abrir_img("img\\icon_saida.png",(26, 26)),
             'img_icon_delete':abrir_img("img\\icon_delete.png",(26, 26)),
             'img_icon_edit':abrir_img("img\\icon_edit.png",(26, 26)),
-            'img_icon_voltar':abrir_img("img\\icon_voltar.png",(26, 26))
+            'img_icon_voltar':abrir_img("img\\icon_voltar.png",(26, 26)),
+            'img_icon_ok_prat':abrir_img("img\\icon_disponivelPrat.png",(80, 80))
         }
         return imgs.get(img_nome)
         
@@ -55,6 +56,19 @@ class Style:
         ax.pie(valor, labels=desc, autopct='%1.1f%%', startangle=90)
         ax.axis('equal')  # Para manter o formato do gráfico como círculo
         plt.title(titulo, fontsize=12, color="black")  # Ajuste de título e tamanho da fonte
+        canvas = FigureCanvasTkAgg(fig, tela)
+        plt.close()
+        return canvas
+
+    def criar_grafico_barras_verticais(tela, valores, descricoes, titulo):
+        fig, ax = plt.subplots()
+        fig.patch.set_alpha(0.0)
+        ax.set_facecolor((0, 0, 0, 0))
+        ax.bar(descricoes, valores, color=['blue', 'orange'])
+        ax.set_ylabel('Dias')
+        plt.title(titulo, fontsize=12, color="black")
+        ax.set_ylim(0, max(valores) + 5)
+        plt.grid(axis='y')
         canvas = FigureCanvasTkAgg(fig, tela)
         plt.close()
         return canvas

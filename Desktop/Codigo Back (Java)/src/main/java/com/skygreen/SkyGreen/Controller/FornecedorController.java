@@ -64,25 +64,10 @@ public class FornecedorController {
     }
 
     @Transactional
-    @PutMapping("/{fornecedorId}/sementes/adicionar")
+    @PutMapping("/{fornecedorId}/sementes")
     public ResponseEntity<FornecedorEntity> updateSemente(@PathVariable Integer fornecedorId, @RequestBody List<SementeEntity> sementes){
 
         return ResponseEntity.ok().body(fornecedorService.updateSementes(fornecedorId, sementes));
     }
-
-    @Transactional
-    @GetMapping("/{fornecedorId}/sementes")
-    public ResponseEntity<List<SementeEntity>> getSementesPorFornecedor(@PathVariable int fornecedorId) {
-        List<SementeEntity> sementes = fornecedorService.buscarSementePorFornecedor(fornecedorId);
-        return ResponseEntity.ok(sementes);
-    }
-
-    @DeleteMapping("/{fornecedorId}/sementes/delete/{sementeId}")
-public ResponseEntity<FornecedorEntity> removeSementeFromFornecedor(
-        @PathVariable Integer fornecedorId,
-        @PathVariable Integer sementeId) {
-    FornecedorEntity fornecedorAtualizado = fornecedorService.removeSementeFromFornecedor(fornecedorId, sementeId);
-    return ResponseEntity.ok(fornecedorAtualizado);
-}
 
     }
