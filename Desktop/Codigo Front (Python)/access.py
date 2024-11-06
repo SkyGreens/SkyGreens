@@ -32,7 +32,7 @@ api_CadastrarPedidosCompras = f"{API_BASE}/compras/pedido"
 api_listarPedidosVenda = f"{API_BASE}/vendas/"
 api_CadastrarPedidosVenda = f"{API_BASE}/vendas/pedido"
 
-api_listarPedidosVenda = f"{API_BASE}/vendas/"
+api_listarClientes = f"{API_BASE}/cliente/"
 
 class Funcoes:
 
@@ -459,10 +459,11 @@ class Access:
             
             vendas_api = response.json()
             listvendas = []
-            
+    
             for vendas in vendas_api:
                 
                 listvendas.append({
+                    "idvenda":vendas.get('pedidoVendaId'),
                     "cliente":vendas.get('cliente'),
                     "qtd":vendas.get('quantidade'),
                     "semente":vendas.get('semente'),
@@ -473,7 +474,7 @@ class Access:
         else:
             return False
      
-    def cadastroPedidoVenda(clienteid,qtd,sementeid,tempocultivo,status):
+    def cadastroPedidoVenda(clienteid,qtd,sementeid,tempocultivo):
         
         cadastro_data = {
             "cliente": {
@@ -484,7 +485,7 @@ class Access:
                 "sementeId" : sementeid
             },
             "tempoCultivo": tempocultivo,
-            "ativo": status
+            "ativo": True
         }
 
         headers = {'Content-Type': 'application/json',"Authorization": f"Bearer {Access.token}"}
@@ -494,7 +495,36 @@ class Access:
             return True
         else:
             return False
+      
+    def listarClientes():
+        headers = {"Authorization": f"Bearer {Access.token}"}
             
+        response = requests.get(api_listarClientes, headers=headers)
+        
+        if response.status_code == 200:
+            
+            clientes_api = response.json()
+            listClientes= []
+            
+            for cli in clientes_api:
+                
+                listClientes.append({
+                    "clienteid":cli.get('clienteId'),
+                    "status":cli.get('ativo'),
+                    "email":cli.get('email'),
+                    "telefone":cli.get('telefone'),
+                    "endereco":cli.get('endereco'),
+                    "cidade":cli.get('cidade'),
+                    "estado":cli.get('estado'),
+                    "pais":cli.get('pais'),
+                    "razaoSocial":cli.get('razaoSocial'),
+                    "cnpj":cli.get('cnpj')
+                })
+                
+            return listClientes
+        else:
+            return False
+          
     def verificar_permissoes(self,n):
         
         #0 - botao

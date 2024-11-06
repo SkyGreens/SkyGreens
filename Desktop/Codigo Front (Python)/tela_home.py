@@ -34,7 +34,7 @@ class telaHome:
 
         self.lista_pedidos()
 
-        btn_saibamais3 = ctk.CTkButton(card3, text="Pedidos", width=392,fg_color=Style.color('fg'),hover_color=Style.color('hover'))
+        btn_saibamais3 = ctk.CTkButton(card3, text="Pedidos", width=392,fg_color=Style.color('fg'),hover_color=Style.color('hover'),command=self.show_pedidos)
         btn_saibamais3.place(x=0, y=405)
 
         # Gráfico de Produção Geral
@@ -57,39 +57,22 @@ class telaHome:
     
     def show_sementes(self):
             self.main.mostrar_tela("listaInsumos")
+    def show_pedidos(self):
+            self.main.mostrar_tela("pedidoVenda")
     
     def lista_pedidos(self):
-        pedidos = [{"id":"000021","nome":"Alface","qtd":10},
-                   {"id":"000315","nome":"Tomate","qtd":2},
-                   {"id":"000561","nome":"Milho","qtd":25},
-                   {"id":"000369","nome":"Pocã","qtd":20},
-                   {"id":"000456","nome":"Banana","qtd":30},
-                   {"id":"000159","nome":"Maça","qtd":15}]
+        pedidos = Access.listarpedidosVenda()
         
         for i in pedidos:
                 
             ped_frame = ctk.CTkFrame(self.listaPedidos_frame, corner_radius=10)
             ped_frame.pack(fill="x", padx=10, pady=5)
-
-            ped_label = ctk.CTkLabel(ped_frame, text=f"{i['id']} | {i['nome']} | {i['qtd']}", font=Style.font_style())
+            
+            ped_label = ctk.CTkLabel(ped_frame, text=f"ID: {i['idvenda']} | {i['cliente']['razaoSocial']} | {i['qtd']}", font=Style.font_style())
             ped_label.pack(pady=5)
-                
+
         if not pedidos:
             msg_label = ctk.CTkLabel(self.listaPedidos_frame, text="Nenhum usuário encontrado.", font=Style.font_style())
-            msg_label.pack(pady=5)
-
-    def lista_fornecedores(self):
-        fornecedores = Access.listarFornecedores()
-        for i in fornecedores:
-                
-            for_frame = ctk.CTkFrame(self.listaFornecedores_frame, corner_radius=10)
-            for_frame.pack(fill="x", padx=5, pady=5)
-
-            lb_for = ctk.CTkLabel(for_frame, text=f"{i['id']} - {i['nome']}", font=Style.font_style())
-            lb_for.pack(pady=5)
-                
-        if not fornecedores:
-            msg_label = ctk.CTkLabel(self.listaFornecedores_frame, text="Nenhum usuário encontrado.", font=Style.font_style())
             msg_label.pack(pady=5)
 
     def lista_sementes(self):
