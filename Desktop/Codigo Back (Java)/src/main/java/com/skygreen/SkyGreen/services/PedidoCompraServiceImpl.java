@@ -53,7 +53,7 @@ public class PedidoCompraServiceImpl implements IPedidoCompraService {
             EstoqueEntity novoEstoque = new EstoqueEntity();
             novoEstoque.setSemente(semente);
             novoEstoque.setQuantidade(novoPedido.getQuantidade());
-            estoqueRepository.save(novoEstoque);
+            estoqueRepository.save(novoEstoque); 
         } else {
             EstoqueEntity estoqueExistente = estoque.get(0); // Pega o primeiro estoque encontrado
             estoqueExistente.setQuantidade(estoqueExistente.getQuantidade() + novoPedido.getQuantidade());

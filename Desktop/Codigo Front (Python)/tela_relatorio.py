@@ -32,14 +32,14 @@ class Relatorio:
                 self.choicemenu = Access.listarFornecedores()
                 self.mostrar_dados(['ID', 'Nome', 'CNPJ', 'Endereço', 'Status', 'Email', 'Telefone', 'Cidade', 'Estado', 'País', 'Inscrição Estadual', 'Semente'], self.choicemenu)
             elif self.choice == "Produção":
-                self.choicemenu = Access.listarProducao()
-                self.mostrar_dados(['ID', 'Nome do Produto','Quantidade','Status', 'Tempo de Cultivo', 'Dias restantes','Data Inicio'], self.choicemenu)
+                #self.choicemenu = Access.listarProducao()
+                self.mostrar_dados(['ID', 'Nome do Produto', 'Quantidade', 'Data de Produção'])
             elif self.choice == "Pedidos de Venda":
-                self.choicemenu = Access.listarpedidosVenda()
-                self.mostrar_dados(['Cliente', 'Quantidade', 'Produto', 'Tempo de Cultivo','Status'], self.choicemenu)
+                #self.choicemenu = Access.listarpedidosVenda()
+                self.mostrar_dados(['ID', 'Cliente', 'Produto', 'Quantidade', 'Data de Venda'])
             elif self.choice == "Pedidos de Compras":
-                self.choicemenu = Access.listarpedidosCompra()
-                self.mostrar_dados(['Fornecedor', 'Quantidade', 'Semente'], self.choicemenu)
+                #self.choicemenu = Access.listarpedidosCompras()
+                self.mostrar_dados(['ID', 'Fornecedor', 'Produto', 'Quantidade', 'Data de Compra'])
 
         optionmenu_var = ctk.StringVar(value="Escolha o conteúdo")
         list_cont = ["Produção", "Fornecedores", "Pedidos de Venda", "Pedidos de Compras"]

@@ -67,6 +67,8 @@ class listaInsumos:
                 lb_sem.pack(side="left",pady=5)
                 
                 if result:
+                    btn_editar = ctk.CTkButton(sem_frame, text='',image=Style.img('img_icon_edit'),  width=30,height=30,fg_color=Style.color('fg'),hover_color=Style.color('hover'))
+                    btn_editar.pack(side="right", padx=5, pady=5)
                     
                     btn_excluir = ctk.CTkButton(sem_frame, width=30, height=30, text='',image=Style.img('img_icon_delete'), fg_color=Style.color('fg_red'), hover_color=Style.color('hover_red'))
                     btn_excluir.pack(side="right", padx=5, pady=5)

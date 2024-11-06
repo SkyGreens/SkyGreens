@@ -55,7 +55,7 @@ class cdFornecedor:
     
     def opcaomenu(self, choice, opmenu_var):
         if choice is None:
-            opmenu_var.set('Semente')
+            opmenu_var.set('Materia Prima')
         self.semente_selecionada_id = choice
     
     def elementos_tela(self, root):
