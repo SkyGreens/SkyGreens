@@ -422,6 +422,7 @@ class Access:
             for compras in compras_api:
                 
                 listcompras.append({
+                    "idcompra":compras.get('pedidoCompraId'),
                     "fornecedor":compras.get('fornecedor'),
                     "qtd":compras.get('quantidade'),
                     "semente":compras.get('semente')
