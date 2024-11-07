@@ -31,15 +31,42 @@ class Relatorio:
             if self.choice == "Fornecedores":
                 self.choicemenu = Access.listarFornecedores()
                 self.mostrar_dados(['ID', 'Nome', 'CNPJ', 'Endereço', 'Status', 'Email', 'Telefone', 'Cidade', 'Estado', 'País', 'Inscrição Estadual', 'Semente'], self.choicemenu)
+            
             elif self.choice == "Produção":
                 self.choicemenu = Access.listarProducao()
                 self.mostrar_dados(['ID', 'Nome do Produto','Quantidade','Status', 'Tempo de Cultivo', 'Dias restantes','Data Inicio'], self.choicemenu)
+            
             elif self.choice == "Pedidos de Venda":
-                self.choicemenu = Access.listarpedidosVenda()
-                self.mostrar_dados(['Cliente', 'Quantidade', 'Produto', 'Tempo de Cultivo','Status'], self.choicemenu)
+                result = Access.listarpedidosVenda()
+                self.choicemenu=[]
+                
+                for i in result:
+                    cliente = i['cliente']['razaoSocial']
+                    semente = i['semente']['nome']
+                    self.choicemenu.append({
+                                            'idvenda':i['idvenda'],
+                                            "cliente": cliente,
+                                            'qtd':i['qtd'],
+                                            "semente":semente,
+                                            "tempocultivo":i['tempocultivo']
+                                            })
+                
+                
+                self.mostrar_dados(['ID','Cliente', 'Quantidade', 'Produto', 'Tempo de Cultivo'], self.choicemenu)
+                
             elif self.choice == "Pedidos de Compras":
-                self.choicemenu = Access.listarpedidosCompra()
-                self.mostrar_dados(['Fornecedor', 'Quantidade', 'Semente'], self.choicemenu)
+                result = Access.listarpedidosCompra()
+                self.choicemenu = []
+                for i in result:
+                    fornecedor = i['fornecedor']['razaoSocial']
+                    semente = i['semente']['nome']
+                    self.choicemenu.append({
+                                            'idcompra':i['idcompra'],
+                                            "fornecedor": fornecedor,
+                                            'qtd':i['qtd'],
+                                            "semente":semente
+                                            })
+                self.mostrar_dados(['ID','Fornecedor', 'Quantidade', 'Semente'], self.choicemenu)
 
         optionmenu_var = ctk.StringVar(value="Escolha o conteúdo")
         list_cont = ["Produção", "Fornecedores", "Pedidos de Venda", "Pedidos de Compras"]
