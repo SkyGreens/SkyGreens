@@ -24,6 +24,9 @@ class Main:
         self.telas = {}
 
         self.tela_login = telaLogin(root, self)
+        
+    def voltar_para_login(self):
+        self.tela_login = telaLogin(self.root, self)
 
     def iniciar_interface(self):
 

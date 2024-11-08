@@ -1,14 +1,14 @@
 from tkinter import *  # pip install tkinter
 import customtkinter as ctk  # pip install customtkinter
-from tkinter import messagebox  # pip install tkinter
-
-from style import Style
+from jar import Jar
+from style import Style,MessageBox
 from access import Access
 
 class telaLogin:
     def __init__(self, root, app):
         self.root = root
         self.app = app
+        self.messagebox = MessageBox()
         self.janela_login()
     
     def janela_login(self):
@@ -52,5 +52,14 @@ class telaLogin:
         self.frame.destroy()
         access = Access.login(user, senha, self.app)    
         
-        if access:
-            messagebox.showinfo(title="Erro", message="Login falhou: Usuário ou senha inválidos")
+        if access == False:
+            self.messagebox.showerror("Erro","Login falhou: Usuário ou senha inválidos!")
+            self.app.voltar_para_login()
+        elif access == "conexão":
+            result = self.messagebox.askretrycancel("Erro","Erro de Conexão!")
+            if result:
+                Jar()
+                self.app.voltar_para_login()
+            else:
+                quit()
+            
