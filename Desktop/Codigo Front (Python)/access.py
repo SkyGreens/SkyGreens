@@ -1,5 +1,4 @@
 import requests
-from tkinter import messagebox
 from datetime import datetime, timezone
 from dateutil import parser
 
@@ -54,7 +53,6 @@ class Access:
             "cpf": user,
             "senha": senha
         }
-        
         try:
             response = requests.post(api_login, json=login_data)
             
@@ -64,13 +62,11 @@ class Access:
                 Access.userId = data.get("userId")
                 app.iniciar_interface()
             else:
-                app.retornar_login()
-                return True
+                return False
 
         except requests.exceptions.RequestException:
-            messagebox.showinfo(title="Erro", message="Erro de Conexão")
-            app.retornar_login()
-
+            return "conexão"
+            
     def cadastroFornecedor(status, email, tel, end, cid, est, pais, ie, rs, cnpj, sementeid=None):
         cadatro_data = {
             "ativo": status,
