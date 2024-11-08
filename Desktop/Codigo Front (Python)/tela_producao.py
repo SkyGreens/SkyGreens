@@ -6,32 +6,38 @@ from cd_producao import cdProducao
 from access import Access
 
 class telaProducao:
-    def __init__(self, root,main_app):
+    def __init__(self, root, main_app):
+        self.message_box = MessageBox()
+        
         self.root = root
         self.main_app = main_app
-        self.message_box = MessageBox()
+        
         self.frame = Frame(self.root)
         self.frame.pack(side=LEFT)
         self.frame.configure(background=Style.color('bg'))
-
+        
+        self.elementos_comp()
+        
+    def elementos_comp(self):
+        
         btn_frame = Frame(self.frame, bg=Style.color('bg'))
         btn_frame.pack(fill="x", padx=0, side=TOP)
 
         btn_relatorio = ctk.CTkButton(btn_frame, text="Relatório",font=Style.font_style(),text_color='black',image=Style.img('img_icon_relatorio')
                                       ,compound=TOP, width=280, height=50, corner_radius=10,fg_color=Style.color('fg_2'), hover_color=Style.color('hover_2'),
-                                      command=lambda:self.verificar("Relatorio"),border_width=3,border_color=Style.color('hover_2'))
+                                      command=lambda:self.verificar("Relatorio",7),border_width=3,border_color=Style.color('hover_2'))
         btn_relatorio.grid(row=0, column=0, padx=10, pady=10)
         
 
         btn_estoque = ctk.CTkButton(btn_frame, text="Estoque",font=Style.font_style(),text_color='black',image=Style.img('img_icon_estoque')
                                     ,compound=TOP, width=280, height=50, corner_radius=10,fg_color=Style.color('fg_2'), hover_color=Style.color('hover_2'),
-                                    command=lambda:self.verificar("Estoque"),border_width=3,border_color=Style.color('hover_2'))
+                                    command=lambda:self.verificar("Estoque",8),border_width=3,border_color=Style.color('hover_2'))
         btn_estoque.grid(row=0, column=1, padx=10, pady=10)
 
 
         btn_insumos = ctk.CTkButton(btn_frame, text="Insumos",font=Style.font_style(),text_color='black',image=Style.img('img_icon_insumos')
                                     ,compound=TOP, width=280, height=50, corner_radius=10,fg_color=Style.color('fg_2'), hover_color=Style.color('hover_2'),
-                                    command=lambda:self.verificar("listaInsumos"),border_width=3,border_color=Style.color('hover_2'))
+                                    command=lambda:self.verificar("listaInsumos",9),border_width=3,border_color=Style.color('hover_2'))
         btn_insumos.grid(row=0, column=2, padx=10, pady=10)
 
 
@@ -114,15 +120,15 @@ class telaProducao:
         else:
             result = self.message_box.showerror("Autenticação","Acesso não autorizado!")
             
-    def verificar(self, n):
-        self.mostrar_tela(n)
+    def verificar(self, tela,n):
+        self.mostrar_tela(tela,n)
         self.esconder()
     
-    def mostrar_tela(self, tela_nome):
-        self.main_app.mostrar_tela(tela_nome)
+    def mostrar_tela(self, tela_nome,n):
+        self.main_app.mostrar_tela(tela_nome,n)
     
     def mostrar(self):
         self.frame.pack()
-
+        
     def esconder(self):
         self.frame.pack_forget()

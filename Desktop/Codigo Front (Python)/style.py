@@ -8,6 +8,7 @@ import pandas as pd #pip install pandas
 from openpyxl.workbook import Workbook #pip install openpyxl
 from tkinter import messagebox
 
+
 class Style:
         
     def color (color_nome):
@@ -105,7 +106,8 @@ class Style:
             msg_box.showinfo("Sucesso", "Relatório gerado com sucesso!")
         else:
             msg_box.showerror("Erro", "Selecione o conteudo para gerar o relatorio")
-        
+    
+    
 class MessageBox:
     Style = Style()
     def showinfo(self, title, message):

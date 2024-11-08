@@ -29,28 +29,37 @@ class Main:
 
         self.tela_base = telaBase(root)
         self.tela_base.mostrar_tela = self.mostrar_tela
-
-        self.telas["telaHome"] = telaHome(root,self)
-        self.telas["telaMonitoramento"] = telaMonitoramento(root)
-        self.telas["telaFornecedor"] = telaFornecedor(root)
-        self.telas["telaProducao"] = telaProducao(root,self)
-        self.telas["telaPedidos"] = telaPedidos(root,self)
-        self.telas["telaUsuarios"] = telaUsuarios(root)
-        self.telas["listaInsumos"] = listaInsumos(root,self)
-        self.telas["Relatorio"] = Relatorio(root,self)
-        self.telas["Estoque"] = Estoque(root,self)
-        self.telas["pedidoCompra"] = pedidoCompra(root,self)
-        self.telas["pedidoVenda"] = pedidoVenda(root,self)
-
+        
         self.mostrar_tela("telaHome")
 
-    def mostrar_tela(self, tela_nome):
-                
+    def mostrar_tela(self, tela_nome,n=0):
+        if n == 2:
+            self.telas["telaMonitoramento"] = telaMonitoramento(root)
+        elif n == 3:    
+            self.telas["telaFornecedor"] = telaFornecedor(root)
+        elif n == 4:
+            self.telas["telaProducao"] = telaProducao(root,self)
+        elif n == 5:
+            self.telas["telaPedidos"] = telaPedidos(root,self)
+        elif n == 6:
+            self.telas["telaUsuarios"] = telaUsuarios(root)
+        elif n == 7:
+            self.telas["Relatorio"] = Relatorio(root,self)
+        elif n == 8:
+            self.telas["Estoque"] = Estoque(root,self)
+        elif n == 9: 
+            self.telas["listaInsumos"] = listaInsumos(root,self)
+        elif n == 10:
+            self.telas["pedidoCompra"] = pedidoCompra(root,self)
+        elif n == 11:
+            self.telas["pedidoVenda"] = pedidoVenda(root,self)
+        else:
+            self.telas["telaHome"] = telaHome(root,self)
+        
         for tela in self.telas.values():
             tela.esconder()
-        if tela_nome in self.telas:
-            self.telas[tela_nome].mostrar()
-
+        self.telas[tela_nome].mostrar()
+            
 if __name__ == "__main__":
     jar_instance = Jar()
     root = Tk()
