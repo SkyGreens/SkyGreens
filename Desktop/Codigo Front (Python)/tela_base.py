@@ -68,14 +68,9 @@ class telaBase:
             self.menu_buttons[n-1].configure(fg_color=Style.color('hover'))
             
             telas = ["telaHome", "telaMonitoramento", "telaFornecedor", "telaProducao", "telaPedidos", "telaUsuarios"]
-            self.mostrar_tela(telas[n-1])
+            self.mostrar_tela(telas[n-1],n)
         else:
             result = self.message_box.showerror("Autenticação","Acesso não autorizado!")
-            if result:
-                for button in self.menu_buttons:
-                    button.configure(fg_color=Style.color('fg'))
-                self.menu_buttons[1-1].configure(fg_color=Style.color('hover'))
-                self.mostrar_tela("telaHome")
 
-    def mostrar_tela(self, tela_nome):
+    def mostrar_tela(self, tela_nome,n):
         pass
