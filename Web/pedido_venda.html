@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">  
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <script src="script.js"></script> 
+        <script src="pedidos.js" defer></script> 
 
     </head>
     <body>
@@ -34,44 +35,24 @@
             <button class="btlogout" onclick="logout()">Logout</button>
         </div>
 
-        <!-- <div class="wrapper">
-            <div class="content" id="orderContent">
-                <script>window.onload = gerarPedidos();</script>
-                <table class="table">
-                    <tr>
-                        <th>Pedido</th>
-                        <th>Cliente</th>
-                        <th>Produto</th>
-                        <th>Prazo de Entrega</th>
-                    </tr>
-                    <tbody id="tableBody"></tbody>
-                </table>
-            </div>
-        </div>-->
-
         <div class="wrapper">
-            <div class="content" id="orderContent">
-                <div class="order">
-                    <p><strong>Pedido:</strong> #12345</p>
-                    <p><strong>Cliente:</strong> João Silva</p>
-                    <p><strong>Produto:</strong> Coentro</p>
-                    <p><strong>Prazo de Entrega:</strong> 2 dias</p>
-                </div>
+            <div class="content" id="orderContent"></div>
+
+            <script>
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    window.onload = function() {
+                        const token = localStorage.getItem("authToken")?.trim();
+                        if (typeof gerarPedidos === 'function') {
+                            gerarPedidos(token, url_sale_orders); 
+                        } else {
+                            console.error("A função gerarPedidos não foi encontrada.");
+                        }
+                    };
+                });
         
-                <div class="order">
-                    <p><strong>Pedido:</strong> #12346</p>
-                    <p><strong>Cliente:</strong> Maria Oliveira</p>
-                    <p><strong>Produto:</strong> Alface</p>
-                    <p><strong>Prazo de Entrega:</strong> 15 dias</p>
-                </div>
-        
-                <div class="order">
-                    <p><strong>Pedido:</strong> #12347</p>
-                    <p><strong>Cliente:</strong> Carlos Pereira</p>
-                    <p><strong>Produto:</strong> Espinafre</p>
-                    <p><strong>Prazo de Entrega:</strong> 7 dias</p>
-                </div>
-            </div>
+            </script>
+
         </div> 
 
     </body>

@@ -70,13 +70,16 @@
                     <tbody id="tableBody"></tbody>
                     
                     <script>
+
                         window.onload = function() {
+                            const token = localStorage.getItem("authToken")?.trim();
                             if (typeof fetchSuppliers === 'function') {
-                                fetchSuppliers('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6IjEyMzQ1Njc4OTA5IiwiZXhwIjoxNzMwNjgzNTczfQ.g9uQDWHWdh252r5eSipgrrjLbI22P300FqdHbMhh_-8'); //TODO: colcoar token fixo p testar a req
+                                fetchSuppliers(token); 
                             } else {
                                 console.error("A função fetchSuppliers não foi encontrada.");
                             }
                         };
+
                     </script>
 
                 </table>

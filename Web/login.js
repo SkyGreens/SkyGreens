@@ -8,26 +8,53 @@ function homepage(){
 
 const urlLogin = "http://localhost:8080/skygreen/auth/login";
 
-async function do_login(cpf, senha) {
+// async function do_login(cpf, senha) {
 
-    const loginData = {
-        cpf: cpf, 
-        senha: senha
-    };
+//     const loginData = {
+//         cpf: cpf, 
+//         senha: senha
+//     };
+
+//     try {
+//         const response = await fetch(urlLogin, {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json"
+//             },
+//             body: JSON.stringify(loginData)
+//         });
+
+//         const token = await response.text();
+
+//         if (response.ok) { // 200 OK
+//             console.log("Login realizado com sucesso:", response.status);
+//             return { success: true, token: token };
+//         } else {
+//             console.log("Falha no login:", response.status);
+//             return { success: false, token: null };
+//         }
+//     } catch (error) {
+//         console.error("Erro ao realizar o login:", error);
+//         return { success: false, token: null };
+//     }
+// }
+
+async function do_login(cpf, senha) {
+    const loginData = { cpf: cpf, senha: senha };
 
     try {
         const response = await fetch(urlLogin, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(loginData)
         });
 
-        const token = await response.text();
+        const responseJson = await response.json();
+        const token = responseJson.token;
 
         if (response.ok) { // 200 OK
             console.log("Login realizado com sucesso:", response.status);
+            localStorage.setItem("authToken", token);
             return { success: true, token: token };
         } else {
             console.log("Falha no login:", response.status);

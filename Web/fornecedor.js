@@ -15,7 +15,7 @@ function filterTable() {
             row.style.display = "none";
         }
     });
-}
+}  
 
 document.getElementById("searchBar").addEventListener("keyup", function () {
     const searchText = this.value.toLowerCase();
@@ -34,13 +34,14 @@ document.getElementById("searchBar").addEventListener("keyup", function () {
 const url_get_proveedores = "http://localhost:8080/skygreen/fornecedor/";
 
 async function get_proveedores(token) {
+    console.log(token)
     try {
         const response = await fetch(url_get_proveedores, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
-            }
+            }   
         });
 
         if (!response.ok) {

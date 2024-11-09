@@ -88,3 +88,33 @@ show_proveedores();
     border-bottom: 1px solid #ccc;
     white-space: nowrap;
 }
+
+
+
+<!-- <div class="order">
+                    <p><strong>Compra:</strong> #A001</p>
+                    <p><strong>Fornecedor:</strong> AgroFácil Ltda.</p>
+                    <p><strong>Insumo:</strong> Fertilizante Orgânico</p>
+                    <p><strong>Prazo de Entrega:</strong> 5 dias</p>
+                </div>
+        
+                <div class="order">
+                    <p><strong>Compra:</strong> #A002</p>
+                    <p><strong>Fornecedor:</strong> Sementes Verdes</p>
+                    <p><strong>Insumo:</strong> Sementes de Alface</p>
+                    <p><strong>Prazo de Entrega:</strong> 10 dias</p>
+                </div>
+        
+                <div class="order">
+                    <p><strong>Compra:</strong> #A003</p>
+                    <p><strong>Fornecedor:</strong> Nutriplanta</p>
+                    <p><strong>Insumo:</strong> Herbicida Natural</p>
+                    <p><strong>Prazo de Entrega:</strong> 3 dias</p>
+                </div>
+        
+                <div class="order">
+                    <p><strong>Compra:</strong> #A004</p>
+                    <p><strong>Fornecedor:</strong> Terra Boa</p>
+                    <p><strong>Insumo:</strong> Adubo Orgânico</p>
+                    <p><strong>Prazo de Entrega:</strong> 7 dias</p>
+                </div> -->
