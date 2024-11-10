@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="monitoramento.css"> 
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">       
         <script src="script.js" defer></script>
+        <script src="monitoramento.js" defer></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -35,55 +36,70 @@
             <button class="btlogout" onclick="logout()">Logout</button>
         </div>
 
-        <div class="container">
-            <!-- Prateleira 1 -->
-            <div class="card">
-                <h2>Prateleira 1</h2>
-                <div class="circular-progress">
-                    <div class="circle">
-                        <span>29/30 dias</span>
-                    </div>
-                    
-                </div>
-                <p>5501</p>
-                <p>Espinafre</p>
-                <p><b>Status</b> <i>Produzindo...</i></p>
-            </div>
+        <div class="container"></div>
+
+        <script>
+
+            document.addEventListener('DOMContentLoaded', function() {
+                window.onload = function() {
+                    const token = localStorage.getItem("authToken")?.trim();
+                    if (typeof fetchShelfData === 'function') {
+                        fetchShelfData(token); 
+                    } else {
+                        console.error("A função fetchShelfData não foi encontrada.");
+                    }
+                };
+            });
     
-            <!-- Prateleira 2 -->
-            <div class="card">
-                <h2>Prateleira 2</h2>
-                <div class="circular-progress">
-                    <div class="circle">
-                        <span>15/30 dias</span>
-                    </div>
-                </div>
-                <p>5502</p>
-                <p>Coentro</p>
-                <p><b>Status</b> <i>Produzindo...</i></p>
-            </div>
-    
-            <!-- Prateleira 3 -->
-            <div class="card">
-                <h2>Prateleira 3</h2>
-                <div class="circular-progress">
-                    <div class="circle">
-                        <span>8/30 dias</span>
-                    </div>
-                </div>
-                <p>5503</p>
-                <p>Cheiro Verde</p>
-                <p><b>Status</b> <i>Produzindo...</i></p>
-            </div>
-    
-            <!-- Prateleira 4 -->
-            <div class="card">
-                <h2>Prateleira 4</h2>
-                <div class="status"><i>
-                    Nenhum operador aqui no momento...
-                </i></div>
-            </div>
-        </div>
+        </script>
 
     </body>
 </html>
+
+<!-- Prateleira 1
+<div class="card">
+    <h2>Prateleira 1</h2>
+    <div class="circular-progress">
+        <div class="circle">
+            <span>29/30 dias</span>
+        </div>
+        
+    </div>
+    <p>5501</p>
+    <p>Espinafre</p>
+    <p><b>Status</b> <i>Produzindo...</i></p>
+</div>
+
+Prateleira 2 
+<div class="card">
+    <h2>Prateleira 2</h2>
+    <div class="circular-progress">
+        <div class="circle">
+            <span>15/30 dias</span>
+        </div>
+    </div>
+    <p>5502</p>
+    <p>Coentro</p>
+    <p><b>Status</b> <i>Produzindo...</i></p>
+</div>
+
+Prateleira 3
+<div class="card">
+    <h2>Prateleira 3</h2>
+    <div class="circular-progress">
+        <div class="circle">
+            <span>8/30 dias</span>
+        </div>
+    </div>
+    <p>5503</p>
+    <p>Cheiro Verde</p>
+    <p><b>Status</b> <i>Produzindo...</i></p>
+</div>
+
+Prateleira 4 
+<div class="card">
+    <h2>Prateleira 4</h2>
+    <div class="status"><i>
+        Nenhum operador aqui no momento...
+    </i></div>
+</div> -->

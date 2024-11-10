@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="perfil.js" defer></script> 
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    </head>
+    <body>
+        <div id="profileMenu" class="profile-menu hidden">
+            <p><strong>Usuário:</strong> João Silva</p>
+            <p><strong>Email:</strong> joao.silva@email.com</p>
+            <button class="btlogout" onclick="logout()">Logout</button>
+        </div>
+    </body>
+</html>

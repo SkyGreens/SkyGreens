@@ -266,28 +266,28 @@ async function fetchSuppliers(token) {
     }
 }*/
 
-function inactivateUser(button) {
-    const userCard = button.parentElement; 
-    const statusElement = userCard.querySelector(".user-status"); 
+// function inactivateUser(button) {
+//     const userCard = button.parentElement; 
+//     const statusElement = userCard.querySelector(".user-status"); 
 
-    if (statusElement.textContent === "Ativo") {
+//     if (statusElement.textContent === "Ativo") {
 
-        const confirmInactivate = confirm("Você tem certeza que deseja inativar este usuário?");
+//         const confirmInactivate = confirm("Você tem certeza que deseja inativar este usuário?");
         
-        if (confirmInactivate) {
-            statusElement.textContent = "Inativo"; 
-            button.textContent = "Reativar Usuário"; 
-        }
-    } else {
+//         if (confirmInactivate) {
+//             statusElement.textContent = "Inativo"; 
+//             button.textContent = "Reativar Usuário"; 
+//         }
+//     } else {
         
-        const confirmReactivate = confirm("Você tem certeza que deseja reativar este usuário?");
+//         const confirmReactivate = confirm("Você tem certeza que deseja reativar este usuário?");
         
-        if (confirmReactivate) {
-            statusElement.textContent = "Ativo"; 
-            button.textContent = "Inativar Usuário"; 
-        }
-    }
-}
+//         if (confirmReactivate) {
+//             statusElement.textContent = "Ativo"; 
+//             button.textContent = "Inativar Usuário"; 
+//         }
+//     }
+// }
 
 function toggleProfileMenu() {
     var menu = document.getElementById("profileMenu");

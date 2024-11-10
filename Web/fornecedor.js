@@ -34,7 +34,6 @@ document.getElementById("searchBar").addEventListener("keyup", function () {
 const url_get_proveedores = "http://localhost:8080/skygreen/fornecedor/";
 
 async function get_proveedores(token) {
-    console.log(token)
     try {
         const response = await fetch(url_get_proveedores, {
             method: 'GET',

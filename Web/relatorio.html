@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">  
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <script src="script.js" defer></script> 
+        <script src="relatorio.js" defer></script>
     </head>
     <body>
 
@@ -35,7 +36,7 @@
         </div>
 
         <!-- Conteúdo do Relatório -->
-        <div class="report-container">
+        <!-- <div class="report-container">
             <h1>RELATÓRIOS PRODUÇÃO</h1>
 
             <div class="report-item">
@@ -115,6 +116,32 @@
                     </div>
                 </div>
             </div>
+        </div> -->
+
+        <div class="report-container">
+            <h1>RELATÓRIOS PRODUÇÃO</h1>
+            <div class="report-item-container"></div>
         </div>
+
+        <button id="gerarCsvBtn" onclick="gerarCsv()">Gerar Arquivo CSV</button>
+        
+
+        <script>
+
+            document.addEventListener('DOMContentLoaded', function() {
+                window.onload = function() {
+                    const token = localStorage.getItem("authToken")?.trim();
+                    if (typeof renderProductionReports === 'function') {
+                        _ = renderProductionReports(token); 
+                    } else {
+                        console.error("A função renderProductionReports não foi encontrada.");
+                    }
+                };
+            });
+    
+        </script>
+
+
+
     </body>
 </html>
