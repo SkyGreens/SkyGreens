@@ -3,6 +3,7 @@ import customtkinter as ctk #pip install customtkinter
 
 from style import Style
 from access import Access
+from tela_base import telaBase
 
 class telaHome:
 
@@ -72,9 +73,9 @@ class telaHome:
         canvas.get_tk_widget().config(bg=Style.color('bg'), highlightthickness=0)
     
     def show_sementes(self):
-            self.main.mostrar_tela("listaInsumos")
+            self.main.mostrar_tela("listaInsumos",9)
     def show_pedidos(self):
-            self.main.mostrar_tela("pedidoVenda")
+            self.main.mostrar_tela("pedidoVenda",11)
     
     def lista_pedidos(self):
         pedidos = Access.listarpedidosVenda()
@@ -106,11 +107,9 @@ class telaHome:
             msg_label = ctk.CTkLabel(self.listaSementes_frame, text="Nenhum Insumo Cadastrado", font=Style.font_style())
             msg_label.pack(pady=5)
 
-    # Função para exibir a tela
     def mostrar(self):
         self.frame.pack(fill="both", expand=True)
 
-    # Função para esconder a tela
     def esconder(self):
         self.frame.pack_forget()
     

@@ -36,8 +36,9 @@ class telaBase:
 
         btn_perfil = ctk.CTkButton(frame_top,text="",image=Style.img('img_icon_perfil'),width=0,hover_color=Style.color('hover'),fg_color=Style.color('fg'),command=perfilUser)
         btn_perfil.pack(pady=10,padx=5,side=RIGHT)
-
+    
     def menu(self):
+        
         frame = Frame(self.root)
         frame.pack(side=TOP, anchor=CENTER)
         frame.configure(background=Style.color('bg'))

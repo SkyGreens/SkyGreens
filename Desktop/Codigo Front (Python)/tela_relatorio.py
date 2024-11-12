@@ -95,7 +95,7 @@ class Relatorio:
                     label.grid(row=row, column=col, padx=5, pady=5)
 
     def show_telaAnterior(self):
-        self.main.mostrar_tela("telaProducao")
+        self.main.mostrar_tela("telaProducao",4)
 
     def mostrar(self):
         self.frame.pack()

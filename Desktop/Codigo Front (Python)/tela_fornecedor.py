@@ -80,8 +80,12 @@ class telaFornecedor:
                     fornecedor_label.pack(side="left", pady=5)
                     
                     if result:
+                    
                         btn_editar = ctk.CTkButton(fornecedor_frame, text='',image=Style.img('img_icon_edit'),  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados,1),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
                         btn_editar.pack(side="right", padx=5, pady=5)
+                        
+                        btn_sementes = ctk.CTkButton(fornecedor_frame, text="",image=Style.img('img_icon_seed'),  width=30,height=30,fg_color=Style.color('fg'),hover_color=Style.color('hover'))
+                        btn_sementes.pack(side="right", padx=5, pady=5)
                         
                         fornecedor_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela_edicao(dados,0))
                     
@@ -96,8 +100,12 @@ class telaFornecedor:
                                                     font=("Arial", 14))
                     fornecedor_label.pack(side="left", pady=5)
                     if result:
+                        
                         btn_editar = ctk.CTkButton(fornecedor_frame, text="",image=Style.img('img_icon_edit'),  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados,1),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
                         btn_editar.pack(side="right", padx=5, pady=5)
+                        btn_sementes = ctk.CTkButton(fornecedor_frame, text="",image=Style.img('img_icon_seed'),  width=30,height=30,fg_color=Style.color('fg'),hover_color=Style.color('hover'))
+                        btn_sementes.pack(side="right", padx=5, pady=5)
+                        
                         
                         fornecedor_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela_edicao(dados,0))
                 
