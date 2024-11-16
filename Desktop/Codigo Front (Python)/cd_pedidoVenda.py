@@ -59,7 +59,7 @@ class cdPedidoVenda:
         nomes_clientes = [""]
 
         for cli in list_cliente:
-            self.id_clientes[cli['razaoSocial']] = cli['clienteid']
+            self.id_clientes[cli['razaoSocial']] = cli['id']
             nomes_clientes.append(cli['razaoSocial'])
         
         opmenu_var_Cliente = ctk.StringVar(value='Selecione o Cliente')
