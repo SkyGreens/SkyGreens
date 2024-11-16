@@ -7,9 +7,11 @@ from tela_base import telaBase
 
 class telaHome:
 
-    def __init__(self, root, main_instance):
+    def __init__(self, root, main_instance,menu_buttons):
         self.root = root
         self.main = main_instance
+        self.menu_buttons = menu_buttons
+        
         
         self.frame = Frame(self.root, background=Style.color('bg'))
         self.frame.pack(fill="both", expand=True)
@@ -56,7 +58,6 @@ class telaHome:
         canvas.get_tk_widget().place(x=895, y=15, height=240, width=380)
         canvas.get_tk_widget().config(bg=Style.color('bg'), highlightthickness=0)
 
-        
         #===
         
         estoque = Access.listarEstoque()
@@ -74,9 +75,11 @@ class telaHome:
     
     def show_sementes(self):
             self.main.mostrar_tela("listaInsumos",9)
+            telaBase.mudar_cor_botao_pedidos(self.menu_buttons,0)
     def show_pedidos(self):
             self.main.mostrar_tela("pedidoVenda",11)
-    
+            telaBase.mudar_cor_botao_pedidos(self.menu_buttons,1)
+            
     def lista_pedidos(self):
         pedidos = Access.listarpedidosVenda()
         

@@ -10,6 +10,8 @@ api_cadastrarFornecedor = f"{API_BASE}/fornecedor/adicionar"
 api_listarFornecedores = f"{API_BASE}/fornecedor/"
 api_editarFornecedores = f"{API_BASE}/fornecedor/update"
 api_editarSementesFornecedores = f"{API_BASE}/fornecedor/"
+api_ListarSementesFornecedores = f"{API_BASE}/fornecedor/"
+api_DellSementeFornecedor = f"{API_BASE}/fornecedor/"
 
 api_cadastrarSementes = f"{API_BASE}/sementes/adicionar"
 api_listarSementes = f"{API_BASE}/sementes/"
@@ -32,6 +34,7 @@ api_listarPedidosVenda = f"{API_BASE}/vendas/"
 api_CadastrarPedidosVenda = f"{API_BASE}/vendas/pedido"
 
 api_listarClientes = f"{API_BASE}/cliente/"
+
 
 class Funcoes:
 
@@ -159,6 +162,57 @@ class Access:
         
         response = requests.put(api_editarFornecedores, json=data, headers=headers)
     
+        if response.status_code == 200:
+            return True
+        else:
+            return False
+    
+    def editarSementeFornecedor(idfornecedor,sementeid):
+        print(idfornecedor,sementeid)
+        
+        headers = {'Content-Type': 'application/json',"Authorization": f"Bearer {Access.token}"}
+        
+        datasemente = [
+            {
+                "sementeId" : sementeid
+            }
+        ]
+        
+        api_editarSementes = f"{api_editarSementesFornecedores}{idfornecedor}/sementes/adicionar"
+        response =  requests.put(api_editarSementes, json=datasemente, headers=headers)
+        
+        if response.status_code == 200:
+            return True
+        else:
+            return False
+    
+    def listarSementesFornecedor(idfornecedor):
+        headers = {"Authorization": f"Bearer {Access.token}"}
+        
+        api_listarSementes = f"{api_ListarSementesFornecedores}{idfornecedor}/sementes"
+
+        response = requests.get(api_listarSementes, headers=headers)
+        
+        if response.status_code == 200:
+            sementes_api = response.json()
+            sementes = []
+            for i in sementes_api:
+                sementes.append({
+                    "id": i.get('sementeId'),
+                    "nome": i.get('nome'),
+                    "descricao": i.get('descricao')
+                })
+            return sementes 
+        else:
+            print('Falha ao listar sementes:',  response.text)
+   
+    def deletarsementeFornecedor(fornecedor_id, semente_id):
+        headers = {"Authorization": f"Bearer {Access.token}"}
+        
+        api = f"{api_DellSementeFornecedor}{fornecedor_id}/sementes/delete/{semente_id}"
+        
+        response = requests.delete(api, headers=headers)
+            
         if response.status_code == 200:
             return True
         else:

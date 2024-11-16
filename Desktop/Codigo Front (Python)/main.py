@@ -22,20 +22,27 @@ class Main:
     def __init__(self, root):
         self.root = root
         self.telas = {}
+        self.tela_atual = None 
 
         self.tela_login = telaLogin(root, self)
         
     def voltar_para_login(self):
         self.tela_login = telaLogin(self.root, self)
 
-    def iniciar_interface(self):
-
-        self.tela_base = telaBase(root)
-        self.tela_base.mostrar_tela = self.mostrar_tela
-        
-        self.mostrar_tela("telaHome")
+    def iniciar_interface(self,menu_buttons=None):
+        if menu_buttons:
+            self.menu_buttons = menu_buttons
+            self.mostrar_tela("telaHome")
+        else:
+            self.tela_base = telaBase(root,self)
+            self.tela_base.mostrar_tela = self.mostrar_tela
+            
+            self.mostrar_tela("telaHome")
 
     def mostrar_tela(self, tela_nome,n=0):
+        if self.tela_atual == tela_nome:
+            return
+        
         if n == 2:
             self.telas["telaMonitoramento"] = telaMonitoramento(root)
         elif n == 3:    
@@ -57,11 +64,13 @@ class Main:
         elif n == 11:
             self.telas["pedidoVenda"] = pedidoVenda(root,self)
         elif n == 0:
-            self.telas["telaHome"] = telaHome(root,self)
+            self.telas["telaHome"] = telaHome(root,self,self.menu_buttons)
         
         for tela in self.telas.values():
             tela.esconder()
         self.telas[tela_nome].mostrar()
+        
+        self.tela_atual = tela_nome
             
 if __name__ == "__main__":
     jar_instance = Jar()

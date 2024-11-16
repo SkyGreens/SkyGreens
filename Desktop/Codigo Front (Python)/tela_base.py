@@ -9,9 +9,11 @@ from access import Access
 
 class telaBase:
     
-    def __init__(self, root):
+    def __init__(self, root,main_instance):
         self.root = root
+        self.main = main_instance
         self.message_box = MessageBox()
+        self.menu_buttons = []
         self.top()
         self.menu()
         self.verificar(1)
@@ -58,20 +60,33 @@ class telaBase:
                                    fg_color=Style.color('fg'), hover_color=Style.color('hover'), command=command)
             button.pack(pady=10, padx=1, side=LEFT)
             self.menu_buttons.append(button)
-
+        self.main.iniciar_interface(self.menu_buttons)
+    
+    def mudar_cor_botao_pedidos(menu_buttons,n):
+        
+        for button in menu_buttons:
+            button.configure(fg_color=Style.color('fg'))
+            
+        if n == 1:
+            menu_buttons[4].configure(fg_color=Style.color('hover'))
+        else:
+            menu_buttons[3].configure(fg_color=Style.color('hover'))
     def verificar(self, n):
-        result = Access.verificar_permissoes(self,n)
+        result = Access.verificar_permissoes(self, n)
         
         if result:
+            # Resetar a cor de todos os botões
             for button in self.menu_buttons:
                 button.configure(fg_color=Style.color('fg'))
-
+            
+            # Mudar a cor do botão ativo
             self.menu_buttons[n-1].configure(fg_color=Style.color('hover'))
             
             telas = ["telaHome", "telaMonitoramento", "telaFornecedor", "telaProducao", "telaPedidos", "telaUsuarios"]
-            self.mostrar_tela(telas[n-1],n)
+            self.mostrar_tela(telas[n-1], n)
         else:
-            result = self.message_box.showerror("Autenticação","Acesso não autorizado!")
+            result = self.message_box.showerror("Autenticação", "Acesso não autorizado!")
+
 
     def mostrar_tela(self, tela_nome,n):
         pass
