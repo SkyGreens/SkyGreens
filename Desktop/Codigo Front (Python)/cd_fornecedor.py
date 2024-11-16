@@ -8,7 +8,7 @@ class cdFornecedor:
     def __init__(self,callback, dados=None,editar=None):
             
         self.jn_x = 640
-        self.jn_y = 560
+        self.jn_y = 500
         
         self.callback = callback
         self.dados = dados
@@ -29,19 +29,19 @@ class cdFornecedor:
     def voltar_pagina(self, root):
         root.destroy()
         
-    def modificacao_fornecedor(self, cnpj, rzsocial, isced, email, status, tel, end, cid, est, pais, semente):
+    def modificacao_fornecedor(self, cnpj, rzsocial, isced, email, status, tel, end, cid, est, pais):
         msg_box = MessageBox()
         status = False if status == "Inativo" else True
         
         if self.editar == 1:
             iduser = self.dados['id']
-            result = Access.editarFornecedor(iduser, status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj, semente)
+            result = Access.editarFornecedor(iduser, status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj)
             if result:
                 msg_box.showinfo_autoclose(f"Fornecedor atualizado com sucesso!")
             else:
                 msg_box.showinfo_autoclose(f"Fornecedor não atualizado!")
         else:
-            result = Access.cadastroFornecedor(status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj, semente)
+            result = Access.cadastroFornecedor(status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj)
             if result:
                 msg_box.showinfo_autoclose(f"Fornecedor cadastrado com sucesso!")
             else:
@@ -52,11 +52,6 @@ class cdFornecedor:
             
     def switch(self, switch_var):
         switch_var.set("Inativo")
-    
-    def opcaomenu(self, choice, opmenu_var):
-        if choice is None:
-            opmenu_var.set('Semente')
-        self.semente_selecionada_id = choice
     
     def elementos_tela(self, root):
         campos = [
@@ -84,35 +79,19 @@ class cdFornecedor:
         self.widgets['status'] = ctk.CTkSwitch(root, textvariable=self.switch_var, width=300, height=35, variable=self.switch_var, onvalue="Ativo", offvalue="Inativo",fg_color=Style.color('fg'))
         self.widgets['status'].grid(row=7, column=1, padx=10, pady=10)
         self.widgets['status'].configure(state=estado_campo)
-
-        self.semente_selecionada_id = None
-        list_sementes = Access.listarSementes()
-        id_sementes = {"": None}
-        nomes_sementes = [""]
-        
-        for i in list_sementes:
-            id_sementes[i['nome']] = i['id']
-            nomes_sementes.append(i['nome'])
-        
-        opmenu_var = ctk.StringVar(value=self.dados.get('semente') if self.dados and self.dados.get('semente') else 'Materia Prima')
-        self.widgets['sementes'] = ctk.CTkOptionMenu(root, width=620, height=35, values=nomes_sementes, variable=opmenu_var,
-                                                command=lambda choice: self.opcaomenu(id_sementes[choice], opmenu_var),fg_color=Style.color('fg'))
-        self.widgets['sementes'].grid(row=8, column=0, columnspan=2, padx=10, pady=10)
-        self.widgets['sementes'].configure(state=estado_campo)
         
         if self.editar != 0 :
         
             btn_cancelar = ctk.CTkButton(root, width=300, height=35, text='Cancelar', command=lambda: self.atualizar_pagina(),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
-            btn_cancelar.grid(row=9, column=0, padx=10, pady=10)
+            btn_cancelar.grid(row=8, column=0, padx=10, pady=10)
 
             btn_texto = 'Atualizar' if self.dados else 'Registrar'
             btn_registrar = ctk.CTkButton(root, width=300, height=35, text=btn_texto, command=lambda: self.modificacao_fornecedor(
                 self.widgets['cnpj'].get(), self.widgets['nome'].get(), self.widgets['inscricaoEstadual'].get(), self.widgets['email'].get(),
                 self.widgets['status'].get(), self.widgets['telefone'].get(), self.widgets['endereco'].get(), self.widgets['cidade'].get(), 
-                self.widgets['estado'].get(), self.widgets['pais'].get(), self.semente_selecionada_id
-            ),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
-            btn_registrar.grid(row=9, column=1, padx=10, pady=10)
+                self.widgets['estado'].get(), self.widgets['pais'].get()),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
+            btn_registrar.grid(row=8, column=1, padx=10, pady=10)
         else:
             btn_ok = ctk.CTkButton(root, width=300, height=35, text='Ok', command=lambda: self.voltar_pagina(root),
                                    fg_color=Style.color('fg'), hover_color=Style.color('hover'))
-            btn_ok.grid(row=9, column=0, columnspan=2, padx=10, pady=10)
+            btn_ok.grid(row=8, column=0, columnspan=2, padx=10, pady=10)

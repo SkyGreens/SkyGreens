@@ -70,7 +70,7 @@ class Access:
         except requests.exceptions.RequestException:
             return "conexão"
             
-    def cadastroFornecedor(status, email, tel, end, cid, est, pais, ie, rs, cnpj, sementeid=None):
+    def cadastroFornecedor(status, email, tel, end, cid, est, pais, ie, rs, cnpj):
         cadatro_data = {
             "ativo": status,
             "email": email,
@@ -83,9 +83,6 @@ class Access:
             "razaoSocial": rs,
             "cnpj": cnpj
         }
-        
-        if sementeid is not None:
-            cadatro_data["sementes"] = [{"sementeId": sementeid}]
 
         headers = {'Content-Type': 'application/json',"Authorization": f"Bearer {Access.token}"}
 
@@ -134,7 +131,7 @@ class Access:
         else:
             print('Falha ao listar fornecedores:', response.text)
 
-    def editarFornecedor(idfornecedor,status,email,tel,end,cid,est,pais,isced,rzsocial,cnpj,sementeid=None):
+    def editarFornecedor(idfornecedor,status,email,tel,end,cid,est,pais,isced,rzsocial,cnpj):
         
         headers = {'Content-Type': 'application/json',"Authorization": f"Bearer {Access.token}"}
         
@@ -151,14 +148,6 @@ class Access:
             "razaoSocial" : rzsocial,
             "cnpj" : cnpj
         }
-        if sementeid is not None:
-            datasemente = [
-                {
-                    "sementeId" : sementeid
-                }
-            ]
-            api_editarSementes = f"{api_editarSementesFornecedores}{idfornecedor}/sementes"
-            requests.put(api_editarSementes, json=datasemente, headers=headers)
         
         response = requests.put(api_editarFornecedores, json=data, headers=headers)
     
@@ -168,8 +157,7 @@ class Access:
             return False
     
     def editarSementeFornecedor(idfornecedor,sementeid):
-        print(idfornecedor,sementeid)
-        
+
         headers = {'Content-Type': 'application/json',"Authorization": f"Bearer {Access.token}"}
         
         datasemente = [
