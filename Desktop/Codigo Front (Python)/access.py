@@ -34,6 +34,7 @@ api_listarPedidosVenda = f"{API_BASE}/vendas/"
 api_CadastrarPedidosVenda = f"{API_BASE}/vendas/pedido"
 
 api_listarClientes = f"{API_BASE}/cliente/"
+api_cadastroClientes = f"{API_BASE}/cliente/adicionar"
 
 
 class Funcoes:
@@ -548,7 +549,7 @@ class Access:
             for cli in clientes_api:
                 
                 listClientes.append({
-                    "clienteid":cli.get('clienteId'),
+                    "id":f"{cli.get('clienteId')}",
                     "status":cli.get('ativo'),
                     "email":cli.get('email'),
                     "telefone":cli.get('telefone'),
@@ -561,6 +562,28 @@ class Access:
                 })
                 
             return listClientes
+        else:
+            return False
+          
+    def cadastroCliente(status, email, tel, end, cid, est, pais, rs, cnpj):
+        data = {
+            "ativo" : status,
+            "email" : email,
+            "telefone" : tel,
+            "endereco" : end,
+            "cidade" : cid,
+            "estado" : est,
+            "pais" : pais,
+            "razaoSocial" : rs,
+            "cnpj" : cnpj
+        }
+
+        headers = {"Authorization": f"Bearer {Access.token}"}
+
+        response_semente = requests.post(api_cadastroClientes, json=data, headers=headers)
+
+        if response_semente.status_code == 200:
+            return True
         else:
             return False
           

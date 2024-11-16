@@ -26,6 +26,12 @@ class telaPedidos:
                                         command=lambda:self.verificar("pedidoVenda",11),fg_color=Style.color('fg_2'), hover_color=Style.color('hover_2'),border_width=3,border_color=Style.color('hover_2'))
         
         btn_pedidoVenda.grid(row=0, column=1, padx=10, pady=10)
+        
+        btn_clientes = ctk.CTkButton(btn_frame, text="Clientes",font=Style.font_style(),text_color='black',image=Style.img('img_icon_clientes'),
+                                        compound=TOP, width=280, height=390, corner_radius=10,
+                                        command=lambda:self.verificar("telaCliente",12),fg_color=Style.color('fg_2'), hover_color=Style.color('hover_2'),border_width=3,border_color=Style.color('hover_2'))
+        
+        btn_clientes.grid(row=0, column=2, padx=10, pady=10)
 
     def verificar(self, tela,n):
         self.mostrar_tela(tela,n)
