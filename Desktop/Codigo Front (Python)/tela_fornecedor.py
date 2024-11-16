@@ -3,6 +3,7 @@ import customtkinter as ctk #pip install customtkinter
 
 from style import Style,MessageBox
 from cd_fornecedor import cdFornecedor
+from cd_insumoFornecedor import cdInsumofornecedor
 from access import Access
 
 class telaFornecedor:
@@ -80,8 +81,12 @@ class telaFornecedor:
                     fornecedor_label.pack(side="left", pady=5)
                     
                     if result:
+                    
                         btn_editar = ctk.CTkButton(fornecedor_frame, text='',image=Style.img('img_icon_edit'),  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados,1),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
                         btn_editar.pack(side="right", padx=5, pady=5)
+                        
+                        btn_sementes = ctk.CTkButton(fornecedor_frame, text="",image=Style.img('img_icon_seed'),  width=30,height=30,command=lambda dados=i: self.abrir_tela_seed(dados),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
+                        btn_sementes.pack(side="right", padx=5, pady=5)
                         
                         fornecedor_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela_edicao(dados,0))
                     
@@ -96,8 +101,11 @@ class telaFornecedor:
                                                     font=("Arial", 14))
                     fornecedor_label.pack(side="left", pady=5)
                     if result:
+                        
                         btn_editar = ctk.CTkButton(fornecedor_frame, text="",image=Style.img('img_icon_edit'),  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados,1),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
                         btn_editar.pack(side="right", padx=5, pady=5)
+                        btn_sementes = ctk.CTkButton(fornecedor_frame, text="",image=Style.img('img_icon_seed'),  width=30,height=30, command=lambda dados=i: self.abrir_tela_seed(dados), fg_color=Style.color('fg'),hover_color=Style.color('hover'))
+                        btn_sementes.pack(side="right", padx=5, pady=5)
                         
                         fornecedor_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela_edicao(dados,0))
                 
@@ -107,7 +115,10 @@ class telaFornecedor:
             
     def abrir_tela_edicao(self, dados,n):
         cdFornecedor(self, dados=dados,editar=n)
-
+        
+    def abrir_tela_seed(self, dados):
+        cdInsumofornecedor(dados=dados)
+        
     def mostrar(self):
         self.frame.pack()
         

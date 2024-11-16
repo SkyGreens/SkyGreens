@@ -78,7 +78,7 @@ class listaInsumos:
             msg_label.pack(pady=5)
     
     def show_telaAnterior(self):
-        self.main.mostrar_tela("telaProducao")
+        self.main.mostrar_tela("telaProducao",4)
     
     def abrir_tela(self, dados,n):
         cdInsumos(self, dados=dados,editar=n)

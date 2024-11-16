@@ -2,6 +2,7 @@ from tkinter import *  # pip install tkinter
 import customtkinter as ctk  # pip install customtkinter
 from jar import Jar
 from style import Style,MessageBox
+from PIL import Image, ImageTk 
 from access import Access
 
 class telaLogin:
@@ -9,10 +10,20 @@ class telaLogin:
         self.root = root
         self.app = app
         self.messagebox = MessageBox()
+        self.bg_label = None
         self.janela_login()
     
     def janela_login(self):
         ctk.set_appearance_mode("light")
+        
+        # Carregando a imagem de fundo
+        bg_image = Image.open("img\\bg.png")
+        bg_image = bg_image.resize((self.root.winfo_screenwidth(), self.root.winfo_screenheight()))
+        self.bg_image = ImageTk.PhotoImage(bg_image)
+
+        # Criando um Label para a imagem de fundo
+        self.bg_label = Label(self.root, image=self.bg_image)
+        self.bg_label.place(x=0, y=0, relwidth=1, relheight=1)
         
         self.frame = ctk.CTkFrame(master=self.root, width=300, height=400,fg_color=Style.color('bg_frame'))
         self.frame.pack(expand=True, padx=20, pady=20)
@@ -50,6 +61,8 @@ class telaLogin:
         #senha = 'assistente'
         
         self.frame.destroy()
+        self.bg_label.destroy()
+        
         access = Access.login(user, senha, self.app)    
         
         if access == False:

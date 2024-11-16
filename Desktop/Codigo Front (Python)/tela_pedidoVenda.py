@@ -75,7 +75,7 @@ class pedidoVenda:
             result = self.message_box.showerror("Autenticação","Acesso não autorizado!")
             
     def show_telaAnterior(self):
-        self.main.mostrar_tela("telaPedidos")
+        self.main.mostrar_tela("telaPedidos",5)
         
     def mostrar(self):
         self.frame.pack()
