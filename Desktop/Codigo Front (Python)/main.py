@@ -16,6 +16,7 @@ from tela_relatorio import Relatorio
 from tela_estoque import Estoque
 from tela_pedidoCompra import pedidoCompra
 from tela_pedidoVenda import pedidoVenda
+from tela_clientes import telaCliente
 
 class Main:
     
@@ -63,6 +64,8 @@ class Main:
             self.telas["pedidoCompra"] = pedidoCompra(root,self)
         elif n == 11:
             self.telas["pedidoVenda"] = pedidoVenda(root,self)
+        elif n == 12:
+            self.telas["telaCliente"] = telaCliente(root,self)
         elif n == 0:
             self.telas["telaHome"] = telaHome(root,self,self.menu_buttons)
         

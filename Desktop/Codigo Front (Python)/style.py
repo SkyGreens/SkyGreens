@@ -38,6 +38,7 @@ class Style:
         imgs={
             'img_icon_pedidoVenda':abrir_img("img\\icon_pedidoVenda.png",(80, 80)),
             'img_icon_pedidoCompra':abrir_img("img\\icon_pedidoCompra.png",(80, 80)),
+            'img_icon_clientes':abrir_img("img\\icon_clientes.png",(80, 80)),
             'img_icon_insumos':abrir_img("img\\icon_insumos.png",(40, 40)),
             'img_icon_relatorio':abrir_img("img\\icon_relatorio.png",(40, 40)),
             'img_icon_estoque':abrir_img("img\\icon_estoque.png",(40, 40)),

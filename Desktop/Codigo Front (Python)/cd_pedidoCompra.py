@@ -27,10 +27,29 @@ class cdPedidoCompra:
     def voltar_pagina(self, root):
         root.destroy()
     
-    def opcaomenu(self, choice, opmenu_var):
+    def opcaomenu_semente(self, choice, opmenu_var):
         if choice is None:
             opmenu_var.set('Materia Prima')
         self.semente_selecionada_id = choice
+        
+    def opcaomenu_fornecedor(self, fornecedor_id, opmenu_var_fornecedor):
+        
+        self.fornecedor_selecionado_id = fornecedor_id
+
+        if fornecedor_id:
+            sementes = Access.listarSementesFornecedor(fornecedor_id)
+        else:
+            sementes = []
+
+        id_sementes = {"" : None}
+        nomes_sementes = [""]
+
+        for semente in sementes:
+            id_sementes[semente['nome']] = semente['id']
+            nomes_sementes.append(semente['nome'])
+
+        self.widgets['sementes'].configure(values=nomes_sementes)
+        self.opmenu_var_semente.set("Selecione a Semente")
     
     def cadastrar_pedido(self):
         msg_box = MessageBox()
@@ -61,9 +80,9 @@ class cdPedidoCompra:
             self.id_fornecedores[fornecedor['nome']] = fornecedor['id']
             nomes_fornecedores.append(fornecedor['nome'])
         
-        opmenu_var_fornecedor = ctk.StringVar(value='Selecione o Fornecedor')
-        self.widgets['fornecedor'] = ctk.CTkOptionMenu(root, width=620, height=35, values=nomes_fornecedores, variable=opmenu_var_fornecedor,
-            command=lambda choice: self.opcaomenu(self.id_fornecedores[choice], opmenu_var_fornecedor),fg_color=Style.color('fg'))
+        self.opmenu_var_fornecedor = ctk.StringVar(value='Selecione o Fornecedor')
+        self.widgets['fornecedor'] = ctk.CTkOptionMenu(root, width=620, height=35, values=nomes_fornecedores, variable=self.opmenu_var_fornecedor,
+            command=lambda choice: self.opcaomenu_fornecedor(self.id_fornecedores[choice], self.opmenu_var_fornecedor),fg_color=Style.color('fg'))
         self.widgets['fornecedor'].grid(row=0, column=0, columnspan=2, padx=10, pady=10)
         self.widgets['fornecedor'].configure(state=estado_campo)
 
@@ -89,21 +108,21 @@ class cdPedidoCompra:
             id_sementes[semente['nome']] = semente['id']
             nomes_sementes.append(semente['nome'])
 
-        opmenu_var_semente = ctk.StringVar(value='Selecione a Semente')
-        self.widgets['sementes'] = ctk.CTkOptionMenu(root, width=620, height=35, values=nomes_sementes, variable=opmenu_var_semente,
-            command=lambda choice: self.opcaomenu(id_sementes[choice], opmenu_var_semente),fg_color=Style.color('fg'))
+        self.opmenu_var_semente = ctk.StringVar(value='Selecione a Semente')
+        self.widgets['sementes'] = ctk.CTkOptionMenu(root, width=620, height=35, values=[""], variable=self.opmenu_var_semente,
+            command=lambda choice: self.opcaomenu_semente(id_sementes[choice], self.opmenu_var_semente),fg_color=Style.color('fg'))
         self.widgets['sementes'].grid(row=2, column=0, columnspan=2, padx=10, pady=10)
         self.widgets['sementes'].configure(state=estado_campo)
 
         if self.dados and 'semente' in self.dados:
             nome_semente = self.dados['semente']['nome']
             if nome_semente in id_sementes:
-                opmenu_var_semente.set(nome_semente)
+                self.opmenu_var_semente.set(nome_semente)
                 
         if self.dados and 'fornecedor' in self.dados:
             razao_social = self.dados['fornecedor']['razaoSocial']
             if razao_social in self.id_fornecedores:
-                opmenu_var_fornecedor.set(razao_social)
+                self.opmenu_var_fornecedor.set(razao_social)
 
         if self.editar != 0:
             btn_cancelar = ctk.CTkButton(root, width=300, height=35, text='Cancelar', command=lambda: self.voltar_pagina(root),
