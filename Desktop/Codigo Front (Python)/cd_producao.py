@@ -7,7 +7,7 @@ class cdProducao:
     
     def __init__(self,callback):
         self.jn_x = 640
-        self.jn_y = 280
+        self.jn_y = 230
         
         self.callback = callback
 
