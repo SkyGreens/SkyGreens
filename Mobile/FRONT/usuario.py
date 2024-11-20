@@ -8,11 +8,9 @@ cinza = "#FFFFFF"
 bg = "#D6DDC8"
 
 class Usuario(ft.UserControl):
-    def __init__(self, page, userId, token):
+    def __init__(self, page):
         super().__init__()
         self.page = page
-        self.userId = userId
-        self.token = token
         
         # Inicializa o popup de confirmação
         self.logout_dialog = ft.AlertDialog(
@@ -61,7 +59,7 @@ class Usuario(ft.UserControl):
             controls=[
                 # Menu fixo na parte superior
                 ft.Container(
-                    content=Menu(self.page, self.userId, self.token, active_screen="usuario").build(),
+                    content=Menu(self.page, active_screen="usuario").build(),
                     height=60,
                     width=self.page.width,
                     bgcolor=bg,

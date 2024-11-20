@@ -2,21 +2,20 @@
 import flet as ft
 import requests
 
-API_BASE = "http://192.168.31.243:8080/skygreen"
+API_BASE = "http://localhost:8080/skygreen"
 
-api_url = "http://192.168.31.243:8080/skygreen/auth/login"
+api_url = "http://localhost:8080/skygreen/auth/login"
 api_listarPedidosVenda = f"{API_BASE}/vendas/"
 
 class Access:
     
     def __init__(self, token):
         self.token = token
-        
-        self.api_url = "http://192.168.31.243:8080/skygreen/auth/login"
+        self.api_url = "http://localhost:8080/skygreen/auth/login"
     
     @staticmethod
     def login(cpf, senha):
-        api_url = "http://192.168.31.243:8080/skygreen/auth/login"
+        api_url = "http://localhost:8080/skygreen/auth/login"
         payload = {
             "cpf": cpf,
             "senha": senha
@@ -25,16 +24,16 @@ class Access:
         
         try:
             response = requests.post(api_url, json=payload, headers=headers)
-            print(f"Status da resposta: {response.status_code}")
-            print(f"Conteúdo da resposta: {response.text}")
+            #print(f"Status da resposta: {response.status_code}")
+            #print(f"Conteúdo da resposta: {response.text}")
             
             if response.status_code == 200:
                 data = response.json()
                 token = data.get("token")
                 userId = data.get("userId")
                 
-                print(f"Token recebido: {token}")
-                print(f"ID do usuário: {userId}")
+                #print(f"Token recebido: {token}")
+                #print(f"ID do usuário: {userId}")
                 
                 return token, userId, "Login realizado com sucesso", ft.colors.GREEN
             else:
