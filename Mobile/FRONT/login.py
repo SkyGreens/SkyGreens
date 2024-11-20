@@ -99,7 +99,7 @@ def on_login_click(page):
 
 
 async def change_to_home(page, userId, token):
-    await asyncio.sleep(0.5)  # Atraso de 2 segundos
+    await asyncio.sleep(0.1)  # Atraso de 2 segundos
     home_screen = TelaHome(page, userId, token)  # Passa userId e token
     page.clean()  # Limpa a página atual
     home_screen = TelaHome(page, userId, token)  # Passa userId e token
