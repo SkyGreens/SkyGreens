@@ -17,44 +17,17 @@ def TelaLogin(page: ft.Page):
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     
-    cpf_input = ft.TextField(
-        label="CPF",
-        width=300,
-        text_size=16,
-        border_radius=ft.BorderRadius(10, 10, 10, 10),
-        filled=True,
-        fill_color="#5D732F"
-    )
+    cpf_input = ft.TextField(label="CPF",width=300,text_size=16,border_radius=ft.BorderRadius(10, 10, 10, 10),filled=True,fill_color="#5D732F")
     
-    senha_input = ft.TextField(
-        label="Senha",
-        width=300,
-        text_size=16,
-        border_radius=ft.BorderRadius(10, 10, 10, 10),
-        filled=True,
-        password=True,
-        fill_color="#5D732F"
-    )
+    senha_input = ft.TextField(label="Senha",width=300,text_size=16,border_radius=ft.BorderRadius(10, 10, 10, 10),filled=True,password=True,fill_color="#5D732F")
     
     login_message = ft.Text(size=16) 
     
-    login_button = ft.ElevatedButton(
-        text="Entrar",
-        on_click=lambda e: on_login_click(page),
-        width=300,
-        height=50,
-        style=ft.ButtonStyle(
-            shape=ft.RoundedRectangleBorder(radius=10),
-            color=ft.colors.WHITE,
-            bgcolor="#304019"
-        )
-    )
+    login_button = ft.ElevatedButton(text="Entrar",on_click=lambda e: on_login_click(page),width=300,height=50,
+                                     style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=10),color=ft.colors.WHITE,bgcolor="#304019"))
     
-    page.add(
-        ft.Container(
-            content=ft.Column(
+    page.add(ft.Container(content=ft.Column(
                 [
-                    ft.Image(src="icon.png", width=20, height=20),
                     ft.Text("Bem-vindo", size=30, color="#4A4A4A", weight=ft.FontWeight.BOLD),
                     ft.Text("Acesse sua conta", size=16, color="#4A4A4A"),
                     ft.Container(height=20),
@@ -85,8 +58,18 @@ def TelaLogin(page: ft.Page):
     page.update()
 
 def on_login_click(page):
-    cpf = cpf_input.value
-    senha = senha_input.value
+    
+    #user = 12345678909
+    #senha = "admin"
+        
+    #user = 45242561807
+    #senha = 'gerente'
+        
+    #user = '01800980809'
+    #senha = 'assistente'
+    
+    cpf = 12345678909
+    senha = "admin"
     
     token, userId, message, color = Access.login(cpf, senha)
     
@@ -94,15 +77,11 @@ def on_login_click(page):
     login_message.color = color
     page.update()
 
-    if token:  # Se o login foi bem-sucedido
-        asyncio.run(change_to_home(page, userId, token))  # Passa userId e token
+    if token:
+        asyncio.run(change_to_home(page))
 
-
-async def change_to_home(page, userId, token):
-    await asyncio.sleep(0.1)  # Atraso de 2 segundos
-    home_screen = TelaHome(page, userId, token)  # Passa userId e token
-    page.clean()  # Limpa a página atual
-    home_screen = TelaHome(page, userId, token)  # Passa userId e token
-    page.add(home_screen.build())  # Adiciona a tela Home
+async def change_to_home(page):
+    page.controls.clear()
+    home_screen = TelaHome(page)
+    page.add(home_screen)
     page.update()
-    

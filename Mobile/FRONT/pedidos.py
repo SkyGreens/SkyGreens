@@ -8,11 +8,9 @@ cinza = "#FFFFFF"
 bg = "#D6DDC8"
 
 class Pedidos(ft.UserControl):
-    def __init__(self, page, userId, token):
+    def __init__(self, page):
         super().__init__()
         self.page = page
-        self.userId = userId
-        self.token = token
         self.pedidos = []  # Lista inicial vazia para os pedidos
         self.pesq_conteudo = ft.TextField(label="Pesquisar Venda", autofocus=True)
 
@@ -37,7 +35,7 @@ class Pedidos(ft.UserControl):
         # Retorna a estrutura da página com o menu no topo e os pedidos abaixo
         return ft.Column(
             controls=[
-                Menu(self.page, self.userId, self.token, active_screen="pedidos").build(),  # Menu fixo
+                Menu(self.page, active_screen="pedidos").build(),  # Menu fixo
                 self.pesq_conteudo,  # Campo de pesquisa
                 self.retangulo_pedidos(),  # Exibe os pedidos
             ],
