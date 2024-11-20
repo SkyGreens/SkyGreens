@@ -38,6 +38,10 @@ function purchase_page(){
     window.location.href = "pedido_compra.html";
 }
 
+function stock_page(){
+    window.location.href = "estoque.html";
+}
+
 function logout(){
     const userConfirmed = confirm('Tem certeza que deseja desconectar?');
     
