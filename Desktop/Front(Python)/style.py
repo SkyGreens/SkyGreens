@@ -5,9 +5,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg #pip install mat
 import matplotlib.pyplot as plt
 from tkinter import Toplevel  # pip install tkinter
 import pandas as pd #pip install pandas
-from openpyxl.workbook import Workbook #pip install openpyxl
 from tkinter import messagebox
-
 
 class Style:
         
@@ -109,7 +107,6 @@ class Style:
             msg_box.showinfo("Sucesso", "Relatório gerado com sucesso!")
         else:
             msg_box.showerror("Erro", "Selecione o conteudo para gerar o relatorio")
-    
     
 class MessageBox:
     Style = Style()

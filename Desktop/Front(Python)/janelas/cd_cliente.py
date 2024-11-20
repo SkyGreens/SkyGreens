@@ -24,7 +24,7 @@ class cdCliente:
         self.root.destroy()
         self.dados = None
         if i == 1:
-            from tela_clientes import telaCliente
+            from telas.tela_clientes import telaCliente
             telaCliente.clientes_lista(self.callback)
             
     def voltar_pagina(self, root):

@@ -4,7 +4,7 @@ import os
 import sys
 
 from style import Style,MessageBox
-from perfil_user import perfilUser
+from telas.perfil_user import perfilUser
 from access import Access
 
 class telaBase:

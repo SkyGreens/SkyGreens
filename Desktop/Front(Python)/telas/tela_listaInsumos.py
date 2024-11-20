@@ -2,7 +2,7 @@ from tkinter import *
 import customtkinter as ctk
 
 from style import Style,MessageBox
-from cd_insumos import cdInsumos
+from janelas.cd_insumos import cdInsumos
 from access import Access
 
 class listaInsumos:

@@ -2,7 +2,7 @@ from tkinter import *
 import customtkinter as ctk
 
 from style import Style,MessageBox
-from cd_producao import cdProducao
+from janelas.cd_producao import cdProducao
 from access import Access
 
 class telaProducao:

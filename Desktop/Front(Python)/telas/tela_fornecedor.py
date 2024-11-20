@@ -2,8 +2,8 @@ from tkinter import * #pip install tkinter
 import customtkinter as ctk #pip install customtkinter
 
 from style import Style,MessageBox
-from cd_fornecedor import cdFornecedor
-from cd_insumoFornecedor import cdInsumofornecedor
+from janelas.cd_fornecedor import cdFornecedor
+from janelas.cd_insumoFornecedor import cdInsumofornecedor
 from access import Access
 
 class telaFornecedor:

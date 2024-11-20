@@ -23,7 +23,7 @@ class cdFornecedor:
         self.root.destroy()
         self.dados = None
         if i == 1:
-            from tela_fornecedor import telaFornecedor
+            from telas.tela_fornecedor import telaFornecedor
             telaFornecedor.fornecedor_lista(self.callback)
             
     def voltar_pagina(self, root):

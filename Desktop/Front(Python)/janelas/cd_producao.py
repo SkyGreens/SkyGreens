@@ -22,7 +22,7 @@ class cdProducao:
     def atualizar_pagina(self,i=0):
         self.root.destroy()
         if i == 1:
-            from tela_producao import telaProducao
+            from telas.tela_producao import telaProducao
             telaProducao.atualizar_lista(self.callback)
             
     def opcaomenu(self, choice, opmenu_var):

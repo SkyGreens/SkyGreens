@@ -25,7 +25,7 @@ class cdInsumos:
         self.root.destroy()
         self.dados = None
         if i == 1:
-            from tela_listaInsumos import listaInsumos
+            from telas.tela_listaInsumos import listaInsumos
             listaInsumos.sementes_lista(self.callback)
     
     def modificacao_semente(self,nome,desc):

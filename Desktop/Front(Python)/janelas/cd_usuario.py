@@ -24,7 +24,7 @@ class cdUsuario:
         self.root.destroy()
         self.dados = None
         if i == 1:
-            from tela_usuario import telaUsuarios
+            from telas.tela_usuario import telaUsuarios
             telaUsuarios.usuario_lista(self.callback)
 
     def modificacao_usuario(self, cpf, cargo, nome, status, email):

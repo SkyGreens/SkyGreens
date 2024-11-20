@@ -3,7 +3,7 @@ import customtkinter as ctk #pip install customtkinter
 
 from style import Style
 from access import Access
-from tela_base import telaBase
+from telas.tela_base import telaBase
 
 class telaHome:
 

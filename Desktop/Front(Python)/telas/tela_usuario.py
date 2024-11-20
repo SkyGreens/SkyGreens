@@ -1,7 +1,7 @@
 from tkinter import * # pip install tkinter
 import customtkinter as ctk # pip install customtkinter
 
-from cd_usuario import cdUsuario 
+from janelas.cd_usuario import cdUsuario 
 from access import Access
 from style import Style,MessageBox
 
