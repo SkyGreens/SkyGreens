@@ -68,8 +68,11 @@ def on_login_click(page):
     #user = '01800980809'
     #senha = 'assistente'
     
-    cpf = 12345678909
-    senha = "admin"
+    #cpf = 12345678909
+    #senha = "admin"
+    
+    cpf = cpf_input.value
+    senha = senha_input.value
     
     token, userId, message, color = Access.login(cpf, senha)
     
