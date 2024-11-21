@@ -1,21 +1,22 @@
 import flet as ft
-from login import TelaLogin  # Importa a classe Login
-from home import TelaHome
+import subprocess
+
+from jar import Jar 
+from telas.tela_login import TelaLogin 
 
 def main(page: ft.Page):
-    TelaLogin(page)  # Instancia a classe Login, passando a página
-
-    # Define o tamanho da janela
-    page.window_width = 400
-    page.window_height = 700
     
-    # Configurações adicionais da página
+    Jar()
+    TelaLogin(page)
+    
+    page.window.width = 500
+    page.window.height = 800
+    
     page.title = "SkyGreens"
-    page.window_resizable = False  # Para não permitir redimensionamento
+    page.window.resizable = False
 
-    # Atualiza a página para aplicar as alterações
     page.update()
-    page.favicon = "LOGOO.ico"  # Apenas para teste
+    #page.window_close() #PARA FECHAR A JANELA NO COMPUTADOR
+    #subprocess.run(["flet", "run", "main.py", "--android"]) #PARA RODAR O ANDROID NO FLET
 
-# Executa a aplicação
 ft.app(target=main)

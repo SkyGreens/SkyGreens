@@ -66,7 +66,7 @@ class Main:
             self.telas["pedidoVenda"] = pedidoVenda(root,self)
         elif n == 12:
             self.telas["telaCliente"] = telaCliente(root,self)
-        elif n == 0:
+        elif n == 0 or 1:
             self.telas["telaHome"] = telaHome(root,self,self.menu_buttons)
         
         for tela in self.telas.values():
