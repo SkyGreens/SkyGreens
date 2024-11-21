@@ -16,7 +16,7 @@ def main(page: ft.Page):
     page.window.resizable = False
 
     page.update()
-    #page.window_close() #PARA FECHAR A JANELA NO COMPUTADOR
-    #subprocess.run(["flet", "run", "main.py", "--android"]) #PARA RODAR O ANDROID NO FLET
+    page.window_close() #PARA FECHAR A JANELA NO COMPUTADOR
+    subprocess.run(["flet", "run", "main.py", "--android"]) #PARA RODAR O ANDROID NO FLET
 
 ft.app(target=main)
