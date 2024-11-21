@@ -2,7 +2,7 @@ import flet as ft
 import subprocess
 
 from jar import Jar 
-from login import TelaLogin 
+from telas.tela_login import TelaLogin 
 
 def main(page: ft.Page):
     
@@ -16,7 +16,7 @@ def main(page: ft.Page):
     page.window.resizable = False
 
     page.update()
-    #page.window_close()
-    #subprocess.run(["flet", "run", "main.py", "--android"])
+    #page.window_close() #PARA FECHAR A JANELA NO COMPUTADOR
+    #subprocess.run(["flet", "run", "main.py", "--android"]) #PARA RODAR O ANDROID NO FLET
 
 ft.app(target=main)
