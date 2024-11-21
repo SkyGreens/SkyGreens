@@ -29,37 +29,37 @@ class Menu(ft.UserControl):
 
     def go_to_home(self, e):
         self.page.controls.clear()
-        from home import TelaHome
+        from telas.tela_home import TelaHome
         home_screen = TelaHome(self.page)
         self.page.add(home_screen)
         self.page.update()
 
     def go_to_monit(self, e):
         self.page.controls.clear()
-        from tela_monitoramento import telaMonitoramento
+        from telas.tela_monitoramento import telaMonitoramento
         monit_screen = telaMonitoramento(self.page)
         self.page.add(monit_screen)
         self.page.update()
 
     def go_to_prod(self, e):
         self.page.controls.clear()
-        from tela_producao import telaProducao
+        from telas.tela_producao import telaProducao
         prod_screen = telaProducao(self.page)
         self.page.add(prod_screen)
         self.page.update()
 
     def go_to_usuario(self, e):
         self.page.clean()
-        from usuario import Usuario
+        from telas.perfil_user import Usuario
         usuario_screen = Usuario(self.page)
         self.page.add(usuario_screen.build())
         self.page.update()
 
     def go_to_pedidos(self, e):
-        self.page.clean()
-        from pedidos import Pedidos
+        self.page.controls.clear()
+        from telas.tela_pedidos import Pedidos
         pedidos_screen = Pedidos(self.page)
-        self.page.add(pedidos_screen.build())
+        self.page.add(pedidos_screen)
         self.page.update()
 
     def build(self):

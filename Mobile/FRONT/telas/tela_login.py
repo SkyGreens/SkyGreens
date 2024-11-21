@@ -1,6 +1,6 @@
 import flet as ft
 from access import Access
-from home import TelaHome
+from telas.tela_home import TelaHome
 import asyncio
 
 verde = "#304019"

@@ -1,4 +1,3 @@
-# access.py
 import flet as ft
 import requests
 from datetime import datetime, timezone
@@ -6,10 +5,14 @@ from dateutil import parser
 
 API_BASE = "http://localhost:8080/skygreen"
 
-api_url = "http://localhost:8080/skygreen/auth/login"
+api_login = f"{API_BASE}/auth/login"
+
 api_listarPedidosVenda = f"{API_BASE}/vendas/"
 api_listarPrateleira = f"{API_BASE}/prateleira/"
 api_listarSementes = f"{API_BASE}/sementes/"
+api_listarEstoque = f"{API_BASE}/estoque/"
+api_listarPedidosVenda = f"{API_BASE}/vendas/"
+api_listarProducao = f"{API_BASE}/producao/"
 
 class Funcoes:
 
@@ -25,28 +28,20 @@ class Access:
     token = None
     userId = None
     
-    def __init__(self, token):
-        self.token = token
-        self.api_url = "http://localhost:8080/skygreen/auth/login"
-    
     @staticmethod
     def login(cpf, senha):
-        api_url = "http://localhost:8080/skygreen/auth/login"
-        payload = {
-            "cpf": cpf,
-            "senha": senha
-        }
+
+        payload = {"cpf": cpf,"senha": senha}
         headers = {'Content-Type': 'application/json'}
         
         try:
-            response = requests.post(api_url, json=payload, headers=headers)
+            response = requests.post(api_login, json=payload, headers=headers)
             
             if response.status_code == 200:
                 data = response.json()
                 Access.token = data.get("token")
                 Access.userId = data.get("userId")
 
-                
                 return Access.token, Access.userId, "Login realizado com sucesso", ft.colors.GREEN
             else:
                 return None, None, "CPF ou senha inválidos.", ft.colors.RED
@@ -55,15 +50,29 @@ class Access:
             print(f"Erro: {ex}")
             return None, None, f"Erro ao se conectar com a API: {ex}", ft.colors.RED
         
-    def obter_pedidos(self):
-        # Usando a URL correta para acessar o endpoint de pedidos
-        headers = {"Authorization": f"Bearer {self.token}"}
-        response = requests.get(f"{API_BASE}/vendas/", headers=headers)
+    def listarpedidosVenda():
+        headers = {"Authorization": f"Bearer {Access.token}"}
+            
+        response = requests.get(api_listarPedidosVenda, headers=headers)
         
         if response.status_code == 200:
-            return response.json()  # Retorna a lista de pedidos
+            
+            vendas_api = response.json()
+            listvendas = []
+    
+            for vendas in vendas_api:
+                
+                listvendas.append({
+                    "idvenda":vendas.get('pedidoVendaId'),
+                    "cliente":vendas.get('cliente'),
+                    "qtd":vendas.get('quantidade'),
+                    "semente":vendas.get('semente'),
+                    "tempocultivo":vendas.get('tempoCultivo'),
+                    "status":vendas.get('ativo')
+                })
+            return listvendas 
         else:
-            response.raise_for_status()  # Levanta erro se status for diferente de 200
+            return False
     
     def listarSementes():
         headers = {"Authorization": f"Bearer {Access.token}"}
@@ -83,7 +92,6 @@ class Access:
         else:
             print('Falha ao listar sementes:',  response.text)
     
-        
     def listarPrateleira():
         headers = {"Authorization": f"Bearer {Access.token}"}
         response = requests.get(api_listarPrateleira, headers=headers)
@@ -113,10 +121,65 @@ class Access:
                         "nome_semente": list_sementes.get(producao.get('sementeId')),
                         "dataInicio": producao.get('dataInicio'),
                         "status": "Ativo" if producao.get('ativo') else "Inativo",
-                        "graf_valor": [tempoCultivo,diasRestantes]
+                        "tempoCultivo": tempoCultivo,
+                        "tempoRestante":diasRestantes
                     } if not statusprat and producao else None
                 })
 
             return prateleira
         else:
             return False
+        
+    def listarEstoque():
+        headers = {"Authorization": f"Bearer {Access.token}"}
+
+        response = requests.get(api_listarEstoque, headers=headers)
+        
+        if response.status_code == 200:
+            estoque_api = response.json()
+            estoque = []
+        
+            for est in estoque_api:
+                semente = est.get('semente')
+                
+                estoque.append({
+                    "id": f"{est.get('estoqueId')}",
+                    "qtd": est.get('quantidade'),
+                    "nome_semente": semente.get('nome'),
+                    "desc": semente.get('descricao')
+                })
+            return estoque
+        else:
+            print('Falha ao listar Estoque:', response.text)
+            
+    def listarProducao():
+        
+        headers = {"Authorization": f"Bearer {Access.token}"}
+
+        response = requests.get(api_listarProducao, headers=headers)
+        
+        if response.status_code == 200:
+            producao_api = response.json()
+            producao = []
+            list_sementes = Access.listarSementes()
+            
+            def nome_semente(id_semente):
+                for semente in list_sementes:
+                    if semente['id'] == id_semente:
+                        return semente['nome']
+                return None
+            
+            for prod in producao_api:
+                id_semente = prod.get('sementeId')
+                producao.append({
+                    "id": prod.get('producaoId'),
+                    "nome_semente": nome_semente(id_semente),
+                    "qtd": prod.get('sementeQuantidade'),
+                    "status": "Ativo" if prod.get('ativo') == True else "Inativo",
+                    "tempoCultivo": prod.get('tempoCultivo'),
+                    "diasRestantes": Funcoes.calcular_dias_restantes(prod.get('dataInicio'), prod.get('tempoCultivo')),
+                    "dataInicio": prod.get('dataInicio')
+                })
+            return producao
+        else:
+            print('Falha ao listar Producao:', response.text)

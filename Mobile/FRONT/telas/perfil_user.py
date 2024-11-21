@@ -1,6 +1,6 @@
 import flet as ft
 from menu import Menu
-from login import TelaLogin
+from telas.tela_login import TelaLogin
 
 verde = "#304019"
 cinza_escuro = "#212121"
