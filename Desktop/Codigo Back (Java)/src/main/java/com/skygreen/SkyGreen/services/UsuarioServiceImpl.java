@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -66,31 +67,46 @@ public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService {
     }
 
     @Override
-public UsuarioEntity updateUsuario(@RequestBody UsuarioEntity usuario) {
+    public UsuarioEntity updateUsuario(@RequestBody UsuarioEntity usuario) {
 
-    UsuarioEntity usuarioAntigo = repository.findById(usuario.getId()).orElse(null);
+        UsuarioEntity usuarioAntigo = repository.findById(usuario.getId()).orElse(null);
 
-    if (usuarioAntigo != null) {
-        usuarioAntigo.setAtivo(usuario.getAtivo());
-        usuarioAntigo.setRole(usuario.getRole());
-        usuarioAntigo.setEmail(usuario.getEmail());
-        usuarioAntigo.setId(usuario.getId());
-        usuarioAntigo.setNome(usuario.getNome());
-        
-        // Não alteramos o CPF e a senha
-        // usuarioAntigo.setCpf(usuario.getCpf());
-        // usuarioAntigo.setSenha(usuario.getSenha());
+        if (usuarioAntigo != null) {
+            usuarioAntigo.setAtivo(usuario.getAtivo());
+            usuarioAntigo.setRole(usuario.getRole());
+            usuarioAntigo.setEmail(usuario.getEmail());
+            usuarioAntigo.setId(usuario.getId());
+            usuarioAntigo.setNome(usuario.getNome());
 
-        usuario = repository.save(usuarioAntigo);
+            // Não alteramos o CPF e a senha
+            // usuarioAntigo.setCpf(usuario.getCpf());
+            // usuarioAntigo.setSenha(usuario.getSenha());
+
+            usuario = repository.save(usuarioAntigo);
+        }
+
+        return usuario;
     }
 
-    return usuario;
-}
+    @Override
+    public UsuarioEntity updateSenha(@RequestBody UsuarioEntity usuario) {
+        UsuarioEntity usuarioAntigo = repository.findById(usuario.getId()).orElse(null);
+
+        if (usuarioAntigo != null) {
+            
+            String encryptedPassword = new BCryptPasswordEncoder().encode(usuario.getPassword());
+            usuarioAntigo.setSenha(encryptedPassword);
+
+            repository.save(usuarioAntigo);
+        }
+
+        return usuarioAntigo;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
         return Optional.ofNullable(repository.findUsuarioByCpf(cpf))
-            .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com o CPF: " + cpf));
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com o CPF: " + cpf));
 
     }
 

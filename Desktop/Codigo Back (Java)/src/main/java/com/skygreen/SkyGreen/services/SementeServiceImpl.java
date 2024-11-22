@@ -38,4 +38,9 @@ public class SementeServiceImpl implements ISementeService {
         
         return sementeRepository.findById(sementeId);
     }
+
+    @Override
+    public void delete(Integer id) {
+        sementeRepository.deleteById(id);
+    }
 }
