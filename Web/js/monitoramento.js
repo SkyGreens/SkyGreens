@@ -44,7 +44,6 @@ function renderShelves(shelvesData) {
             semente = "Indisponível";
         }
     
-        // Preenchendo o conteúdo do card
         shelfCard.innerHTML = `
             <h2>${shelf.nome}</h2>
             <div class="circular-progress">

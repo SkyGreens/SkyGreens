@@ -16,7 +16,7 @@ async function do_login(cpf, senha) {
         const token = responseJson.token;
         const user = responseJson.userId;
 
-        if (response.ok) { // 200 OK
+        if (response.ok) { 
             console.log("Login realizado com sucesso:", response.status);
             localStorage.setItem("authToken", token);
             localStorage.setItem("IDUser", user); 

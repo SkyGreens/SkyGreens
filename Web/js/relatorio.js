@@ -92,7 +92,7 @@ function calcularDiasRestantes(datafim, tempocultivo) {
 async function gerarCsv() {
 
     const token = localStorage.getItem("authToken")?.trim();
-    const dados = await productionRequest(token); //
+    const dados = await productionRequest(token); 
     console.log(dados);
 
     let csvContent = "data:text/csv;charset=utf-8,";
@@ -109,7 +109,6 @@ async function gerarCsv() {
         csvContent += row + "\n"; 
     });
 
-    // Cria um link temporário para o download do CSV
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
