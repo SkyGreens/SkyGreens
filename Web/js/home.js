@@ -190,10 +190,8 @@ async function producaoGeral(token) {
 
     const total = categorias.reduce((sum, categoria) => sum + categoria.quantidade, 0);
 
-    const fixedColors = ['#304019', '#495c2e', '#b8bbb4'];
-
     let offset = 0; 
-    categorias.forEach((item, index) => {
+    categorias.forEach((item) => {
         const percentage = (item.quantidade / total) * 100;
         const angle = (percentage / 100) * 360; 
 
@@ -202,6 +200,8 @@ async function producaoGeral(token) {
         label.textContent = `${item.nome}: ${percentage.toFixed(2)}%`;
 
         label.style.color = 'black';
+
+        document.body.appendChild(label);
 
         const centerX = 40; 
         const centerY = 50; 
@@ -212,20 +212,17 @@ async function producaoGeral(token) {
         let labelX = centerX + radius * Math.cos(labelAngle);
         let labelY = centerY + radius * Math.sin(labelAngle);
 
-        // if (item.nome === 'Pedidos') {
-        //     label.style.top = `calc(${labelY}% - 215px)`; 
-        //     label.style.textAlign = 'center';
-        //     label.style.position = 'center';
-        // }
+        if (item.nome === 'Pedidos') {
+            label.style.right = `calc(${labelX}% - 380px)`; 
+        }
 
         if (item.nome === 'Estoque') {
-            label.style.top = `calc(${labelY}% - 300px)`; 
-            label.style.left = `calc(${labelX}% - 90px)`; 
-            label.style.position = 'center';
+            label.style.top = `calc(${labelY}% - 380px)`; 
+            label.style.left = `calc(${labelX}% - 180px)`; 
         }
 
         if (item.nome === 'Produção') {
-            label.style.right = `calc(${labelX}% - 320px)`; 
+            label.style.right = `calc(${labelX}% - 330px)`; 
             label.style.top = `calc(${labelY}% - 230px)`; 
         }
 
@@ -274,6 +271,7 @@ async function estoque(token) {
 
     stockData.forEach((item, index) => {
         const percentage = (item.quantidade / totalStock) * 100;
+        const angle = (percentage / 100) * 360; 
         const color = fixedColors[index % fixedColors.length];
 
         chart1.style.setProperty(`--value-${index}`, `${percentage.toFixed(1)}%`);
@@ -283,6 +281,17 @@ async function estoque(token) {
         label.classList.add('label'); 
         label.style.color = 'black';
         label.textContent = `${item.semente.nome}: ${percentage.toFixed(2)}%`;
+
+        const centerX = 40; 
+        const centerY = 50; 
+        const radius = 45; 
+
+        const labelAngle = (offset + (angle / 2)) * (Math.PI / 180); 
+
+        let labelX = centerX + radius * Math.cos(labelAngle);
+        let labelY = centerY + radius * Math.sin(labelAngle);
+
+        label.style.right = `calc(${labelX}% - 120px)`; 
 
         chart1Container.appendChild(label);
 
