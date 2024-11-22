@@ -72,6 +72,7 @@
                 const token = localStorage.getItem("authToken")?.trim();
                 if (typeof renderFromStorage === 'function') {
                     renderFromStorage(token); 
+                    fetchCharts(token);
                 } else {
                     console.error("A função renderFromStorage não foi encontrada.");
                 }
@@ -79,20 +80,12 @@
 
         </script>
 
-        <!-- Gráficos à direita -->
         <div class="charts">
-            <div class="chart-container">
-                <div class="chart" style="--value: 46%; --second-value: 19%; --third-value: 35%;"></div>
-                <span class="label label-plantio" style="--value: 46%;">Plantio: 46%</span> 
-                <span class="label" style="--value: 19%;">Colheita: 19%</span>
-                <span class="label" style="--value: 35%;">Pedidos: 35%</span> 
-        
+            <div class="chart-container" data-chart-id="chart1">
+                <div class="chart"></div>
             </div>
-            <div class="chart-container">
-                <div class="chart" style="--value: 55.2%; --second-value: 19.3%; --third-value: 25.4%;"></div>
-                <span class="label" style="--value: 55.2%;">Alface: 55.2%</span> 
-                <span class="label" style="--value: 19.3%;">Milho: 19.3%</span>
-                <span class="label" style="--value: 25.4%;">Tomate: 25.4%</span> 
+            <div class="chart-container" data-chart-id="chart2">
+                <div class="chart"></div>
             </div>
         </div>
 

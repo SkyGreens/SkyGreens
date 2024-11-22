@@ -26,42 +26,40 @@ body {
     overflow: visible;
 }
 
-/* Ícone de perfil com ajuste de alinhamento */
+/* PERFIL */
+
 .profile-icon-container {
     position: relative;
     display: inline-block;
     cursor: pointer;
     color: white;
     margin-left: 15px;
-    padding-top: 5px; /* Ajuste este valor conforme necessário */
+    padding-top: 5px; 
 }
 
 .profile-icon {
     font-size: 20px;
-    vertical-align: middle; /* Ajuste de alinhamento */
+    vertical-align: middle; 
 }
 
-/* Pop-out do menu de perfil */
 .profile-menu {
-    display: none; /* Oculto inicialmente */
-    position: fixed; /* Fixar na tela */
-    top: 60px; /* Distância da barra de navegação */
-    right: 10px; /* Alinhado à direita */
+    display: none;
+    position: fixed; 
+    top: 60px; 
+    right: 10px; 
     background-color: white;
     color: #304019;
-    padding: 20px; /* Ajustar o padding conforme necessário */
+    padding: 20px; 
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     min-width: 200px;
-    z-index: 1001; /* Sobreposição acima da barra */
+    z-index: 1001; 
 }
 
-/* Classe para exibir o pop-out */
 .profile-menu.show {
     display: block;
 }
 
-/* Ícone de perfil */
 .profile-icon-container {
     position: relative;
     display: inline-block;
@@ -69,32 +67,58 @@ body {
     color: white;
 }
 
-.hidden { display: none; } /* Classe auxiliar */
+.hidden { display: none; } 
 
 .btlogout {
-    background-color: #304019; /* Cor de fundo */
-    color: white; /* Cor do texto */
-    border: none; /* Remove bordas padrão */
-    border-radius: 5px; /* Bordas arredondadas */
+    background-color: #304019; 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
     text-align: center;
-    cursor: pointer; /* Cursor muda para pointer */
-    transition: background-color 0.3s; /* Efeito de transição suave */
+    cursor: pointer;
+    transition: background-color 0.3s; 
 }
 
 .btlogout:hover {
-    background-color: #718556; /* Cor de fundo ao passar o mouse */
+    background-color: #718556; 
 }
 
 .show {
     display: block;
 }
 
+/* HOMEPAGE */
+
 .homepage {
     display: flex;
-    align-items: center; 
-    height: 100vh; 
-    gap: 40px;
+    align-items: center;
+    height: 100vh;
+    gap: 5vw; 
+    margin-left: 8%; 
 }
+
+@media (max-width: 1024px) {
+    .homepage {
+        gap: 4vw; 
+        margin-left: 5%; 
+    }
+}
+
+@media (max-width: 768px) {
+    .homepage {
+        gap: 3vw; 
+        margin-left: 3%; 
+    }
+}
+
+@media (max-width: 500px) {
+    .homepage {
+        gap: 2vw; 
+        margin-left: 2%; 
+    }
+}
+
+/* INFO */
 
 .card {
     background-color: #304019;
@@ -131,73 +155,45 @@ body {
     font-size: 18px;
 }
 
+/* GRAFICOS */
+
 .charts {
-    display: flex;
-    flex-direction: column; 
-    margin-left: auto; 
-    margin-top: 20px; 
-}
+    margin: auto;
+} 
 
 .chart-container {
+    position: relative; 
+    width: 100%; 
+    max-width: 250px; 
+    height: auto; 
+    aspect-ratio: 1; 
+    margin: 50px auto; 
+    text-align: center;
+}
+
+.label{
     position: relative;
-    width: 200px;
-    height: 200px;
-    margin: 20px 0;
-    margin-right: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+}
+
+@media (max-width: 250px) {
+    .chart-container {
+        width: 90%; 
+        max-width: 250px; 
+    }
+}
+
+@media (max-width: 250px) {
+    .chart-container {
+        width: 100%; 
+        max-width: 200px; 
+    }
 }
 
 .chart {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    clip-path: circle(50%);
-}
-
-.chart::before,
-.chart::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    clip-path: circle(50%);
     background: conic-gradient(
-        #304019 var(--value),
-        #495c2e var(--value),
-        #495c2e calc(var(--value) + var(--second-value)),
-        #b8bbb4 calc(var(--value) + var(--second-value)),
-        #b8bbb4 100%
+        var(--colors, #495c2e 0%)
     );
     border-radius: 50%;
-}
-
-.label {
-    color: rgb(255, 255, 255);
-    position: absolute; /* Agora é absoluto para melhor controle */
-    font-size: 12px;
-}
-
-.label-plantio {
-    top: 15%;  /* Ajuste a posição vertical da label */
-    left: 50%; /* Ajuste a posição horizontal */
-    transform: translate(-50%, -50%); /* Centraliza a label */
-}
-
-.label:nth-child(2) { /* Ajusta a label de "Colheita" */
-    top: 70%;  /* Posição ajustada para a parte inferior do gráfico */
-    left: 25%; /* Ajuste horizontal */
-    transform: translate(-50%, -50%);
-}
-
-.label:nth-child(3) { /* Ajusta a label de "Pedidos" */
-    top: 70%;  /* Posição ajustada para baixo */
-    left: 75%; /* Ajuste horizontal */
-    transform: translate(-50%, -50%);
 }
