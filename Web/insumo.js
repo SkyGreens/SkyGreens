@@ -1,5 +1,3 @@
-const url_get_insumos = "http://localhost:8080/skygreen/sementes/";
-
 async function fetchInsumos(token) {
     try {
         const response = await fetch(url_get_insumos, {

@@ -1,6 +1,3 @@
-const url_buy_orders = "http://localhost:8080/skygreen/compras/";
-const url_sale_orders = "http://localhost:8080/skygreen/vendas/";
-
 async function get_orders(token, url) { 
     try {
         const response = await fetch(url, {

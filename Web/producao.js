@@ -1,5 +1,3 @@
-const url_get_production = "http://localhost:8080/skygreen/producao/";
-
 async function fetchProductionData(token) {
     try {
         const response = await fetch(url_get_production, {  

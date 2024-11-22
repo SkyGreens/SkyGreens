@@ -1,8 +1,6 @@
-const url_producao = "http://localhost:8080/skygreen/producao/";
-
 async function productionRequest(token){
     try {
-        const response = await fetch(url_producao, {
+        const response = await fetch(url_get_production, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -25,7 +23,7 @@ async function productionRequest(token){
 
 async function renderProductionReports(token) {
     try {
-        const response = await fetch(url_producao, {
+        const response = await fetch(url_get_production, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,

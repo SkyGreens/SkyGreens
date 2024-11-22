@@ -1,0 +1,87 @@
+/* NAVBAR E BACKGROUND*/
+html { 
+    background-color: #ece3e3; 
+    height: 100%;
+}
+
+body { 
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    min-height: 100vh;
+}
+
+.navbar-custom {
+    background-color: #304019;
+    color: white;
+    position: fixed; 
+    width: 100%; 
+    top: 0; 
+    left: 0;
+    z-index: 1000; 
+    padding: 15px 20px;
+    box-shadow: 0px 4px 2px -2px gray;
+    overflow: visible;
+}
+
+/* PROFILE */
+.profile-menu {
+    display: none;
+    position: fixed; 
+    top: 60px; 
+    right: 10px; 
+    background-color: white;
+    color: #304019;
+    padding: 20px; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    min-width: 200px;
+    z-index: 1001; 
+}
+
+.profile-icon {
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.profile-icon-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    color: white;
+    margin-left: 15px;
+    padding-top: 5px; 
+}
+
+.profile-header{
+    font-size: 100%;
+    gap: 0;
+    justify-content: left;
+}
+
+.profile-menu.show {
+    display: block;
+}
+
+.profile-menu.hidden {
+    display: none; 
+}
+
+.btlogout {
+    background-color: #304019; 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    text-align: center;
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+    width: 50%;
+}
+
+.btlogout:hover {
+    background-color: #718556; 
+}

@@ -1,9 +1,3 @@
-const url_get_proveedores = "http://localhost:8080/skygreen/fornecedor/";
-const url_get_insumos = "http://localhost:8080/skygreen/sementes/";
-const url_sale_orders = "http://localhost:8080/skygreen/vendas/";
-const url_get_stock = "http://localhost:8080/skygreen/estoque/";
-const url_get_production = "http://localhost:8080/skygreen/producao/";
-
 async function renderFromStorage(token) {
     try {
         const fornecedores = await getFornecedor(token);
@@ -116,7 +110,7 @@ async function getInsumos(token) {
 
 async function getStock(token) {
     try {
-        const response = await fetch(url_get_stock, {
+        const response = await fetch(url_get_stocks, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,

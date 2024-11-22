@@ -1,4 +1,4 @@
-.profile-menu {
+/* .profile-menu {
     position: fixed;
     top: 20%;
     right: 20%;
@@ -25,4 +25,4 @@
 
 .profile-menu button:hover {
     background-color: #d32f2f;
-}
+} */

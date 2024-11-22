@@ -1,5 +1,3 @@
-const url_get_shelves = "http://localhost:8080/skygreen/prateleira/";
-
 async function fetchShelfData(token) {
     try {
         const response = await fetch(url_get_shelves, {  

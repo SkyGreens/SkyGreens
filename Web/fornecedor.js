@@ -1,7 +1,3 @@
-function show_proveedores(){
-    window.location.href = "listaFornecedores.html";
-}
-
 function filterTable() {
     const filter = document.getElementById("statusFilter").value;
     const rows = document.querySelectorAll("#supplierTable tbody tr");
@@ -30,8 +26,6 @@ document.getElementById("searchBar").addEventListener("keyup", function () {
         }
     });
 });
-
-const url_get_proveedores = "http://localhost:8080/skygreen/fornecedor/";
 
 async function get_proveedores(token) {
     try {

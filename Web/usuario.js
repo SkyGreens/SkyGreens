@@ -1,5 +1,3 @@
-const url_get_users = "http://localhost:8080/skygreen/usuario/";
-
 async function fetchUsers(token) {
     try {
         const response = await fetch(url_get_users, { 

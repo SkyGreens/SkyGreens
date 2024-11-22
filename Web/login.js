@@ -2,43 +2,6 @@ function forgotPassword() {
     alert("Contate o administrador do sistema para recuperar a senha.");
 }
 
-function homepage(){
-    window.location.href = "home.html";
-}
-
-const urlLogin = "http://localhost:8080/skygreen/auth/login";
-
-// async function do_login(cpf, senha) {
-
-//     const loginData = {
-//         cpf: cpf, 
-//         senha: senha
-//     };
-
-//     try {
-//         const response = await fetch(urlLogin, {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json"
-//             },
-//             body: JSON.stringify(loginData)
-//         });
-
-//         const token = await response.text();
-
-//         if (response.ok) { // 200 OK
-//             console.log("Login realizado com sucesso:", response.status);
-//             return { success: true, token: token };
-//         } else {
-//             console.log("Falha no login:", response.status);
-//             return { success: false, token: null };
-//         }
-//     } catch (error) {
-//         console.error("Erro ao realizar o login:", error);
-//         return { success: false, token: null };
-//     }
-// }
-
 async function do_login(cpf, senha) {
     const loginData = { cpf: cpf, senha: senha };
 
@@ -56,7 +19,8 @@ async function do_login(cpf, senha) {
         if (response.ok) { // 200 OK
             console.log("Login realizado com sucesso:", response.status);
             localStorage.setItem("authToken", token);
-            localStorage.setItem("IDUser", user);
+            localStorage.setItem("IDUser", user); 
+            getProfile()
             return { success: true, token: token };
         } else {
             console.log("Falha no login:", response.status);
@@ -86,4 +50,34 @@ function login_submit() {
             }
         });
     });
+}
+
+async function getProfile() {
+    const token = localStorage.getItem("authToken")?.trim();
+    const IDUser = localStorage.getItem("IDUser")?.trim();
+
+    try {
+        const response = await fetch(url_profile + IDUser, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro na requisição: ${response.status}`);
+        }
+
+        const usuario = await response.json();
+        const nome = usuario.nome;
+        const email = usuario.email;
+        localStorage.setItem("nome", nome);
+        localStorage.setItem("email", email);
+
+        return usuario || {};
+    } catch (error) {
+        console.error('Erro ao buscar usuário:', error);
+        return null;
+    }
 }

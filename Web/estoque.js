@@ -1,5 +1,3 @@
-const url_get_stocks = "http://localhost:8080/skygreen/estoque/";
-
 async function fetchStock(token) {
     try {
         const response = await fetch(url_get_stocks, {
@@ -25,7 +23,6 @@ async function fetchStock(token) {
 function renderstocks(stocks) {
     const stocksList = document.getElementById('stocks-list');
     stocksList.innerHTML = ''; 
-    console.log(stocks);
 
     stocks.forEach(stock => {
         const stockCard = document.createElement('div');
