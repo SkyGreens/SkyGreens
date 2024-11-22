@@ -1,6 +1,12 @@
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 import requests
 from datetime import datetime, timezone
 from dateutil import parser
+import secrets
+import string
+
 
 API_BASE = "http://localhost:8080/skygreen"
 
@@ -46,6 +52,48 @@ class Funcoes:
         dias_restantes = tempo_cultivo - dias_passados  # Subtrai dos dias totais de cultivo
 
         return dias_restantes if dias_restantes > 0 else 0
+    
+    def gerar_senha(tamanho=6):
+        caracteres = string.ascii_letters + string.digits + string.punctuation
+        senha = ''.join(secrets.choice(caracteres) for _ in range(tamanho))
+        return senha
+    
+    def enviar_email(email,user,senha,nome):
+        email = "skygreensmensagens@gmail.com"
+        sender = "hello@demomailtrap.com"
+        receiver = email
+
+        message = MIMEMultipart()
+        message["From"] = f"SkyGreens <{sender}>"
+        message["To"] = receiver
+        message["Subject"] = "Informações de Acesso"
+
+        body = f"""
+        Bem-vindo(a), {nome}!
+
+        Segue abaixo suas credenciais de acesso:
+
+        Usuário: {user}
+        Senha: {senha}
+
+        Importante:
+
+        Mantenha essas informações em um local seguro e não compartilhe com terceiros.
+        Caso tenha alguma dúvida ou dificuldade, contate um administrador do sistema.
+
+        Atenciosamente,  
+        Equipe SkyGreens
+        """
+        message.attach(MIMEText(body, "plain", "utf-8"))
+
+        try:
+            with smtplib.SMTP("live.smtp.mailtrap.io", 587) as server:
+                server.starttls()
+                server.login("api", "36a79ec4730d4776e4a832baf1902e3d")
+                server.sendmail(sender, receiver, message.as_string())
+            return True
+        except:
+            return False
     
 class Access:
     token = None
@@ -297,8 +345,8 @@ class Access:
         else:
             return False
   
-    def cadastroUsuario(cpf,senha,cargo,nome,status,email):
-        
+    def cadastroUsuario(cpf,cargo,nome,status,email):
+        senha=Funcoes.gerar_senha()
         cadatro_data = {
             "cpf" : f"{cpf}",
             "senha" : f"{senha}",
@@ -311,11 +359,13 @@ class Access:
         headers = {'Content-Type': 'application/json',"Authorization": f"Bearer {Access.token}"}
         
         response = requests.post(api_cadastrarUsuario, json=cadatro_data, headers=headers)
-        if response.status_code == 200:
+        
+        result = Funcoes.enviar_email(email,cpf,senha,nome)
+        if result == True and response.status_code == 200:
             return True
         else:
             return False
-                
+        
     def editarUsuario(iduser,cargo,nome,status,email):
         data = {
             "id":iduser,

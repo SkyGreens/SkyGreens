@@ -3,20 +3,20 @@ from tkinter import *  # pip install tkinter
 from jar import Jar
 from style import Style
 
-from tela_login import telaLogin
-from tela_base import telaBase
-from tela_home import telaHome
-from tela_monitoramento import telaMonitoramento
-from tela_producao import telaProducao
-from tela_pedidos import telaPedidos
-from tela_usuario import telaUsuarios
-from tela_fornecedor import telaFornecedor
-from tela_listaInsumos import listaInsumos
-from tela_relatorio import Relatorio
-from tela_estoque import Estoque
-from tela_pedidoCompra import pedidoCompra
-from tela_pedidoVenda import pedidoVenda
-from tela_clientes import telaCliente
+from telas.tela_login import telaLogin
+from telas.tela_base import telaBase
+from telas.tela_home import telaHome
+from telas.tela_monitoramento import telaMonitoramento
+from telas.tela_producao import telaProducao
+from telas.tela_pedidos import telaPedidos
+from telas.tela_usuario import telaUsuarios
+from telas.tela_fornecedor import telaFornecedor
+from telas.tela_listaInsumos import listaInsumos
+from telas.tela_relatorio import Relatorio
+from telas.tela_estoque import Estoque
+from telas.tela_pedidoCompra import pedidoCompra
+from telas.tela_pedidoVenda import pedidoVenda
+from telas.tela_clientes import telaCliente
 
 class Main:
     
@@ -66,7 +66,7 @@ class Main:
             self.telas["pedidoVenda"] = pedidoVenda(root,self)
         elif n == 12:
             self.telas["telaCliente"] = telaCliente(root,self)
-        elif n == 0:
+        elif n == 0 or 1:
             self.telas["telaHome"] = telaHome(root,self,self.menu_buttons)
         
         for tela in self.telas.values():
