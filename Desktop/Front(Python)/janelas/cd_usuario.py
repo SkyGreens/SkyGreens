@@ -31,8 +31,6 @@ class cdUsuario:
         
         msg_box = MessageBox()
         status = "false" if status == "Inativo" else "true"
-
-        senha = cpf[0:3]
         
         if self.editar == 1:
             iduser = self.dados['id']
@@ -43,7 +41,7 @@ class cdUsuario:
                 msg_box.showinfo_autoclose(f"Usuario não atualizado!")
                 
         else:
-            result = Access.cadastroUsuario(cpf, senha, cargo, nome, status, email)
+            result = Access.cadastroUsuario(cpf, cargo, nome, status, email)
             if result:
                 msg_box.showinfo_autoclose(f"Usuario cadastrado com sucesso!")
             else:

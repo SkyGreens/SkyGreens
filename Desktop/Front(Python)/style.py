@@ -45,6 +45,7 @@ class Style:
             'img_icon_saida':abrir_img("img\\icon_saida.png",(26, 26)),
             'img_icon_delete':abrir_img("img\\icon_delete.png",(26, 26)),
             'img_icon_edit':abrir_img("img\\icon_edit.png",(26, 26)),
+            'img_icon_senha':abrir_img("img\\icon_senha.png",(26, 26)),
             'img_icon_voltar':abrir_img("img\\icon_voltar.png",(26, 26)),
             'img_icon_seed':abrir_img("img\\icon_seed.png",(26, 26)),
             'img_icon_ok_prat':abrir_img("img\\icon_disponivelPrat.png",(80, 80)

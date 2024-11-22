@@ -43,7 +43,7 @@ class telaLogin:
         lb_separador = ctk.CTkLabel(master=self.frame, text=37 * "-" + " ou " + 37 * "-", font=("Arial", 12))
         lb_separador.pack(pady=5)
 
-        bt_esqsenha = ctk.CTkButton(master=self.frame, text="Esqueceu a senha?", width=50, height=10, fg_color=Style.color('fg'), hover_color=Style.color('hover'))
+        bt_esqsenha = ctk.CTkButton(master=self.frame, text="Esqueceu a senha?", width=50, height=10, fg_color=Style.color('fg'), hover_color=Style.color('hover'), command=lambda:self.messagebox.showwarning("Aviso","Contate o Administrador!"))
         bt_esqsenha.pack(pady=5)
 
         bt_ok = ctk.CTkButton(self.frame, text="Entrar", font=('Arial', 15, 'bold'), corner_radius=3, fg_color=Style.color('fg'), hover_color=Style.color('hover'),

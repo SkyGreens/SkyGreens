@@ -2,7 +2,7 @@ from tkinter import * # pip install tkinter
 import customtkinter as ctk # pip install customtkinter
 
 from janelas.cd_usuario import cdUsuario 
-from access import Access
+from access import Access,Funcoes
 from style import Style,MessageBox
 
 class telaUsuarios:
@@ -34,7 +34,22 @@ class telaUsuarios:
         self.lista_frame.pack(fill="both", expand=True, pady=10, padx=10)
 
         self.usuario_lista()
+    
+    def resetSenha(self,dados):
+        op = self.message_box.askquestion(f"Resetar Senha {dados["nome"]}",f"Deseja resetar a senha do {dados["nome"]} ?")
+        if op == "yes":
             
+            senha = Funcoes.gerar_senha()
+            Funcoes.enviar_email(dados["email"],dados["cpf"],senha,dados["nome"])
+
+            '''result = Access.resetSenha(dados["id"])
+            if result:
+                Funcoes.enviar_email(dados["email"],dados["cpf"],senha,dados["nome"])
+                self.message_box.showinfo_autoclose(f"Senha atualizada com sucesso!")
+            else:
+                self.message_box.showinfo_autoclose(f"Senha não atualizada!")'''
+            
+      
     def usuario_lista(self,event=None):
         usuarios = Access.listarUsuarios()
         
@@ -61,6 +76,9 @@ class telaUsuarios:
                     
                     btn_editar = ctk.CTkButton(user_frame, text='',image=Style.img('img_icon_edit'),  width=30,height=30, command=lambda dados=i: self.abrir_tela(dados,1),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
                     btn_editar.pack(side="right", padx=5, pady=5)
+                    
+                    btn_senha = ctk.CTkButton(user_frame, text='',image=Style.img('img_icon_senha'),  width=30,height=30,fg_color=Style.color('hover_2'),hover_color=Style.color('fg_2'),command=lambda dados=i: self.resetSenha(dados))
+                    btn_senha.pack(side="right", padx=5, pady=5)
                     
                     user_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela(dados,0))
                     
