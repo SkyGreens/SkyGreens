@@ -183,15 +183,15 @@ async function producaoGeral(token) {
     const producaoQuantidade = producaoData.reduce((total, item) => total + (item.sementeQuantidade || 0), 0);
 
     const categorias = [
-        { nome: 'Pedidos', quantidade: pedidosQuantidade },
-        { nome: 'Estoque', quantidade: estoqueQuantidade },
-        { nome: 'Produção', quantidade: producaoQuantidade }
+        { nome: 'Pedidos', quantidade: pedidosQuantidade, cor: '#304019' },
+        { nome: 'Estoque', quantidade: estoqueQuantidade, cor: '#495c2e' },
+        { nome: 'Produção', quantidade: producaoQuantidade, cor: '#b8bbb4' }
     ];
 
     const total = categorias.reduce((sum, categoria) => sum + categoria.quantidade, 0);
 
     let offset = 0; 
-    categorias.forEach((item) => {
+    categorias.forEach((item, index) => {
         const percentage = (item.quantidade / total) * 100;
         const angle = (percentage / 100) * 360; 
 
@@ -199,32 +199,12 @@ async function producaoGeral(token) {
         label.classList.add('label');
         label.textContent = `${item.nome}: ${percentage.toFixed(2)}%`;
 
-        label.style.color = 'black';
-
-        document.body.appendChild(label);
-
-        const centerX = 40; 
-        const centerY = 50; 
-        const radius = 45; 
-
-        const labelAngle = (offset + (angle / 2)) * (Math.PI / 180); 
-
-        let labelX = centerX + radius * Math.cos(labelAngle);
-        let labelY = centerY + radius * Math.sin(labelAngle);
-
-        if (item.nome === 'Pedidos') {
-            label.style.right = `calc(${labelX}% - 380px)`; 
-        }
-
-        if (item.nome === 'Estoque') {
-            label.style.top = `calc(${labelY}% - 380px)`; 
-            label.style.left = `calc(${labelX}% - 180px)`; 
-        }
-
-        if (item.nome === 'Produção') {
-            label.style.right = `calc(${labelX}% - 330px)`; 
-            label.style.top = `calc(${labelY}% - 230px)`; 
-        }
+        // Adicionando o quadrado colorido ao lado do texto
+        const colorBox = document.createElement('div');
+        colorBox.classList.add('color-box');
+        colorBox.style.backgroundColor = item.cor;
+        
+        label.prepend(colorBox);  
 
         chart2Container.appendChild(label);
 
@@ -269,6 +249,9 @@ async function estoque(token) {
     let offset = 0;
     const fixedColors = ['#495c2e', '#4a90e2', '#e94e77']; 
 
+    const labelContainer = document.createElement('div');
+    labelContainer.classList.add('label-container');
+
     stockData.forEach((item, index) => {
         const percentage = (item.quantidade / totalStock) * 100;
         const angle = (percentage / 100) * 360; 
@@ -279,24 +262,20 @@ async function estoque(token) {
 
         const label = document.createElement('span');
         label.classList.add('label'); 
-        label.style.color = 'black';
         label.textContent = `${item.semente.nome}: ${percentage.toFixed(2)}%`;
 
-        const centerX = 40; 
-        const centerY = 50; 
-        const radius = 45; 
+        const colorBox = document.createElement('div');
+        colorBox.classList.add('color-box');
+        colorBox.style.backgroundColor = color;
 
-        const labelAngle = (offset + (angle / 2)) * (Math.PI / 180); 
+        label.prepend(colorBox);
 
-        let labelX = centerX + radius * Math.cos(labelAngle);
-        let labelY = centerY + radius * Math.sin(labelAngle);
-
-        label.style.right = `calc(${labelX}% - 120px)`; 
-
-        chart1Container.appendChild(label);
+        labelContainer.appendChild(label);
 
         offset += percentage;
     });
+
+    chart1Container.appendChild(labelContainer);
 
     renderChart1(chart1, stockData, totalStock);
 }

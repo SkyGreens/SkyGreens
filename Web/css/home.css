@@ -4,6 +4,7 @@
     height: 100vh;
     gap: 5vw; 
     margin-left: 8%; 
+    flex-wrap: wrap; /* Permite que os elementos fluam para a próxima linha */
 }
 
 @media (max-width: 1024px) {
@@ -38,6 +39,15 @@
     margin-bottom: 15px;
 }
 
+@media (max-width: 768px) {
+    .cards-container{
+        display: flex;
+        width: 100px;
+        align-items: center;
+        margin-top: 100px;
+    }
+}
+
 .card:hover{
     background-color: #495c2e;
 }
@@ -59,43 +69,55 @@
     margin-bottom: 15px;
     color: black;
     font-family: Arial, sans-serif;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 /* GRAFICOS */
 
 .charts {
     margin: auto;
-} 
+}
 
 .chart-container {
-    aspect-ratio: 1; 
-}
-
-.label{
-    position: relative;
-}
-
-@media (max-width: 250px) {
-    .chart-container {
-        width: 90%; 
-        max-width: 250px; 
-    }
-}
-
-@media (max-width: 250px) {
-    .chart-container {
-        width: 100%; 
-        max-width: 200px; 
-    }
+    aspect-ratio: 1;
+    width: 100%;
+    max-width: 300px; 
+    margin-bottom: 20px; 
 }
 
 .chart {
-    width: 65%;
-    height: 65%;
+    width: 100%;
+    height: 100%;
     background: conic-gradient(
         var(--colors, #495c2e 0%)
     );
     border-radius: 50%;
     margin: auto;
+}
+
+@media (max-width: 768px) {
+    .chart-container {
+        width: 90%; 
+    }
+}
+
+@media (max-width: 500px) {
+    .chart-container {
+        width: 100%;
+        max-width: 250px; 
+    }
+}
+
+.label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px; 
+    color: black;
+}
+
+.label .color-box {
+    width: 15px;
+    height: 15px;
+    margin-right: 8px;
+    border-radius: 8px; 
 }
