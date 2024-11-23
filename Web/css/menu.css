@@ -85,3 +85,33 @@ body {
 .btlogout:hover {
     background-color: #718556; 
 }
+/* MOBILE RESPONSIVE */
+@media only screen and (max-width: 768px) {
+    .navbar-custom {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+
+    .profile-menu {
+        top: 50px; 
+        right: 5px; 
+        padding: 15px;
+    }
+
+    .btlogout {
+        width: 100%; 
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .navbar-custom {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .profile-icon-container {
+        margin-top: 10px; 
+        margin-left: 0;
+    }
+}
