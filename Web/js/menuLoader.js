@@ -10,6 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 });
 
+function toggleHamburgerMenu() {
+    const menu = document.querySelector('.hamburger-menu-options');
+    menu.classList.toggle('open');
+}
+
 function toggleProfileMenu() {
     let profileMenu = document.getElementById('profile');
 
