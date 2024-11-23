@@ -16,6 +16,7 @@ body {
     gap: 20px;
     width: 70%;
     max-width: 800px; 
+    margin-top: 90px;
 }
 
 .card {
