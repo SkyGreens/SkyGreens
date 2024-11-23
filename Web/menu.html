@@ -12,35 +12,19 @@
     </head>
     <body>
 
-        <!-- <div class="w3-top">
+        <div class="w3-top">
             <div class="w3-bar navbar-custom w3-wide w3-padding w3-card">
                 <a href="home.html" class="w3-bar-item w3-button"><b>SkyGreens</b></a>
         
-                <div class="w3-right w3-hide-small">
-                    <button onclick="monitoring_page()" class="w3-bar-item w3-button">Monitoramento</button>
-                    <button onclick="show_proveedores()" class="w3-bar-item w3-button">Fornecedores</button>
-                    <button onclick="show_production()" class="w3-bar-item w3-button">Produção</button>
-                    <button onclick="show_orders()" class="w3-bar-item w3-button">Pedidos</button>
-                    <button onclick="userpage()" class="w3-bar-item w3-button">Usuários</button>
-        
+                <!-- Botão do menu -->
+                <div class="menu-hamburger w3-hide-large w3-hide-medium" onclick="toggleHamburgerMenu()">
                     <div class="profile-icon-container" onclick="toggleProfileMenu()">
                         <i class="fas fa-user profile-icon"></i>
                     </div>
-                </div>
-            </div>
-        </div> -->
-
-        <div class="w3-top">
-            <div class="w3-bar navbar-custom w3-wide w3-padding w3-card">
-                <!-- Nome da empresa -->
-                <a href="home.html" class="w3-bar-item w3-button"><b>SkyGreens</b></a>
-        
-                <!-- Botão do menu hamburguer (aparece apenas em telas pequenas) -->
-                <div class="menu-hamburger w3-hide-large w3-hide-medium" onclick="toggleHamburgerMenu()">
                     <i class="fas fa-ellipsis-v"></i>
                 </div>
         
-                <!-- Menu normal (aparece em telas grandes e médias) -->
+                <!-- Menu normal -->
                 <div class="w3-right menu-options w3-hide-small">
                     <button onclick="monitoring_page()" class="w3-bar-item w3-button">Monitoramento</button>
                     <button onclick="show_proveedores()" class="w3-bar-item w3-button">Fornecedores</button>
@@ -52,7 +36,7 @@
                     </div>
                 </div>
         
-                <!-- Menu expansível (aparece quando o hambúrguer é clicado, somente em telas pequenas) -->
+                <!-- Menu expansível -->
                 <div class="hamburger-menu-options">
                     <button onclick="monitoring_page()" class="w3-bar-item w3-button">Monitoramento</button>
                     <button onclick="show_proveedores()" class="w3-bar-item w3-button">Fornecedores</button>
