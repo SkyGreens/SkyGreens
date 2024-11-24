@@ -28,7 +28,7 @@ Este projeto utiliza o banco de dados **MS SQL Server** em um contêiner Docker.
    - Clique em **Nova Conexão** e selecione **SQL Server**.
    
 2. Configure a autenticação:
-   - **Usuário**: `SA`
+   - **Usuário**: `sa`
    - **Senha**: `yourStrong(!)Password`
 
    Mantenha as demais configurações como estão.

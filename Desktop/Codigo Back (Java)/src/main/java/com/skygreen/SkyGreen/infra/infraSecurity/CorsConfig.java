@@ -1,4 +1,4 @@
-package com.skygreen.SkyGreen.infra.infraSecurity;
+/* package com.skygreen.SkyGreen.infra.infraSecurity;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,4 +20,4 @@ public class CorsConfig {
             }
         };
     }
-}
+} */

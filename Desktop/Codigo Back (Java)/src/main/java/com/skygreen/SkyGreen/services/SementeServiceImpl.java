@@ -1,6 +1,7 @@
 package com.skygreen.SkyGreen.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,15 @@ public class SementeServiceImpl implements ISementeService {
     @Override
     public SementeEntity criarSemente(SementeEntity semente) {
         return sementeRepository.save(semente);
+    }
+
+    public Optional<SementeEntity> findById(Integer sementeId) {
+        
+        return sementeRepository.findById(sementeId);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        sementeRepository.deleteById(id);
     }
 }

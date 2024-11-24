@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.skygreen.SkyGreen.entities.UsuarioEntity;
 
@@ -29,4 +30,6 @@ public interface IUsuarioService {
     UsuarioEntity selfProfile (Integer idUsuarioLogado, Integer idRequisitado) throws AccessDeniedException;
 
     UsuarioEntity findByCpf(String cpf);
+
+    UsuarioEntity updateSenha(UsuarioEntity usuario);
 }

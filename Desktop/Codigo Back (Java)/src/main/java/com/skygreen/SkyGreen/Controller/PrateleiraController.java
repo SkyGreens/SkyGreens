@@ -17,17 +17,17 @@ import com.skygreen.SkyGreen.services.interfaces.IPrateleiraService;
 @RestController
 @RequestMapping("/prateleira")
 public class PrateleiraController {
-    
+
     @Autowired
     private IPrateleiraService service;
 
     @GetMapping("/disponiveis")
-    public List<PrateleiraEntity> listarPrateleirasDisponiveis(){
-        return service.listarPrateleirasDisponiveis();
+    public ResponseEntity<List<PrateleiraEntity>> listarPrateleirasDisponiveis() {
+        return ResponseEntity.ok().body(service.listarPrateleirasDisponiveis());
     }
 
     @PostMapping("/alocar/{id}")
-    public ResponseEntity<PrateleiraEntity> alocarPrateleira(@PathVariable int id) throws Exception{
+    public ResponseEntity<PrateleiraEntity> alocarPrateleira(@PathVariable int id) throws Exception {
         PrateleiraEntity prateleira = service.alocarPrateleiraParaProducao(id);
         return ResponseEntity.status(HttpStatus.OK).body(prateleira);
     }
@@ -40,5 +40,10 @@ public class PrateleiraController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Prateleira não encontrada.");
         }
+    }
+    @GetMapping("/")
+    public ResponseEntity<List<PrateleiraEntity>> listar(){
+
+    return ResponseEntity.ok().body(service.listar());
     }
 }

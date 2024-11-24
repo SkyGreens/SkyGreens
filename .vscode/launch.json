@@ -6,17 +6,19 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Current File",
-            "request": "launch",
-            "mainClass": "${file}"
-        },
-        {
-            "type": "java",
             "name": "Homologação",
             "request": "launch",
             "mainClass": "com.skygreen.SkyGreen.SkyGreenApplication",
             "projectName": "SkyGreen",
-            "args":"--spring.profiles.active=dsv"
-        }
-    ]
+            "args": "--spring.profiles.active=dsv"
+        },
+        {
+            "type": "java",
+            "name": "Produção",
+            "request": "launch",
+            "mainClass": "com.skygreen.SkyGreen.SkyGreenApplication",
+            "projectName": "SkyGreen",
+            "args": "--spring.profiles.active=prd"
+        }
+    ]
 }

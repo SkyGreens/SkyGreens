@@ -12,4 +12,6 @@ public interface IPrateleiraService {
 
     void liberarPrateleira(int prateleiraId);
 
+    public List<PrateleiraEntity> listar();
+
 }

@@ -67,12 +67,12 @@ public class FornecedorServiceImpl implements IFornecedorService {
     public FornecedorEntity update(@RequestBody FornecedorEntity fornecedor) {
         Optional<FornecedorEntity> fornecedorExistente = repository.findById(fornecedor.getFornecedorId());
 
-        fornecedorExistente.get().setAtivo(fornecedor.getAtivo()); 
+        fornecedorExistente.get().setAtivo(fornecedor.getAtivo());
         fornecedorExistente.get().setEmail(fornecedor.getEmail());
         fornecedorExistente.get().setTelefone(fornecedor.getTelefone());
         fornecedorExistente.get().setEndereco(fornecedor.getEndereco());
         fornecedorExistente.get().setCidade(fornecedor.getCidade());
-        fornecedorExistente.get().setEstado(fornecedor.getEstado()); 
+        fornecedorExistente.get().setEstado(fornecedor.getEstado());
         fornecedorExistente.get().setPais(fornecedor.getPais());
         fornecedorExistente.get().setInscricaoEstadual(fornecedor.getInscricaoEstadual());
         fornecedorExistente.get().setRazaoSocial(fornecedor.getRazaoSocial());
@@ -108,6 +108,30 @@ public class FornecedorServiceImpl implements IFornecedorService {
 
         fornecedorExistente.setSementes(sementeExistente);
 
+        return repository.save(fornecedorExistente);
+    }
+
+    @Override
+    public List<SementeEntity> buscarSementePorFornecedor(int forncedorId) {
+        return sementeRepository.findByFornecedor_FornecedorId(forncedorId);
+    }
+
+    @Override
+    public FornecedorEntity removeSementeFromFornecedor(Integer fornecedorId, Integer sementeId) {
+
+        FornecedorEntity fornecedorExistente = repository.findById(fornecedorId)
+                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado com ID: " + fornecedorId));
+
+        SementeEntity sementeParaRemover = fornecedorExistente.getSementes().stream()
+                .filter(semente -> semente.getSementeId().equals(sementeId))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Semente não encontrada com ID: " + sementeId));
+
+        fornecedorExistente.getSementes().remove(sementeParaRemover);
+        sementeParaRemover.setFornecedor(null);
+        sementeRepository.save(sementeParaRemover);
+
+        // Salvar o fornecedor atualizado
         return repository.save(fornecedorExistente);
     }
 

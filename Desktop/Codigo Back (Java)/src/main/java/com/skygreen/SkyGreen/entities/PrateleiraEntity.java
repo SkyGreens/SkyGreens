@@ -35,7 +35,6 @@ public class PrateleiraEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "producao_id")
-    @JsonManagedReference
     private ProducaoEntity producao;
 
     public PrateleiraEntity(String nome, boolean disponivel) {

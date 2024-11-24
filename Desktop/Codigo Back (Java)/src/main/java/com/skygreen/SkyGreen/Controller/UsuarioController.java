@@ -79,4 +79,12 @@ public class UsuarioController {
         return ResponseEntity.ok().body(result);
     }
 
+    @Transactional
+    @PutMapping("/updateSenha")
+    public ResponseEntity<UsuarioEntity> updateSenha(@RequestBody UsuarioEntity usuario) {
+
+        UsuarioEntity usuarioAtualizado = usuarioService.updateSenha(usuario);
+        return ResponseEntity.ok().body(usuarioAtualizado);
+    }
+
 }

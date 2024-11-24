@@ -31,13 +31,13 @@ import com.skygreen.SkyGreen.services.SementeServiceImpl;
 @Component
 @Profile("dsv")
 public class InitDB implements CommandLineRunner {
-    
+
     @Autowired
     AuthenticationController authenticationController;
-    
+
     @Autowired
     private PrateleiraRepository prateleiraRepository;
-    
+
     @Autowired
     private SementeRepository sementeRepository;
 
@@ -71,7 +71,7 @@ public class InitDB implements CommandLineRunner {
     public void inserindoRegistro() throws Exception {
         System.out.println("Inserindo registros");
 
-        //Usuario
+        // Usuario
 
         RegisterDTO admin = new RegisterDTO("12345678909", "admin", UsuarioRole.ADMIN,
                 "admin@skygreen.com", true, "Admin");
@@ -85,7 +85,7 @@ public class InitDB implements CommandLineRunner {
                 "assistenteproducao@skygreen.com", true, "Assistente Produção");
         authenticationController.register(assistente);
 
-        //Prateleiras
+        // Prateleiras
 
         if (prateleiraRepository.count() == 0) {
             prateleiraRepository.save(new PrateleiraEntity("Prateleira 1", true));
@@ -94,19 +94,18 @@ public class InitDB implements CommandLineRunner {
             prateleiraRepository.save(new PrateleiraEntity("Prateleira 4", true));
         }
 
-        //Semente
-        
+        // Semente
+
         SementeEntity semente = new SementeEntity();
 
         semente.setNome("Hortelã");
-        semente.setDescricao("verdinho");  
+        semente.setDescricao("verdinho");
 
-        
         semente = sementeService.criarSemente(semente);
 
         sementeRepository.save(semente);
 
-        //Fornecedor
+        // Fornecedor
 
         FornecedorEntity fornecedor = new FornecedorEntity();
 
@@ -127,7 +126,7 @@ public class InitDB implements CommandLineRunner {
         fornecedor = fornecedorService.add(fornecedor);
         fornecedorRepository.save(fornecedor);
 
-        //Pedido Compra
+        // Pedido Compra
 
         PedidoCompraEntity pedidoCompra = new PedidoCompraEntity();
 
@@ -139,7 +138,7 @@ public class InitDB implements CommandLineRunner {
         pedidoCompra = pedidoCompraService.criarPedido(pedidoCompra);
         pedidoCompraRepository.save(pedidoCompra);
 
-        //Cliente
+        // Cliente
 
         ClienteEntity cliente = new ClienteEntity();
 
@@ -157,9 +156,9 @@ public class InitDB implements CommandLineRunner {
         cliente = clienteService.add(cliente);
         clienteRepository.save(cliente);
 
-        //Pedido venda
+        // Pedido venda
 
-       PedidoVendaEntity pedidoVenda = new PedidoVendaEntity();
+        PedidoVendaEntity pedidoVenda = new PedidoVendaEntity();
 
         pedidoVenda.setAtivo(true);
         pedidoVenda.setCliente(cliente);
@@ -169,8 +168,7 @@ public class InitDB implements CommandLineRunner {
         pedidoVenda.setTempoCultivo(10);
 
         pedidoVenda = pedidoVendaService.criarVenda(pedidoVenda);
-        pedidoVendaRepository.save(pedidoVenda); 
-
+        pedidoVendaRepository.save(pedidoVenda);
 
     }
 
