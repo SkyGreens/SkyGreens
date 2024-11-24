@@ -38,18 +38,14 @@ class telaUsuarios:
     def resetSenha(self,dados):
         op = self.message_box.askquestion(f"Resetar Senha {dados["nome"]}",f"Deseja resetar a senha do {dados["nome"]} ?")
         if op == "yes":
-            
             senha = Funcoes.gerar_senha()
-            Funcoes.enviar_email(dados["email"],dados["cpf"],senha,dados["nome"])
-
-            '''result = Access.resetSenha(dados["id"])
+            result = Access.resetSenha(dados["id"],senha)
             if result:
                 Funcoes.enviar_email(dados["email"],dados["cpf"],senha,dados["nome"])
                 self.message_box.showinfo_autoclose(f"Senha atualizada com sucesso!")
             else:
-                self.message_box.showinfo_autoclose(f"Senha não atualizada!")'''
+                self.message_box.showinfo_autoclose(f"Senha não atualizada!")
             
-      
     def usuario_lista(self,event=None):
         usuarios = Access.listarUsuarios()
         

@@ -49,6 +49,7 @@ class telaCliente:
             widget.destroy()
         
         for i in clientes:
+            result = Access.verificar_permissoes(self,0)
             if (termoPesq in i['id'] or termoPesq in i['razaoSocial'].lower() or termoPesq in i['cnpj'] ):
                 
                 cli_frame = ctk.CTkFrame(self.lista_frame, corner_radius=10)
@@ -58,11 +59,15 @@ class telaCliente:
                     ncnppf = 'CPF'
                 else:
                     ncnppf = 'CNPJ'
-
+                
                 cli_label = ctk.CTkLabel(cli_frame, text=f"ID: {i['id']} | {ncnppf}: {i['cnpj']} | Cliente: {i['razaoSocial']}", font=("Arial", 14))
                 cli_label.pack(side="left",pady=5)
                 
-                cli_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela_edicao(dados,0))
+                if result:
+                    btn_editar = ctk.CTkButton(cli_frame, text='',image=Style.img('img_icon_edit'),  width=30,height=30, command=lambda dados=i: self.abrir_tela_edicao(dados,1),fg_color=Style.color('fg'),hover_color=Style.color('hover'))
+                    btn_editar.pack(side="right", padx=5, pady=5)
+                
+                    cli_label.bind("<Button-1>", lambda e, dados=i: self.abrir_tela_edicao(dados,0))
                 
         if not clientes:
             msg_label = ctk.CTkLabel(self.lista_frame, text="Nenhum cliente cadastrado.", font=("Arial", 14))
