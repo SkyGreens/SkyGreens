@@ -7,7 +7,6 @@ from dateutil import parser
 import secrets
 import string
 
-
 API_BASE = "http://localhost:8080/skygreen"
 
 api_login = f"{API_BASE}/auth/login"
@@ -21,10 +20,12 @@ api_DellSementeFornecedor = f"{API_BASE}/fornecedor/"
 
 api_cadastrarSementes = f"{API_BASE}/sementes/adicionar"
 api_listarSementes = f"{API_BASE}/sementes/"
+api_excluirSemente = f"{API_BASE}/sementes/delete"
 
 api_perfilUser = f"{API_BASE}/usuario/personal/"
 api_listarUsuario = f"{API_BASE}/usuario/"
 api_especificoUsuario = f"{API_BASE}/usuario/"
+api_updatesenha = f"{API_BASE}/usuario/updateSenha"
 api_cadastrarUsuario = f"{API_BASE}/auth/register"
 api_editarUsuario = f"{API_BASE}/usuario/update"
 
@@ -41,7 +42,7 @@ api_CadastrarPedidosVenda = f"{API_BASE}/vendas/pedido"
 
 api_listarClientes = f"{API_BASE}/cliente/"
 api_cadastroClientes = f"{API_BASE}/cliente/adicionar"
-
+api_editarClientes = f"{API_BASE}/cliente/update"
 
 class Funcoes:
 
@@ -98,7 +99,7 @@ class Funcoes:
 class Access:
     token = None
     userId = None
-
+    
     @staticmethod #deixa a função como estatica, não precisando passar o self
     def login(user, senha, app):
         login_data = {
@@ -290,6 +291,18 @@ class Access:
             return sementes 
         else:
             print('Falha ao listar sementes:',  response.text)
+   
+    def excluirSemente(semente_id):
+        headers = {"Authorization": f"Bearer {Access.token}"}
+        
+        api = f"{api_excluirSemente}/{semente_id}"
+        
+        response = requests.delete(api, headers=headers)
+            
+        if response.status_code == 200:
+            return True
+        else:
+            return False
     
     def visualizarPerfil():
         
@@ -382,6 +395,20 @@ class Access:
             return True
         else:
             return False
+       
+    def resetSenha(iduser,senha):
+        data = {
+            "id": iduser,
+            "senha": senha
+        }
+        
+        headers = {'Content-Type': 'application/json',"Authorization": f"Bearer {Access.token}"}
+            
+        response = requests.put(api_updatesenha, json=data, headers=headers)
+        if response.status_code == 200:
+            return True
+        else:
+            return False  
                     
     def listarProducao():
         
@@ -633,6 +660,29 @@ class Access:
         response_semente = requests.post(api_cadastroClientes, json=data, headers=headers)
 
         if response_semente.status_code == 200:
+            return True
+        else:
+            return False
+  
+    def editarCliente(iduser,status, email, tel, end, cid, est, pais, rs, cnpj):
+        data = {
+            "clienteId" : iduser,
+            "ativo" : status,
+            "email" : email,
+            "telefone" : tel,
+            "endereco" : end,
+            "cidade" : cid,
+            "estado" : est,
+            "pais" : pais,
+            "inscricaoEstadual" : "132458752",
+            "razaoSocial" : rs,
+            "cnpj" : cnpj
+        }
+        
+        headers = {'Content-Type': 'application/json',"Authorization": f"Bearer {Access.token}"}
+         
+        response = requests.put(api_editarClientes, json=data, headers=headers)
+        if response.status_code == 200:
             return True
         else:
             return False

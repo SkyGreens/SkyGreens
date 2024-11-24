@@ -31,9 +31,6 @@ class cdInsumos:
     def modificacao_semente(self,nome,desc):
         msg_box = MessageBox()
         
-        #if self.dados: editar
-            #result = Access.editarFornecedor(self.dados['id'], status, email, tel, end, cid, est, pais, isced, rzsocial, cnpj, semente)
-        
         result = Access.cadastrarSementes(nome,desc)
         if result:
             msg_box.showinfo_autoclose(f"Insumo cadastrado com sucesso!")

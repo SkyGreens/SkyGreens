@@ -47,7 +47,7 @@ class listaInsumos:
             cdInsumos(callback)
         else:
             result = self.message_box.showerror("Autenticação","Acesso não autorizado!")
-        
+
     def sementes_lista(self,event=None):
         result = Access.verificar_permissoes(self,0)
         sementes = Access.listarSementes()
@@ -68,7 +68,7 @@ class listaInsumos:
                 
                 if result:
                     
-                    btn_excluir = ctk.CTkButton(sem_frame, width=30, height=30, text='',image=Style.img('img_icon_delete'), fg_color=Style.color('fg_red'), hover_color=Style.color('hover_red'))
+                    btn_excluir = ctk.CTkButton(sem_frame, width=30, height=30, text='',image=Style.img('img_icon_delete'),command=lambda dados=i: self.delSemente(dados), fg_color=Style.color('fg_red'), hover_color=Style.color('hover_red'))
                     btn_excluir.pack(side="right", padx=5, pady=5)
                 
                 lb_sem.bind("<Button-1>", lambda e, dados=i: self.abrir_tela(dados,0))
@@ -76,10 +76,30 @@ class listaInsumos:
         if not sementes:
             msg_label = ctk.CTkLabel(self.lista_frame, text="Nenhum Insumo Cadastrado.", font=("Arial", 14))
             msg_label.pack(pady=5)
-    
+            
     def show_telaAnterior(self):
         self.main.mostrar_tela("telaProducao",4)
-    
+        
+    def delSemente(self, dados):
+        op = self.message_box.askquestion("Confirmação", f"Deseja excluir a semente?")
+        
+        if op == 'yes':
+        
+            pedidos_venda = Access.listarpedidosVenda()
+            
+            for pedido in pedidos_venda:
+                if pedido['semente']['sementeId'] == dados['id']:
+                    self.message_box.showwarning("Atenção","Semente vinculada a um pedido de venda!")
+                    return
+                
+            result = Access.excluirSemente(dados['id'])
+            if result:
+                self.message_box.showinfo_autoclose("Semente excluída com sucesso!")
+            else:
+                self.message_box.showinfo_autoclose("Erro ao excluir a semente!")
+        
+        self.sementes_lista()
+
     def abrir_tela(self, dados,n):
         cdInsumos(self, dados=dados,editar=n)
         
