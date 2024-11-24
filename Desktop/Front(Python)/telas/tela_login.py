@@ -51,15 +51,7 @@ class telaLogin:
         bt_ok.pack(pady=20)
 
     def verificar_login(self, user, senha):
-        user = 12345678909
-        senha = "admin"
-        
-        #user = 45242561807
-        #senha = 'gerente'
-        
-        #user = '01800980809'
-        #senha = 'assistente'
-        
+
         self.frame.destroy()
         self.bg_label.destroy()
         
