@@ -64,3 +64,10 @@ h2 {
 p{
     text-align: left;
 }
+
+@media (max-width: 768px) {
+    .container{
+        justify-content: center;
+        align-items: center;
+    }
+}
