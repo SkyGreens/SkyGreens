@@ -6,6 +6,12 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SkyGreenApplication",
+            "request": "launch",
+            "mainClass": "com.skygreen.SkyGreen.SkyGreenApplication"
+        },
+        {
+            "type": "java",
             "name": "Homologação",
             "request": "launch",
             "mainClass": "com.skygreen.SkyGreen.SkyGreenApplication",
